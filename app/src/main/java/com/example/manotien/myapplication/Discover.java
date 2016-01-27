@@ -58,7 +58,7 @@ public class Discover extends AppCompatActivity  implements
         mGoogleApiClient.connect();
         super.onStart();
     }
-
+    //testtttt
     protected void onStop() {
         mGoogleApiClient.disconnect();
         super.onStop();

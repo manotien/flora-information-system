@@ -9,6 +9,7 @@ public class DbOperator extends SQLiteOpenHelper{
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "DB_NAME";
     protected static final String FIRST_TABLE_NAME = "FIRST_TABLE";
+    protected static final String SECOND_TABLE_NAME = "SECOND_TABLE";
 
     public static final String CREATE_FIRST_TABLE = "create table if not exists "
             + FIRST_TABLE_NAME
