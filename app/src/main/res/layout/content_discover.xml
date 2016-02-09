@@ -16,12 +16,8 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Lat"
         android:id="@+id/lat"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="51dp"
-        android:layout_marginStart="51dp"
-        android:layout_marginTop="107dp" />
+        android:layout_above="@+id/photoview"
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -29,18 +25,20 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Long"
         android:id="@+id/longti"
-        android:layout_alignParentTop="true"
+        android:layout_marginTop="5dp"
+        android:layout_below="@+id/getgps"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="107dp"
-        android:layout_marginRight="37dp"
-        android:layout_marginEnd="37dp" />
+        android:layout_alignParentEnd="true" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="get"
-        android:id="@+id/getgps"/>
+        android:id="@+id/getgps"
+        android:layout_marginTop="79dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <Button
         android:layout_width="wrap_content"
@@ -48,20 +46,54 @@
         android:text="Take Photo"
         android:id="@+id/takephoto"
         android:onClick="clicktakephoto"
+        android:layout_marginBottom="65dp"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="67dp" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/takephoto"
-        android:layout_below="@+id/longti"
-        android:layout_alignLeft="@+id/lat"
-        android:layout_alignStart="@+id/lat"
-        android:layout_alignRight="@+id/longti"
-        android:layout_alignEnd="@+id/longti"
         android:id="@+id/photoview"
-        />
+        android:layout_above="@+id/takephoto"
+        android:layout_alignRight="@+id/lat"
+        android:layout_alignEnd="@+id/lat"
+        android:layout_below="@+id/longti" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Submit"
+        android:id="@+id/submit"
+        android:layout_below="@+id/photoview"
+        android:layout_toRightOf="@+id/photoview"
+        android:layout_toEndOf="@+id/photoview"
+        android:layout_marginLeft="22dp"
+        android:layout_marginStart="22dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Name:"
+        android:id="@+id/textView3"
+        android:layout_alignBaseline="@+id/name"
+        android:layout_alignBottom="@+id/name"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:text=""
+        android:ems="5"
+        android:id="@+id/name"
+        android:layout_marginTop="21dp"
+        android:layout_marginLeft="10dp"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/textView3"
+        android:layout_toEndOf="@+id/textView3" />
+
 
 </RelativeLayout>

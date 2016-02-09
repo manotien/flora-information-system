@@ -3,8 +3,11 @@ package com.example.manotien.myapplication;
 
 import android.Manifest;
 import android.annotation.TargetApi;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
@@ -26,13 +29,17 @@ import com.google.android.gms.location.LocationServices;
 import android.location.Location;
 import android.widget.Toast;
 
-public class Discover extends AppCompatActivity  implements
-        GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener{
+public class Discover extends AppCompatActivity  {
 
     private GoogleApiClient mGoogleApiClient;
     private Location mLastLocation;
     private static final int ACTIVITY_START_CAMERA_APP = 0;
     private ImageView mPhotoCapturedImageView;
+
+    GetLocation gps;
+    Context context = this;
+    DbOperator dbOperator;
+    SQLiteDatabase sqLiteDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,15 +57,57 @@ public class Discover extends AppCompatActivity  implements
                         .setAction("Action", null).show();
             }
         });
-        buildGoogleApiClient();
+        //buildGoogleApiClient();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         mPhotoCapturedImageView = (ImageView) findViewById(R.id.photoview);
+
+        Intent intent = getIntent();
+        final String ans_province = intent.getStringExtra("ans_province");
+        final String ans_place = intent.getStringExtra("ans_place");
+
+
+        Button buttonsubmit = (Button) findViewById(R.id.submit);
+        buttonsubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                EditText name = (EditText)findViewById(R.id.name);
+                TextView longti = (TextView) findViewById(R.id.longti);
+                TextView lati = (TextView) findViewById(R.id.lat);
+
+                dbOperator = new DbOperator(context);
+                sqLiteDatabase = dbOperator.getWritableDatabase();
+                dbOperator.AddSurveyInformation(ans_place, ans_province, "district name", "subdistrict name", name.getText().toString(), lati.getText().toString(), longti.getText().toString(), sqLiteDatabase);
+                dbOperator.close();
+
+                Intent intent = new Intent(Discover.this, Survey_Main.class);
+                startActivity(intent);
+            }
+        });
+        Button buttongps = (Button) findViewById(R.id.getgps);
+        buttongps.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                gps=new GetLocation(Discover.this);
+                if(gps.canGetLocation()){
+                    TextView longti = (TextView) findViewById(R.id.longti);
+                    TextView lati = (TextView) findViewById(R.id.lat);
+                    lati.setText(Double.toString(gps.getLat()));
+                    longti.setText(Double.toString(gps.getLng()));
+                    gps.stopUsingGPS();
+                }
+            }
+        });
+
+
     }
+    /*
     protected void onStart() {
         mGoogleApiClient.connect();
         super.onStart();
     }
-    //testttttgfdgfdg
+
     protected void onStop() {
         mGoogleApiClient.disconnect();
         super.onStop();
@@ -80,13 +129,10 @@ public class Discover extends AppCompatActivity  implements
                 mGoogleApiClient);
 
 
-        Button button = (Button) findViewById(R.id.getgps);
-        button.setOnClickListener(new View.OnClickListener() {
+        Button buttongps = (Button) findViewById(R.id.getgps);
+        buttongps.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                Intent intent = getIntent();
-                String str = intent.getStringExtra("disname");
 
                 if (mLastLocation != null) {
                     TextView longti = (TextView) findViewById(R.id.longti);
@@ -108,7 +154,7 @@ public class Discover extends AppCompatActivity  implements
     public void onConnectionFailed(ConnectionResult connectionResult) {
 
     }
-
+*/
 
     public void clicktakephoto(View view){
         Intent callCameraApplicationIntent = new Intent();
