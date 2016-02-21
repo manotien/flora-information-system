@@ -24,18 +24,10 @@ public class Main2Activity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         setTitle("Start");
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
-        String[] items = new String[]{"Bangkok", "Chumphon", "Chonburi"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, items);
+        String[] province_item = new String[]{"Bangkok", "Chumphon", "Chonburi"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, province_item);
         Spinner province = (Spinner)findViewById(R.id.spinner);
         province.setAdapter(adapter);
 
@@ -44,7 +36,7 @@ public class Main2Activity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Spinner province = (Spinner)findViewById(R.id.spinner);
+                Spinner province = (Spinner) findViewById(R.id.spinner);
                 EditText place = (EditText) findViewById(R.id.place);
 
                 Intent intent = new Intent(Main2Activity.this, Survey_Main.class);
@@ -54,6 +46,14 @@ public class Main2Activity extends AppCompatActivity {
             }
         });
 
+        Button button1 = (Button)findViewById(R.id.button4);
+        button1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Main2Activity.this, MainMenuActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
 }

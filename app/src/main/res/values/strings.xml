@@ -4,4 +4,9 @@
     <string name="title_activity_main2">Main2Activity</string>
     <string name="title_activity_discover">Discover</string>
     <string name="title_activity_survey__main">Survey_Main</string>
+    <string name="title_activity_test">TestActivity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="title_activity_main_menu">MainMenuActivity</string>
 </resources>

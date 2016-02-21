@@ -1,21 +1,20 @@
 package com.example.manotien.myapplication;
 
-import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
+import android.view.View;
+import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.content.Intent;
-import android.util.Log;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
@@ -26,16 +25,24 @@ import com.opencsv.CSVWriter;
 import java.io.File;
 import java.io.FileWriter;
 
-public class MainActivity extends AppCompatActivity
-        {
+public class MainMenuActivity extends AppCompatActivity
+        implements NavigationView.OnNavigationItemSelectedListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_mainmenu);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.setDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
 
         setTitle("Main Menu");
 
@@ -43,7 +50,7 @@ public class MainActivity extends AppCompatActivity
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, Main2Activity.class));
+                startActivity(new Intent(MainMenuActivity.this, Main2Activity.class));
             }
         });
 
@@ -52,37 +59,32 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
 
-                File dbFile=getDatabasePath("FLORA");
+                File dbFile = getDatabasePath("FLORA");
                 DbOperator dbhelper = new DbOperator(getApplicationContext());
                 File exportDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS), "Flora");
-                Log.d(exportDir.toString(),"kuy");
-                if (!exportDir.exists())
-                {
+                Log.d(exportDir.toString(), "kuy");
+                if (!exportDir.exists()) {
                     exportDir.mkdirs();
 
                 }
 
                 File file = new File(exportDir, "csvname.csv");
 
-                try
-                {
+                try {
                     file.createNewFile();
                     CSVWriter csvWrite = new CSVWriter(new FileWriter(file));
                     SQLiteDatabase db = dbhelper.getReadableDatabase();
-                    Cursor curCSV = db.rawQuery("SELECT * FROM FIRST_TABLE",null);
+                    Cursor curCSV = db.rawQuery("SELECT * FROM FIRST_TABLE", null);
                     csvWrite.writeNext(curCSV.getColumnNames());
-                    while(curCSV.moveToNext())
-                    {
+                    while (curCSV.moveToNext()) {
                         //Which column you want to exprort
-                        String arrStr[] ={curCSV.getString(0),curCSV.getString(1), curCSV.getString(2)};
+                        String arrStr[] = {curCSV.getString(0), curCSV.getString(1), curCSV.getString(2)};
                         csvWrite.writeNext(arrStr);
                     }
                     csvWrite.close();
                     curCSV.close();
                     Toast.makeText(getApplicationContext(), "Export Success", Toast.LENGTH_LONG).show();
-                }
-                catch(Exception sqlEx)
-                {
+                } catch (Exception sqlEx) {
                     Log.e("MainActivity", sqlEx.getMessage(), sqlEx);
                 }
             }
@@ -90,9 +92,19 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.main_menu, menu);
         return true;
     }
 
@@ -111,4 +123,21 @@ public class MainActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
+    @SuppressWarnings("StatementWithEmptyBody")
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        // Handle navigation view item clicks here.
+        int id = item.getItemId();
+
+        if (id == R.id.nav_main) {
+            // Handle the camera action
+        } else if (id == R.id.nav_info) {
+
+        } else if (id == R.id.nav_database) {
+
+        }
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
 }
