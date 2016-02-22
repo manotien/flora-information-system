@@ -5,146 +5,283 @@
     xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent"
     android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/activity_main2"
     tools:context="com.example.manotien.myapplication.Main2Activity">
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="ชื่อการสำรวจ"
-        android:id="@+id/textView2"
-        android:textSize="30dp"
-        android:layout_marginLeft="56dp"
-        android:layout_marginStart="56dp"
-        android:layout_marginTop="30dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Place Name: "
+                android:layout_marginTop="60dp"
+                android:layout_marginLeft="20dp"
+                android:textSize="15dp"
+                android:id="@+id/placenametxt" />
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:text=""
-        android:ems="10"
-        android:id="@+id/editText2"
-        android:layout_marginTop="10dp"
-        android:layout_below="@+id/textView2"
-        android:layout_alignLeft="@+id/textView2"
-        android:layout_alignStart="@+id/textView2" />
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:ems="10"
+                android:layout_toRightOf="@+id/placenametxt"
+                android:layout_marginTop="70dp"
+                android:id="@+id/placename"
+                android:layout_marginLeft="5dp" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="สถานที่:"
-        android:layout_marginTop="50dp"
-        android:layout_marginLeft="25dp"
-        android:textSize="25dp"
-        android:id="@+id/textplace"
-        android:layout_below="@+id/editText2"
-         />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Protected: "
+                android:layout_marginTop="30dp"
+                android:layout_marginLeft="20dp"
+                android:layout_below="@+id/placenametxt"
+                android:textSize="15dp"
+                android:id="@+id/protectedtxt" />
+            <Spinner
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/spinner"
+                android:spinnerMode="dropdown"
+                android:layout_marginLeft="5dp"
+                android:layout_toRightOf="@+id/protectedtxt"
+                android:layout_below="@+id/placenametxt"
+                android:layout_marginTop="20dp" />
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text=""
-        android:ems="10"
-        android:layout_marginLeft="110dp"
-        android:id="@+id/place"
-        android:layout_marginTop="45dp"
-        android:layout_below="@+id/editText2"
-       />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Locality Notes:"
+                android:layout_marginTop="30dp"
+                android:layout_below="@+id/protectedtxt"
+                android:layout_marginLeft="20dp"
+                android:textSize="15dp"
+                android:id="@+id/localnotetxt" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="ตำบล:"
-        android:layout_marginTop="100dp"
-        android:layout_marginLeft="25dp"
-        android:textSize="25dp"
-        android:id="@+id/textsubdistrict"
-        android:layout_below="@+id/editText2"
-        />
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:ems="10"
+                android:layout_marginLeft="5dp"
+                android:id="@+id/localnoteedit"
+                android:layout_below="@+id/protectedtxt"
+                android:layout_toRightOf="@+id/localnotetxt"
+                android:layout_marginTop="15dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Habitat:"
+                android:layout_marginTop="30dp"
+                android:layout_marginLeft="20dp"
+                android:layout_below="@+id/localnotetxt"
+                android:textSize="15dp"
+                android:id="@+id/habitattxt" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:ems="10"
+                android:layout_toRightOf="@+id/habitattxt"
+                android:layout_below="@+id/localnotetxt"
+                android:layout_marginLeft="5dp"
+                android:id="@+id/habitatedit"
+                android:layout_marginTop="15dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Country:"
+                android:id="@+id/coutrytxt"
+                android:layout_marginTop="30dp"
+                android:layout_below="@+id/habitattxt"
+                android:layout_marginLeft="20dp"
+                android:textSize="15dp"/>
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/coutryedit"
+                android:inputType="textAutoComplete"
+                android:ems="10"
+                android:layout_marginLeft="5dp"
+                android:layout_toRightOf="@+id/coutrytxt"
+                android:layout_below="@+id/habitattxt"
+                android:layout_marginTop="15dp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/coutrytxt"
+                android:id="@+id/regiontxt"
+                android:layout_marginTop="30dp"
+                android:layout_marginLeft="20dp"
+                android:text="Region: "
+                android:textSize="15dp"
+                />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/regionedit"
+                android:inputType="textAutoComplete"
+                android:ems="10"
+                android:layout_marginLeft="5dp"
+                android:layout_toRightOf="@+id/regiontxt"
+                android:layout_below="@+id/coutrytxt"
+                android:layout_marginTop="15dp"
+                />
 
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/regiontxt"
+                android:id="@+id/provincetxt"
+                android:layout_marginTop="30dp"
+                android:layout_marginLeft="20dp"
+                android:text="Province: "
+                android:textSize="15dp"
+                />
 
-    <TextView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="อำเภอ:"
-    android:layout_marginTop="150dp"
-    android:layout_marginLeft="25dp"
-    android:textSize="25dp"
-    android:id="@+id/textdistrict"
-    android:layout_below="@+id/editText2"
-    />
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textAutoComplete"
+                android:ems="10"
+                android:layout_toRightOf="@id/provincetxt"
+                android:layout_below="@id/regiontxt"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="5dp"
+                android:id="@+id/provinceedit"/>
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:text=""
-        android:ems="10"
-        android:layout_marginLeft="110dp"
-        android:id="@+id/district"
-        android:layout_marginTop="140dp"
-        android:layout_below="@+id/editText2"
-        />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="District: "
+                android:id="@+id/districttxt"
+                android:layout_below="@+id/provincetxt"
+                android:layout_marginTop="30dp"
+                android:layout_marginLeft="20dp"
+                android:textSize="15dp"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="จังหวัด:"
-        android:layout_marginTop="200dp"
-        android:layout_marginLeft="25dp"
-        android:textSize="25dp"
-        android:id="@+id/textprovince"
-        android:layout_below="@+id/editText2"
-        />
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/districtedit"
+                android:layout_below="@id/provincetxt"
+                android:layout_toRightOf="@id/districttxt"
+                android:layout_marginLeft="5dp"
+                android:inputType="textAutoComplete"
+                android:ems="10"
+                android:layout_marginTop="15dp"
+                />
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:text=""
-        android:ems="10"
-        android:layout_marginLeft="110dp"
-        android:id="@+id/province"
-        android:layout_marginTop="190dp"
-        android:layout_below="@+id/editText2"
-        />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/subdistxt"
+                android:text="Sub-District: "
+                android:textSize="15dp"
+                android:layout_below="@+id/districttxt"
+                android:layout_marginTop="30dp"
+                android:layout_marginLeft="20dp"/>
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="ต่อไป"
-        android:id="@+id/button3"
-        android:layout_marginTop="35dp"
-        android:layout_below="@+id/province"
-        android:layout_alignRight="@+id/province"
-        android:layout_alignEnd="@+id/province" />
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/districttxt"
+                android:id="@+id/subdisedit"
+                android:ems="10"
+                android:inputType="textAutoComplete"
+                android:layout_marginTop="15dp"
+                android:layout_toRightOf="@+id/subdistxt"
+                android:layout_marginLeft="5dp"/>
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="กลับ"
-        android:id="@+id/button4"
-        android:layout_alignTop="@+id/button3"
-        android:layout_alignRight="@+id/textView2"
-        android:layout_alignEnd="@+id/textView2" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/collectortxt"
+                android:text="Collector: "
+                android:layout_below="@+id/subdistxt"
+                android:layout_marginTop="30dp"
+                android:layout_marginLeft="20dp"
+                />
 
-    <Spinner
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/spinner"
-        android:spinnerMode="dropdown"
-        android:layout_marginLeft="100dp"
-        android:layout_marginTop="100dp"
-        android:layout_below="@+id/editText2"
-         />
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/collectoredit"
+                android:ems="10"
+                android:inputType="textAutoComplete"
+                android:layout_below="@+id/subdistxt"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="5dp"
+                android:layout_toRightOf="@+id/collectortxt"/>
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Co-Collector: "
+                android:id="@+id/cocollectxt"
+                android:layout_below="@+id/collectortxt"
+                android:layout_marginTop="30dp"
+                android:layout_marginLeft="20dp"
+
+                />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Add"
+                android:id="@+id/cocollecbut"
+                android:layout_marginTop="20dp"
+                android:layout_below="@+id/collectortxt"
+                android:layout_toRightOf="@+id/cocollectxt"
+                android:layout_marginLeft="5dp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Date: "
+                android:id="@+id/datetxt"
+                android:layout_below="@+id/cocollectxt"
+                android:layout_marginTop="30dp"
+                android:layout_marginLeft="20dp"
+                />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Set Date"
+                android:id="@+id/datebut"
+                android:layout_marginTop="20dp"
+                android:layout_below="@+id/cocollectxt"
+                android:layout_toRightOf="@+id/datetxt"
+                android:layout_marginLeft="5dp"
+                />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Next"
+                android:id="@+id/nextbut"
+                android:layout_below="@+id/datetxt"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="20dp"
+                />
+
+        </RelativeLayout>
+    </ScrollView>
 </RelativeLayout>
 

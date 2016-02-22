@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:text="เริ่มการสำรวจ"
         android:id="@+id/button"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="70dp"
         android:layout_below="@+id/textView"
         android:layout_centerHorizontal="true"
         android:textSize="30dp"/>
