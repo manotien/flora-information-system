@@ -28,6 +28,7 @@ import java.io.FileWriter;
 public class MainMenuActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,10 +63,8 @@ public class MainMenuActivity extends AppCompatActivity
                 File dbFile = getDatabasePath("FLORA");
                 DbOperator dbhelper = new DbOperator(getApplicationContext());
                 File exportDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS), "Flora");
-                Log.d(exportDir.toString(), "kuy");
                 if (!exportDir.exists()) {
                     exportDir.mkdirs();
-
                 }
 
                 File file = new File(exportDir, "csvname.csv");
@@ -74,18 +73,19 @@ public class MainMenuActivity extends AppCompatActivity
                     file.createNewFile();
                     CSVWriter csvWrite = new CSVWriter(new FileWriter(file));
                     SQLiteDatabase db = dbhelper.getReadableDatabase();
-                    Cursor curCSV = db.rawQuery("SELECT * FROM FIRST_TABLE", null);
+
+                    Cursor curCSV = db.rawQuery("SELECT * FROM LOCATION_TABLE", null);
                     csvWrite.writeNext(curCSV.getColumnNames());
                     while (curCSV.moveToNext()) {
-                        //Which column you want to exprort
-                        String arrStr[] = {curCSV.getString(0), curCSV.getString(1), curCSV.getString(2)};
+                        String arrStr[] = {curCSV.getString(0), curCSV.getString(1), curCSV.getString(2), curCSV.getString(3), curCSV.getString(4), curCSV.getString(5), curCSV.getString(6), curCSV.getString(7), curCSV.getString(8), curCSV.getString(9), curCSV.getString(10), curCSV.getString(11), curCSV.getString(12), curCSV.getString(13), curCSV.getString(14)};
                         csvWrite.writeNext(arrStr);
+                        Log.d("kuykuy",curCSV.getString(0));
                     }
                     csvWrite.close();
                     curCSV.close();
                     Toast.makeText(getApplicationContext(), "Export Success", Toast.LENGTH_LONG).show();
                 } catch (Exception sqlEx) {
-                    Log.e("MainActivity", sqlEx.getMessage(), sqlEx);
+                    Log.d("MainActivity", sqlEx.getMessage(), sqlEx);
                 }
             }
         });

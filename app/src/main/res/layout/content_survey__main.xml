@@ -13,77 +13,105 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="สถานที่:"
-        android:id="@+id/place"
-        android:layout_marginTop="28dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignLeft="@+id/getgps"
-        android:layout_alignStart="@+id/getgps" />
+        android:text="Place Name: "
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="10dp"
+        android:textSize="15dp"
+        android:id="@+id/placenametxt" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
         android:id="@+id/placename"
-        android:text="..."
-        android:layout_marginTop="28dp"
-        android:layout_marginLeft="20dp"
-        android:layout_toRightOf="@+id/place"/>
+        android:layout_toRightOf="@+id/placenametxt"
+        android:layout_marginLeft="5dp"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="จังหวัด:"
+        android:text="Protected: "
+        android:textSize="15dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp"
+        android:id="@+id/protectedtxt"
+        android:layout_below="@+id/placenametxt"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/protectedtxt"
+        android:id="@+id/protect"
+        android:layout_marginLeft="5dp"
+        android:layout_below="@+id/placenametxt"
+        android:layout_marginTop="20dp"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Province: "
+        android:textSize="15dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp"
+        android:id="@+id/provincetxt"
+        android:layout_below="@+id/protectedtxt"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/provincetxt"
         android:id="@+id/province"
-        android:layout_below="@+id/place"
-        android:layout_alignStart="@+id/place"
-        android:layout_marginTop="29dp" />
+        android:layout_marginLeft="5dp"
+        android:textSize="15dp"
+        android:layout_below="@+id/protectedtxt"
+        android:layout_marginTop="20dp"
+        />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/provincename"
-        android:text="..."
-        android:layout_below="@+id/place"
-        android:layout_marginTop="29dp"
-        android:layout_marginLeft="20dp"
-        android:layout_toRightOf="@+id/province"/>
+        android:text="Collect: "
+        android:textSize="15dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp"
+        android:id="@+id/collectortxt"
+        android:layout_below="@+id/provincetxt"
+        />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New Text"
-        android:id="@+id/textView4"
-        android:layout_marginBottom="47dp"
-        android:layout_above="@+id/textView5"
-        android:layout_alignRight="@+id/placename"
-        android:layout_alignEnd="@+id/placename" />
+        android:layout_toRightOf="@+id/collectortxt"
+        android:id="@+id/collector"
+        android:textSize="15dp"
+        android:text=""
+        android:layout_marginLeft="5dp"
+        android:layout_below="@+id/provincetxt"
+        android:layout_marginTop="20dp"
+        />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New Text"
-        android:id="@+id/textView5"
-        android:layout_centerVertical="true"
-        android:layout_alignLeft="@+id/textView4"
-        android:layout_alignStart="@+id/textView4" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="New Text"
-        android:id="@+id/textView6"
-        android:layout_below="@+id/textView5"
-        android:layout_alignLeft="@+id/textView5"
-        android:layout_alignStart="@+id/textView5"
-        android:layout_marginTop="36dp" />
-
+        android:text="test"
+        android:id="@+id/date"
+        android:layout_marginRight="10dp"
+        android:textSize="15dp"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/provincetxt"
+        android:layout_marginTop="20dp"
+        />
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Add Flora"
         android:id="@+id/addflora"
-        android:layout_below="@+id/provincename"
+        android:layout_marginRight="43dp"
+        android:layout_marginEnd="43dp"
+        android:layout_marginTop="29dp"
+        android:layout_below="@+id/collectortxt"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
-
-
 </RelativeLayout>

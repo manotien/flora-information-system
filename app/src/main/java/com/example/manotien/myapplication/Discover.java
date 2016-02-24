@@ -69,7 +69,7 @@ public class Discover extends AppCompatActivity  {
 
                 dbOperator = new DbOperator(context);
                 sqLiteDatabase = dbOperator.getWritableDatabase();
-                dbOperator.AddSurveyInformation(ans_place, ans_province, "district name", "subdistrict name", name.getText().toString(), lati.getText().toString(), longti.getText().toString(), sqLiteDatabase);
+               //dbOperator.AddLocationInformation(ans_place, ans_province, "district name", "subdistrict name", name.getText().toString(), lati.getText().toString(), longti.getText().toString(), sqLiteDatabase);
                 dbOperator.close();
 
                 Intent intent = new Intent(Discover.this, Survey_Main.class);

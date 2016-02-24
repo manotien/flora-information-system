@@ -15,14 +15,16 @@
         >
         <RelativeLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:focusable="true"
+            android:focusableInTouchMode="true">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Place Name: "
-                android:layout_marginTop="60dp"
-                android:layout_marginLeft="20dp"
+                android:layout_marginTop="50dp"
+                android:layout_marginLeft="10dp"
                 android:textSize="15dp"
                 android:id="@+id/placenametxt" />
 
@@ -32,8 +34,8 @@
                 android:inputType="textPersonName"
                 android:ems="10"
                 android:layout_toRightOf="@+id/placenametxt"
-                android:layout_marginTop="70dp"
-                android:id="@+id/placename"
+                android:layout_marginTop="50dp"
+                android:id="@+id/placenameedit"
                 android:layout_marginLeft="5dp" />
 
             <TextView
@@ -41,14 +43,14 @@
                 android:layout_height="wrap_content"
                 android:text="Protected: "
                 android:layout_marginTop="30dp"
-                android:layout_marginLeft="20dp"
+                android:layout_marginLeft="10dp"
                 android:layout_below="@+id/placenametxt"
                 android:textSize="15dp"
                 android:id="@+id/protectedtxt" />
             <Spinner
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/spinner"
+                android:id="@+id/protectedspin"
                 android:spinnerMode="dropdown"
                 android:layout_marginLeft="5dp"
                 android:layout_toRightOf="@+id/protectedtxt"
@@ -61,7 +63,7 @@
                 android:text="Locality Notes:"
                 android:layout_marginTop="30dp"
                 android:layout_below="@+id/protectedtxt"
-                android:layout_marginLeft="20dp"
+                android:layout_marginLeft="10dp"
                 android:textSize="15dp"
                 android:id="@+id/localnotetxt" />
 
@@ -81,15 +83,14 @@
                 android:layout_height="wrap_content"
                 android:text="Habitat:"
                 android:layout_marginTop="30dp"
-                android:layout_marginLeft="20dp"
+                android:layout_marginLeft="10dp"
                 android:layout_below="@+id/localnotetxt"
                 android:textSize="15dp"
                 android:id="@+id/habitattxt" />
 
-            <EditText
+            <AutoCompleteTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:inputType="textPersonName"
                 android:ems="10"
                 android:layout_toRightOf="@+id/habitattxt"
                 android:layout_below="@+id/localnotetxt"
@@ -101,20 +102,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Country:"
-                android:id="@+id/coutrytxt"
+                android:id="@+id/countrytxt"
                 android:layout_marginTop="30dp"
                 android:layout_below="@+id/habitattxt"
-                android:layout_marginLeft="20dp"
+                android:layout_marginLeft="10dp"
                 android:textSize="15dp"/>
 
             <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/coutryedit"
+                android:id="@+id/countryedit"
                 android:inputType="textAutoComplete"
                 android:ems="10"
                 android:layout_marginLeft="5dp"
-                android:layout_toRightOf="@+id/coutrytxt"
+                android:layout_toRightOf="@+id/countrytxt"
                 android:layout_below="@+id/habitattxt"
                 android:layout_marginTop="15dp"
                 />
@@ -122,10 +123,10 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/coutrytxt"
+                android:layout_below="@+id/countrytxt"
                 android:id="@+id/regiontxt"
                 android:layout_marginTop="30dp"
-                android:layout_marginLeft="20dp"
+                android:layout_marginLeft="10dp"
                 android:text="Region: "
                 android:textSize="15dp"
                 />
@@ -138,7 +139,7 @@
                 android:ems="10"
                 android:layout_marginLeft="5dp"
                 android:layout_toRightOf="@+id/regiontxt"
-                android:layout_below="@+id/coutrytxt"
+                android:layout_below="@+id/countrytxt"
                 android:layout_marginTop="15dp"
                 />
 
@@ -149,7 +150,7 @@
                 android:layout_below="@+id/regiontxt"
                 android:id="@+id/provincetxt"
                 android:layout_marginTop="30dp"
-                android:layout_marginLeft="20dp"
+                android:layout_marginLeft="10dp"
                 android:text="Province: "
                 android:textSize="15dp"
                 />
@@ -172,7 +173,7 @@
                 android:id="@+id/districttxt"
                 android:layout_below="@+id/provincetxt"
                 android:layout_marginTop="30dp"
-                android:layout_marginLeft="20dp"
+                android:layout_marginLeft="10dp"
                 android:textSize="15dp"/>
 
             <EditText
@@ -195,7 +196,7 @@
                 android:textSize="15dp"
                 android:layout_below="@+id/districttxt"
                 android:layout_marginTop="30dp"
-                android:layout_marginLeft="20dp"/>
+                android:layout_marginLeft="10dp"/>
 
             <EditText
                 android:layout_width="wrap_content"
@@ -215,7 +216,7 @@
                 android:text="Collector: "
                 android:layout_below="@+id/subdistxt"
                 android:layout_marginTop="30dp"
-                android:layout_marginLeft="20dp"
+                android:layout_marginLeft="10dp"
                 />
 
             <EditText
@@ -236,7 +237,7 @@
                 android:id="@+id/cocollectxt"
                 android:layout_below="@+id/collectortxt"
                 android:layout_marginTop="30dp"
-                android:layout_marginLeft="20dp"
+                android:layout_marginLeft="10dp"
 
                 />
 
@@ -258,7 +259,7 @@
                 android:id="@+id/datetxt"
                 android:layout_below="@+id/cocollectxt"
                 android:layout_marginTop="30dp"
-                android:layout_marginLeft="20dp"
+                android:layout_marginLeft="10dp"
                 />
 
             <Button
@@ -278,7 +279,7 @@
                 android:id="@+id/nextbut"
                 android:layout_below="@+id/datetxt"
                 android:layout_alignParentRight="true"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 />
 
         </RelativeLayout>

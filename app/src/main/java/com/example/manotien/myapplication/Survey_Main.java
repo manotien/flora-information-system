@@ -9,9 +9,12 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import java.util.ArrayList;
 
 public class Survey_Main extends AppCompatActivity {
 
@@ -28,19 +31,23 @@ public class Survey_Main extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Intent intent = getIntent();
-        final String ans_province = intent.getStringExtra("ans_province");
+        final String ans_province = intent.getStringExtra("placename");
         final String ans_place = intent.getStringExtra("ans_place");
-        TextView province = (TextView) findViewById(R.id.provincename);
-        TextView place = (TextView)findViewById(R.id.placename);
-        province.setText(ans_province);
-        place.setText(ans_place);
+
+        String placename ="test";
+        String a = "01";
+        String b = "02";
+        String c = "2016";
+        String[] date ={a,b,c};
 
         dbOperator = new DbOperator(getApplicationContext());
         sqLiteDatabase = dbOperator.getReadableDatabase();
-        cursor = dbOperator.GetSurveyInformation(sqLiteDatabase);
+        cursor = dbOperator.GetLocationInformation(sqLiteDatabase,placename,date);
         if(cursor.moveToFirst()){
-            TextView name = (TextView)findViewById(R.id.textView4);
-            name.setText(cursor.getString(0));
+            do {
+                Log.d("sqlkuykuy",cursor.getString(0)+cursor.getString(1)+cursor.getString(2)+cursor.getString(3));
+            } while (cursor.moveToNext());
+
             cursor.close();
         }
 
@@ -49,8 +56,6 @@ public class Survey_Main extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intentsend = new Intent(Survey_Main.this, Discover.class);
-                intentsend.putExtra("ans_province", ans_province);
-                intentsend.putExtra("ans_place", ans_place);
                 startActivity(intentsend);
             }
         });
