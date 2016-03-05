@@ -53,19 +53,10 @@ public class Discover extends AppCompatActivity  {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         mPhotoCapturedImageView = (ImageView) findViewById(R.id.photoview);
 
-        Intent intent = getIntent();
-        final String ans_province = intent.getStringExtra("ans_province");
-        final String ans_place = intent.getStringExtra("ans_place");
-
-
         Button buttonsubmit = (Button) findViewById(R.id.submit);
         buttonsubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                EditText name = (EditText)findViewById(R.id.name);
-                TextView longti = (TextView) findViewById(R.id.longti);
-                TextView lati = (TextView) findViewById(R.id.lat);
 
                 dbOperator = new DbOperator(context);
                 sqLiteDatabase = dbOperator.getWritableDatabase();
@@ -80,12 +71,20 @@ public class Discover extends AppCompatActivity  {
         buttongps.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 gps=new GetLocation(Discover.this);
                 if(gps.canGetLocation()){
-                    TextView longti = (TextView) findViewById(R.id.longti);
-                    TextView lati = (TextView) findViewById(R.id.lat);
-                    lati.setText(Double.toString(gps.getLat()));
+                    Double getLat = gps.getLat();
+                    Double getLong = gps.getLat();
+
+                    EditText longti = (EditText) findViewById(R.id.latedit);
+                    EditText lati = (EditText) findViewById(R.id.longedit);
+                    String lat_degree = Integer.toString(getLat.intValue());
+                    Double temp =(getLat-Math.floor(getLat))*60;
+                    String lat_min = Integer.toString(temp.intValue());
+                    String lat_sec = Double.toString((getLat * 3600)%60).substring(0,7);
+                    lati.setText(lat_degree+"°"+lat_min+"'"+lat_sec+"\"");
+
+                    Log.d("kuykuy",Double.toString(getLat));
                     longti.setText(Double.toString(gps.getLng()));
                     gps.stopUsingGPS();
                 }

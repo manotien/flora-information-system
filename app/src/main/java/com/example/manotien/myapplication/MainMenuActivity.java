@@ -55,6 +55,13 @@ public class MainMenuActivity extends AppCompatActivity
             }
         });
 
+        Button test = (Button)findViewById(R.id.information);
+        test.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainMenuActivity.this, tab_discover.class));
+            }
+        });
         Button button1 = (Button)findViewById(R.id.export);
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,7 +86,6 @@ public class MainMenuActivity extends AppCompatActivity
                     while (curCSV.moveToNext()) {
                         String arrStr[] = {curCSV.getString(0), curCSV.getString(1), curCSV.getString(2), curCSV.getString(3), curCSV.getString(4), curCSV.getString(5), curCSV.getString(6), curCSV.getString(7), curCSV.getString(8), curCSV.getString(9), curCSV.getString(10), curCSV.getString(11), curCSV.getString(12), curCSV.getString(13), curCSV.getString(14)};
                         csvWrite.writeNext(arrStr);
-                        Log.d("kuykuy",curCSV.getString(0));
                     }
                     csvWrite.close();
                     curCSV.close();
@@ -107,6 +113,7 @@ public class MainMenuActivity extends AppCompatActivity
         getMenuInflater().inflate(R.menu.main_menu, menu);
         return true;
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
