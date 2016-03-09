@@ -8,6 +8,8 @@ import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,6 +29,9 @@ public class first extends Fragment {
     GetLocation gps;
     private static final int ACTIVITY_START_CAMERA_APP = 0;
     private ImageView mPhotoCapturedImageView;
+
+    EditText edit;
+
 
     public first() {
         // Required empty public constructor
@@ -67,7 +72,6 @@ public class first extends Fragment {
                     String getLong = toDegreeGps(gps.getLng());
                     EditText lati = (EditText) view.findViewById(R.id.latedit);
                     EditText longti = (EditText) view.findViewById(R.id.longedit);
-
                     lati.setText(getLat);
                     longti.setText(getLong);
                     gps.stopUsingGPS();
@@ -81,18 +85,30 @@ public class first extends Fragment {
         int select = radiogroup.getCheckedRadioButtonId();
         RadioButton radiocheck = (RadioButton) view.findViewById(select);
 
+        //get value from Edittext
+        edit = (EditText)view.findViewById(R.id.latedit);
+/*
+        Intent someintent = new Intent();
+        someintent.putExtra("your_value_one", "a");
+        getActivity().setResult(getActivity().RESULT_OK,someintent);
+        getActivity().finish();
+
+        */
         return view;
-//        return inflater.inflate(R.layout.fragment_first, container, false);
     }
 
     public String toDegreeGps(Double gps)
     {
-        String lat_degree = Integer.toString(gps.intValue());
-        Double temp = (gps - Math.floor(gps)) * 60;
-        String lat_min = Integer.toString(temp.intValue());
-        String lat_sec = Double.toString((gps * 3600) % 60).substring(0, 7);
-        String all = lat_degree + "°" + lat_min + "'" + lat_sec + "\"";
-        return all;
+        if(gps!=0){
+            String lat_degree = Integer.toString(gps.intValue());
+            Double temp = (gps - Math.floor(gps)) * 60;
+            String lat_min = Integer.toString(temp.intValue());
+            String lat_sec = Double.toString((gps * 3600) % 60).substring(0, 7);
+            String all = lat_degree + "°" + lat_min + "'" + lat_sec + "\"";
+            return all;
+        }
+        else
+            return "0";
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data){
@@ -102,5 +118,9 @@ public class first extends Fragment {
             Bitmap photoCapturedBitmap = (Bitmap) extras.get("data");
             mPhotoCapturedImageView.setImageBitmap(photoCapturedBitmap);
         }
+    }
+
+    public String getMyText() {
+        return edit.getText().toString();
     }
 }

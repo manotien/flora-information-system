@@ -1,16 +1,25 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent" tools:context="com.example.manotien.myapplication.second">
-
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fillViewport="true"
+        android:isScrollContainer="true"
+        >
     <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:paddingBottom="80dp"
+        >
         <TableLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:stretchColumns="0,1"
             android:layout_marginTop="10dp"
-            android:id="@+id/top"
+            android:id="@+id/toptable"
             >
             <TableRow>
                 <android.support.design.widget.TextInputLayout
@@ -45,8 +54,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:stretchColumns="0,1"
-            android:layout_below="@+id/top"
+            android:layout_below="@+id/toptable"
             android:layout_marginTop="10dp"
+            android:id="@+id/barktable"
             >
             <TableRow>
                 <TextView
@@ -63,7 +73,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     >
-                    <EditText android:id="@+id/outer"
+                    <EditText android:id="@+id/outeredit"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:ems="7"
@@ -74,32 +84,397 @@
                     android:layout_height="wrap_content"
                     android:gravity="center">
                     <EditText
-                        android:id="@+id/thickness"
+                        android:id="@+id/out_thicknessedit"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:ems="7"
                         android:hint="Thickness (cm.)"/>
                 </android.support.design.widget.TextInputLayout>
+
             </TableRow>
             <TableRow>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/colortxt"
+                    android:gravity="center"
+                    android:text="Color: "
+                    />
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Get Location"
-                    android:id="@+id/getgps"
+                    android:text="Choose Color"
+                    android:id="@+id/barkcolorbut"
                     android:layout_marginTop="5dp"
                     android:textSize="12dp"
 
                     />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/aaa"
-                    />
+
             </TableRow>
 
         </TableLayout>
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/barktable"
+            android:id="@+id/inner_txt"
+            android:layout_marginLeft="20dp"
+            >
+        <EditText android:id="@+id/inneredit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="7"
+            android:hint="Inner" />
+        </android.support.design.widget.TextInputLayout>
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/barktable"
+            android:layout_toRightOf="@+id/inner_txt"
+            android:layout_marginLeft="20dp"
+            >
+            <EditText android:id="@+id/in_thicknessedit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="7"
+                android:hint="Thickness (cm.)" />
+        </android.support.design.widget.TextInputLayout>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Choose Color"
+            android:id="@+id/innerbut"
+            android:layout_below="@+id/inner_txt"
+            android:layout_marginLeft="20dp"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Color: "
+            android:id="@+id/innercolortxt"
+            android:layout_below="@+id/inner_txt"
+            android:layout_toRightOf="@+id/innerbut"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="10dp"
+            />
 
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/innercolortxt"
+            android:id="@+id/saptxt"
+            android:layout_marginLeft="20dp"
+            >
+            <EditText android:id="@+id/sapedit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="7"
+                android:hint="Sap" />
+        </android.support.design.widget.TextInputLayout>
+        <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/innercolortxt"
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@id/saptxt"></Spinner>
+        <View
+            android:layout_width="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_height="1dp"
+            android:layout_marginTop="20dp"
+            android:id="@+id/onleave"
+            android:layout_below="@+id/saptxt"
+            android:background="#000000"></View>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/onleave"
+            android:id="@+id/leavetxt"
+            android:text="Leaves"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:textSize="20dp"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Upper: "
+            android:layout_below="@+id/leavetxt"
+            android:layout_marginTop="20dp"
+            android:textSize="15dp"
+            android:id="@+id/uppertxt"
+            android:layout_marginLeft="20dp"/>
+        <RadioGroup
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:id="@+id/upperradio"
+            android:layout_below="@+id/leavetxt"
+            android:orientation="horizontal"
+            android:layout_toRightOf="@+id/uppertxt"
+            android:layout_marginLeft="5dp"
+            >
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Shine"
+                android:textSize="12dp"
+                android:checked="false"
+                android:id="@+id/uppershine"
+                />
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Matte"
+                android:checked="false"
+                android:textSize="12dp"
+                android:id="@+id/uppermatte"
+                />
+
+        </RadioGroup>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Lower: "
+            android:layout_below="@+id/uppertxt"
+            android:layout_marginTop="20dp"
+            android:textSize="15dp"
+            android:id="@+id/lowertxt"
+            android:layout_marginLeft="20dp"/>
+        <RadioGroup
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:id="@+id/lowerradio"
+            android:layout_below="@+id/uppertxt"
+            android:orientation="horizontal"
+            android:layout_toRightOf="@+id/lowertxt"
+            android:layout_marginLeft="5dp"
+            >
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Shine"
+                android:textSize="12dp"
+                android:checked="false"
+                android:id="@+id/lowershine"
+                />
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Matte"
+                android:checked="false"
+                android:textSize="12dp"
+                android:id="@+id/lowermatte"
+                />
+
+        </RadioGroup>
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/lowertxt"
+            android:id="@+id/lbftxt"
+            android:layout_marginLeft="20dp"
+            >
+            <EditText android:id="@+id/lbfedit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="8"
+                android:hint="Leaves Before Fall" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/lbftxt"
+            android:id="@+id/yltxt"
+            android:layout_marginLeft="20dp"
+            >
+            <EditText android:id="@+id/yledit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="8"
+                android:hint="Young Leaves" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/yltxt"
+            android:id="@+id/scenttxt"
+            android:layout_marginLeft="20dp"
+            >
+            <EditText android:id="@+id/scentedit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="8"
+                android:hint="Scent" />
+        </android.support.design.widget.TextInputLayout>
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_height="1dp"
+            android:layout_marginTop="20dp"
+            android:id="@+id/onflower"
+            android:layout_below="@+id/scenttxt"
+            android:background="#000000"></View>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Flowers"
+            android:textSize="20dp"
+            android:id="@+id/flowertxt"
+            android:layout_below="@+id/onflower"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            />
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/flowertxt"
+            android:id="@+id/sepaltxt"
+            android:layout_marginLeft="20dp"
+            >
+            <EditText android:id="@+id/sepaledit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="8"
+                android:hint="Sepals" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/sepaltxt"
+            android:id="@+id/detaltxt"
+            android:layout_marginLeft="20dp"
+            >
+            <EditText android:id="@+id/detaledit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="8"
+                android:hint="Detals" />
+        </android.support.design.widget.TextInputLayout>
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/detaltxt"
+            android:id="@+id/tepaltxt"
+            android:layout_marginLeft="20dp"
+            >
+            <EditText android:id="@+id/tepaledit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="8"
+                android:hint="Tepals" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tepaltxt"
+            android:id="@+id/stamentxt"
+            android:layout_marginLeft="20dp"
+            >
+            <EditText android:id="@+id/stamenedit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="8"
+                android:hint="Stamens" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/stamentxt"
+            android:id="@+id/pistiltxt"
+            android:layout_marginLeft="20dp"
+            >
+            <EditText android:id="@+id/pistiledit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="8"
+                android:hint="Pistils" />
+        </android.support.design.widget.TextInputLayout>
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/pistiltxt"
+            android:id="@+id/flowerscenttxt"
+            android:layout_marginLeft="20dp"
+            >
+            <EditText android:id="@+id/flowerscentedit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="8"
+                android:hint="Scent" />
+        </android.support.design.widget.TextInputLayout>
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_height="1dp"
+            android:layout_marginTop="20dp"
+            android:id="@+id/onfruit"
+            android:layout_below="@+id/flowerscenttxt"
+            android:background="#000000"></View>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Fruits"
+            android:textSize="20dp"
+            android:id="@+id/fruittxt"
+            android:layout_below="@+id/onfruit"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            />
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/fruittxt"
+            android:id="@+id/maturetxt"
+            android:layout_marginLeft="20dp"
+            >
+            <EditText android:id="@+id/matureedit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="8"
+                android:hint="Mature" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/maturetxt"
+            android:id="@+id/ripentxt"
+            android:layout_marginLeft="20dp"
+            >
+            <EditText android:id="@+id/ripenedit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="8"
+                android:hint="Ripen" />
+        </android.support.design.widget.TextInputLayout>
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ripentxt"
+            android:id="@+id/fruitscenttxt"
+            android:layout_marginLeft="20dp"
+            >
+            <EditText android:id="@+id/fruitscentedit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="8"
+                android:hint="Scent" />
+        </android.support.design.widget.TextInputLayout>
 
     </RelativeLayout>
+    </ScrollView>
 </FrameLayout>

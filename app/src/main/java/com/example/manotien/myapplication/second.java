@@ -34,30 +34,30 @@ public class second extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_second, container, false);
-        Button buttongps = (Button) view.findViewById(R.id.getgps);
+        Button buttongps = (Button) view.findViewById(R.id.barkcolorbut);
         buttongps.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openDialog(true,"aaa");
+                openDialog(true,"colortxt");
             }
         });
 
-
         return view;
     }
+
 
     void openDialog(boolean supportsAlpha, final String id_text) {
         AmbilWarnaDialog dialog = new AmbilWarnaDialog(getActivity(), color, supportsAlpha, new AmbilWarnaDialog.OnAmbilWarnaListener() {
             @Override
             public void onOk(AmbilWarnaDialog dialog, int color) {
-                Toast.makeText(getActivity(), "ok", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Ok", Toast.LENGTH_SHORT).show();
                 second.this.color = color;
                 displayColor(id_text);
             }
 
             @Override
             public void onCancel(AmbilWarnaDialog dialog) {
-                Toast.makeText(getActivity(), "cancel", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Cancel", Toast.LENGTH_SHORT).show();
             }
         });
         dialog.show();
@@ -65,6 +65,6 @@ public class second extends Fragment {
     void displayColor(String id) {
         int resId = getResources().getIdentifier(id,"id","com.example.manotien.myapplication");
         text1 = (TextView) getView().findViewById(resId);
-        text1.setText(String.format("Current color: 0x%08x", color));
+        text1.setText(String.format("Color: 0x%08x", color));
     }
 }

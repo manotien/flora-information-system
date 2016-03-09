@@ -1,5 +1,6 @@
 package com.example.manotien.myapplication;
 
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
@@ -19,6 +20,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +43,8 @@ public class tab_discover extends AppCompatActivity {
      */
     private ViewPager viewPager;
 
+    private String message;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,18 +58,30 @@ public class tab_discover extends AppCompatActivity {
         // Set up the ViewPager with the sections adapter.
         viewPager = (ViewPager) findViewById(R.id.container);
         setupViewPager(viewPager);
-
         tabLayout = (TabLayout) findViewById(R.id.tabs);
-        Log.d("kuykuy", "hi");
         tabLayout.setupWithViewPager(viewPager);
+        tabLayout.setOnTabSelectedListener(
+                new TabLayout.ViewPagerOnTabSelectedListener(viewPager) {
+
+                    @Override
+                    public void onTabSelected(TabLayout.Tab tab) {
+                        super.onTabSelected(tab);
+                        // int numTab = tab.getPosition();
+                        Fragment fragment = getActiveFragment(viewPager, 0);
+                        first oneFragment = (first) fragment;
+                        message = oneFragment.getMyText();
+
+                    }
+                });
 
     }
+
     private void setupViewPager(ViewPager viewPager)
     {
        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new first() ,"YOYO");
+        adapter.addFragment(new first() ,"YO Man");
         adapter.addFragment(new second(),"Plant Description");
-        adapter.addFragment(new third(),"Third");
+        adapter.addFragment(new third(),"What's Up");
         viewPager.setAdapter(adapter);
     }
 
@@ -126,8 +142,35 @@ public class tab_discover extends AppCompatActivity {
         }
     }
 
-    /**
-     * A placeholder fragment containing a simple view.
-     */
 
+
+    //doubleBackToExitPressedOnce
+    boolean doubleBackToExitPressedOnce = false;
+    @Override
+    public void onBackPressed() {
+        if (doubleBackToExitPressedOnce) {
+            super.onBackPressed();
+            return;
+        }
+
+        this.doubleBackToExitPressedOnce = true;
+        Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
+
+        new Handler().postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                doubleBackToExitPressedOnce=false;
+            }
+        }, 2000);
+    }
+
+    public Fragment getActiveFragment(ViewPager container, int position) {
+        String name = "android:switcher:" + container.getId() + ":" + position;
+        return getSupportFragmentManager().findFragmentByTag(name);
+    }
+
+    public String getMydata(){
+        return message;
+    }
 }

@@ -18,36 +18,94 @@ public class DbOperator extends SQLiteOpenHelper {
     protected static final String SECOND_TABLE_NAME = "FLORA_TABLE";
 
 //Attribute in LOCATION_TABLE
-    protected static final String KEY_PLACE = "place";
-    protected static final String KEY_PROTECTED = "protected";
-    protected static final String KEY_LOCALITY_NOTE = "locality_note";
-    protected static final String KEY_HABITAT = "habitat";
+    protected static final String KEY_DUBS = "dubs";  //0
+    protected static final String KEY_BARCODE = "barcode";  //1
+    protected static final String KEY_ACCESSION = "accession";  //1
+    protected static final String KEY_COLLECTOR = "collector";  //1
+    protected static final String KEY_COCOLLECTOR = "addcoll";  //1
+    protected static final String KEY_PREFIX = "prefix";  //1
+    protected static final String KEY_NUMBER = "number";  //1
+    protected static final String KEY_SUFFIX = "suffix";  //1
+    protected static final String KEY_DAY = "collection_day";
+    protected static final String KEY_MONTH = "collection_month";
+    protected static final String KEY_YEAR = "collection_year";
     protected static final String KEY_COUNTRY = "country";
-    protected static final String KEY_REGION = "region";
-    protected static final String KEY_PROVINCE = "province";
-    protected static final String KEY_DISTRICT = "district";
-    protected static final String KEY_SUBDISTRICT = "subdistrict";
-    protected static final String KEY_COLLECTOR = "collector";
-    protected static final String KEY_COCOLLECTOR = "cocollector";
-    protected static final String KEY_DAY = "day";
-    protected static final String KEY_MONTH = "month";
-    protected static final String KEY_YEAR = "year";
+    protected static final String KEY_REGION = "florareg";
+    protected static final String KEY_BKFAREACOD = "bkfareacod";
+    protected static final String KEY_PROVINCE = "majorarea";
+    protected static final String KEY_DISTRICT = "minorarea";
+    protected static final String KEY_SUBDISTRICT = "tambon";
+    protected static final String KEY_PROTECTED = "protected";
+    protected static final String KEY_PLACE = "gazetteer";
+    protected static final String KEY_LOCALITY_NOTE = "locality_notes";
+    protected static final String KEY_HABITAT = "habitat";
+    protected static final String KEY_TIMESTAMP_LOCATION = "timestamp_location";
 
 
-//Attribute in FLORA_TABLE
-    protected static final String KEY_DUBS = "dubs";
+
+    //Attribute in FLORA_TABLE
+protected static final String KEY_LOCATIONID = "location_id";
+    protected static final String KEY_FAMILY = "family";
+    protected static final String KEY_GENUS = "genus";
+    protected static final String KEY_CF = "cf";
+    protected static final String KEY_SP1 = "sp1";
+    protected static final String KEY_AUTHOR1 = "author1";
+    protected static final String KEY_RANK1 = "rank1";
+    protected static final String KEY_SP2 = "sp2";
+    protected static final String KEY_AUTHOR2 = "author2";
+    protected static final String KEY_RANK2 = "rank2";
+    protected static final String KEY_SP3 = "sp3";
+    protected static final String KEY_AUTHOR3 = "author3";
+    protected static final String KEY_PLANTDESCRIPTION = "plant_description";
+    protected static final String KEY_PHENOLOGY = "phenology";
+    protected static final String KEY_DETBY = "detby";
+    protected static final String KEY_DETDD = "detdd";
+    protected static final String KEY_DETMM = "detmm";
+    protected static final String KEY_DETYY = "detyy";
+    protected static final String KEY_DETNOTES = "detnotes";
+    protected static final String KEY_CULTIVATED = "cultivated";
+    protected static final String KEY_CULTNOTES = "cultnotes";
+    protected static final String KEY_NOTES= "notes";
+    protected static final String KEY_LAT = "lat";
+    protected static final String KEY_NS = "ns";
+    protected static final String KEY_LONG = "long";
+    protected static final String KEY_EW = "ew";
+    protected static final String KEY_ALT = "alt";
+    protected static final String KEY_ALTMAX = "altmax";
+    protected static final String KEY_ALTNOTE = "altnote";
+    protected static final String KEY_VERNACULAR = "vernacular";
+    protected static final String KEY_LANGUAGE = "language";
+    protected static final String KEY_TIMESTAMP_FLORA = "timestamp_flora";
 
 
     public static final String CREATE_FIRST_TABLE = "create table if not exists "
             + FIRST_TABLE_NAME
-            + " ( id integer primary key autoincrement, " + KEY_PLACE + "  TEXT NOT NULL, " + KEY_PROTECTED + " TEXT NOT NULL," + KEY_LOCALITY_NOTE + " TEXT NOT NULL,"
-            + KEY_HABITAT + " TEXT NOT NULL," + KEY_COUNTRY + " TEXT NOT NULL," + KEY_REGION + " TEXT NOT NULL,"  + KEY_PROVINCE + " TEXT NOT NULL,"
-            + KEY_DISTRICT + " TEXT NOT NULL," + KEY_SUBDISTRICT + " TEXT NOT NULL," + KEY_COLLECTOR + " TEXT NOT NULL,"
-            + KEY_COCOLLECTOR + " TEXT NOT NULL," + KEY_DAY+ " TEXT NOT NULL," + KEY_MONTH + " TEXT NOT NULL,"
-            + KEY_YEAR + " TEXT NOT NULL);";
+            + " ( id integer primary key autoincrement, "+ KEY_DUBS + "  TEXT NOT NULL, " + KEY_BARCODE + " TEXT NOT NULL," + KEY_ACCESSION + " TEXT NOT NULL,"
+            + KEY_COLLECTOR + " TEXT NOT NULL," + KEY_COCOLLECTOR + " TEXT NOT NULL," + KEY_PREFIX + " TEXT NOT NULL,"  + KEY_NUMBER + " TEXT NOT NULL,"
+            + KEY_SUFFIX + " TEXT NOT NULL," + KEY_DAY + " TEXT NOT NULL," + KEY_MONTH + " TEXT NOT NULL,"
+            + KEY_YEAR + " TEXT NOT NULL," + KEY_COUNTRY+ " TEXT NOT NULL," + KEY_REGION + " TEXT NOT NULL,"
+            + KEY_BKFAREACOD + " TEXT NOT NULL," + KEY_PROVINCE+ " TEXT NOT NULL," + KEY_DISTRICT + " TEXT NOT NULL,"
+            + KEY_SUBDISTRICT + " TEXT NOT NULL," + KEY_PROTECTED+ " TEXT NOT NULL," + KEY_PLACE + " TEXT NOT NULL,"
+            + KEY_LOCALITY_NOTE + " TEXT NOT NULL," + KEY_HABITAT + " TEXT NOT NULL,"
+            + KEY_TIMESTAMP_LOCATION + " TIMESTAMP DEFAULT CURRENT_TIMESTAMP"
+            + ");";
 
+    public static final String CREATE_SECOND_TABLE = "create table if not exists "
+            + FIRST_TABLE_NAME
+            + " ( id integer primary key autoincrement, "+KEY_LOCATIONID+ " integer ," + KEY_FAMILY + "  TEXT NOT NULL, " + KEY_GENUS + " TEXT NOT NULL," + KEY_CF + " TEXT NOT NULL,"
+            + KEY_SP1 + " TEXT NOT NULL," + KEY_AUTHOR1 + " TEXT NOT NULL," + KEY_RANK1 + " TEXT NOT NULL,"  + KEY_SP2 + " TEXT NOT NULL,"
+            + KEY_AUTHOR2 + " TEXT NOT NULL," + KEY_RANK2 + " TEXT NOT NULL," + KEY_SP3 + " TEXT NOT NULL,"
+            + KEY_AUTHOR3 + " TEXT NOT NULL," + KEY_PLANTDESCRIPTION+ " TEXT NOT NULL," + KEY_PHENOLOGY + " TEXT NOT NULL,"
+            + KEY_DETBY + " TEXT NOT NULL," + KEY_DETDD+ " TEXT NOT NULL," + KEY_DETMM+ " TEXT NOT NULL,"
+            + KEY_DETMM + " TEXT NOT NULL," + KEY_DETYY + " TEXT NOT NULL," + KEY_DETNOTES + " TEXT NOT NULL,"
+            + KEY_CULTIVATED + " TEXT NOT NULL," + KEY_CULTNOTES + " TEXT NOT NULL," + KEY_NOTES + " TEXT NOT NULL,"
+            + KEY_LAT + " TEXT NOT NULL," + KEY_NS + " TEXT NOT NULL," + KEY_LONG + " TEXT NOT NULL,"
+            + KEY_EW + " TEXT NOT NULL," + KEY_ALT + " TEXT NOT NULL," + KEY_ALTMAX + " TEXT NOT NULL,"
+            + KEY_ALTNOTE + " TEXT NOT NULL,"
+            + KEY_VERNACULAR + " TEXT NOT NULL," + KEY_LANGUAGE + " TEXT NOT NULL,"
+            + KEY_TIMESTAMP_FLORA + " TIMESTAMP DEFAULT CURRENT_TIMESTAMP"
+            +");";
 
-    public static final String CREATE_SECOND_TABLE ="create table if not exists";
 
     public DbOperator(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -56,12 +114,21 @@ public class DbOperator extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_FIRST_TABLE);
-
+        db.execSQL(CREATE_SECOND_TABLE);
         //db.close();
     }
 
     public void AddLocationInformation(String place, String protect, String locality, String habitat, String country,String region,String province,String district,String subdistrict,String collector,String cocollector,String day,String month, String year,SQLiteDatabase db) {
         ContentValues contentv = new ContentValues();
+        contentv.put(KEY_DUBS,"");
+        contentv.put(KEY_BARCODE,"");
+        contentv.put(KEY_ACCESSION,"");
+        contentv.put(KEY_PREFIX,"");
+        contentv.put(KEY_SUFFIX,"");
+        contentv.put(KEY_NUMBER,"");
+        contentv.put(KEY_BKFAREACOD,"");
+        //contentv.put(KEY_TIMESTAMP_LOCATION, java.lang.System.currentTimeMillis());
+        ///
         contentv.put(KEY_PLACE, place);
         contentv.put(KEY_PROTECTED,protect);
         contentv.put(KEY_LOCALITY_NOTE,locality);
@@ -76,18 +143,32 @@ public class DbOperator extends SQLiteOpenHelper {
         contentv.put(KEY_DAY,day);
         contentv.put(KEY_MONTH,month);
         contentv.put(KEY_YEAR, year);
+        Log.d("aaa", String.valueOf(System.currentTimeMillis()));
         db.insert(FIRST_TABLE_NAME, null, contentv);
     }
+    public void AddFloraInformation(SQLiteDatabase db)
+    {
+        ContentValues contentv = new ContentValues();
+
+        db.insert(SECOND_TABLE_NAME, null, contentv);
+    }
+
 
     public Cursor GetLocationInformation(SQLiteDatabase db,String placename ,String[] date){
         Cursor cursor;
         String[] projection ={"id",KEY_PLACE,KEY_PROTECTED,KEY_LOCALITY_NOTE,KEY_HABITAT,KEY_COUNTRY,KEY_REGION,KEY_PROVINCE,KEY_DISTRICT,KEY_SUBDISTRICT,KEY_COLLECTOR,KEY_COCOLLECTOR,KEY_DAY,KEY_MONTH,KEY_YEAR};
-        String WHERE = "place ='"+placename+"' and day ='"+date[0]+"' and month ='"+date[1]+"' and year='"+date[2]+"'";
+        String WHERE = "gazetteer ='"+placename+"' and collection_day ='"+date[0]+"' and collection_month ='"+date[1]+"' and collection_year='"+date[2]+"'";
         cursor = db.query(FIRST_TABLE_NAME,projection,WHERE,null,null,null,null);
         return cursor;
-
     }
 
+    public Cursor GetFloraInformation(SQLiteDatabase db,Integer location_id){
+        Cursor cursor;
+        String[] projection = {"id"};
+        String WHERE = "location_id ='"+location_id+"'";
+        cursor = db.query(SECOND_TABLE_NAME,projection,WHERE,null,null,null,null);
+        return cursor;
+    }
 
 
     @Override
