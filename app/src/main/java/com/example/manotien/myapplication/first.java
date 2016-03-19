@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.app.Fragment;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -30,8 +31,11 @@ public class first extends Fragment {
     private static final int ACTIVITY_START_CAMERA_APP = 0;
     private ImageView mPhotoCapturedImageView;
 
-    EditText edit;
-
+    RadioGroup radiogroup;
+    RadioButton radiocheck;
+    String lat,longti,alt,altmax,altnote,genus,family,sp1,rank1,sp2,rank2,sp3,vern,cultnote,pheno,culti,cf,lang;
+    EditText Elat,Elongti,Ealt,Ealtmax,Ealtnote,Egenus,Efamily,Esp1,Erank1,Esp2,Erank2,Esp3,Evern,Ecultnote,Epheno;
+    private View view;
 
     public first() {
         // Required empty public constructor
@@ -48,8 +52,8 @@ public class first extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 //        super.onCreateView(inflater, container, savedInstanceState);
-        final View view =  inflater.inflate(R.layout.fragment_first, container, false);
-
+        view =  inflater.inflate(R.layout.fragment_first, container, false);
+        Log.d("testz","a1");
         //photo
         mPhotoCapturedImageView = (ImageView) view.findViewById(R.id.photoview);
         Button photo = (Button) view.findViewById(R.id.takephoto);
@@ -81,19 +85,29 @@ public class first extends Fragment {
 
 
         //cultivate radio box
-        RadioGroup radiogroup = (RadioGroup) view.findViewById(R.id.radiogroup);
+        radiogroup = (RadioGroup) view.findViewById(R.id.radiogroup);
         int select = radiogroup.getCheckedRadioButtonId();
-        RadioButton radiocheck = (RadioButton) view.findViewById(select);
+        radiocheck = (RadioButton) view.findViewById(select);
 
         //get value from Edittext
-        edit = (EditText)view.findViewById(R.id.latedit);
-/*
-        Intent someintent = new Intent();
-        someintent.putExtra("your_value_one", "a");
-        getActivity().setResult(getActivity().RESULT_OK,someintent);
-        getActivity().finish();
+        Elat = (EditText)view.findViewById(R.id.latedit);
+        Elat = ((EditText)view.findViewById(R.id.latedit));
+        Elongti = ((EditText)view.findViewById(R.id.longedit));
+        Ealt = ((EditText)view.findViewById(R.id.altedit));
+        Ealtmax = (EditText)view.findViewById(R.id.altmaxedit);
+        Ealtnote = ((EditText)view.findViewById(R.id.altnoteedit));
+        Egenus = ((AutoCompleteTextView)view.findViewById(R.id.genusedit));
+        Efamily = ((AutoCompleteTextView)view.findViewById(R.id.familyedit));
+        Esp1 = ((EditText)view.findViewById(R.id.species1edit));
+        Erank1 = ((EditText)view.findViewById(R.id.rank1edit));
+        Esp2 = ((EditText)view.findViewById(R.id.species2edit));
+        Erank2 = ((EditText)view.findViewById(R.id.rank2edit));
+        Esp3 = ((EditText)view.findViewById(R.id.species3edit));
+        Evern = ((EditText)view.findViewById(R.id.vernnameedit));
+        //vernlang;
+        Ecultnote = ((EditText)view.findViewById(R.id.cultinoteedit));
+        Epheno = ((EditText)view.findViewById(R.id.phenoedit));
 
-        */
         return view;
     }
 
@@ -120,7 +134,33 @@ public class first extends Fragment {
         }
     }
 
-    public String getMyText() {
-        return edit.getText().toString();
+    public String[] getMyText() {
+        lat = (Elat).getText().toString();
+        longti = (Elongti).getText().toString();
+        alt = (Ealt).getText().toString();
+        altnote = (Ealtnote).getText().toString();
+        genus = (Egenus).getText().toString();
+        family = (Efamily).getText().toString();
+        sp1 = (Esp1).getText().toString();
+        rank1 = (Erank1).getText().toString();
+        altmax = (Ealtmax).getText().toString();
+        sp2 = (Esp2).getText().toString();
+        rank2 = (Erank2).getText().toString();
+        sp3 = (Esp3).getText().toString();
+        vern = (Evern).getText().toString();
+        radiogroup = (RadioGroup) view.findViewById(R.id.radiogroup);
+        int select = radiogroup.getCheckedRadioButtonId();
+        radiocheck = (RadioButton) view.findViewById(select);
+        if(radiogroup.getCheckedRadioButtonId() != -1) {
+            culti = radiocheck.getText().toString();
+        }
+        else
+            culti = "No";
+        cultnote="";
+        pheno="";
+        cf="";
+        lang="";
+        String [] first = {lat,longti,alt,altmax,altnote,genus,family,cf,sp1,rank1,sp2,rank2,sp3,vern,lang,culti,cultnote,pheno};
+        return first;
     }
 }

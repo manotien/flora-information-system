@@ -1,10 +1,106 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent" tools:context="com.example.manotien.myapplication.third">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fillViewport="true"
+        android:isScrollContainer="true"
+        >
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:paddingBottom="80dp"
+        >
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="20dp"
+            android:id="@+id/detbytxt"
+            >
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:singleLine="true"
+                android:id="@+id/detby"
+                android:hint="Det By" />
+        </android.support.design.widget.TextInputLayout>
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/detbytxt"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="20dp"
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView android:layout_width="match_parent" android:layout_height="match_parent"
-        android:id="@+id/aaa"
-        android:text="What's up" />
+            android:id="@+id/detdatetxt"
+            >
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:singleLine="true"
+                android:id="@+id/detdate"
+                android:hint="Det Date" />
+        </android.support.design.widget.TextInputLayout>
 
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/detdatetxt"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="20dp"
+
+            android:id="@+id/detnotetxt"
+            >
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:id="@+id/detnote"
+                android:singleLine="true"
+                android:hint="Det Note" />
+        </android.support.design.widget.TextInputLayout>
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/detnotetxt"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="20dp"
+
+            android:id="@+id/notetxt"
+            >
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:singleLine="true"
+                android:lines="3"
+                android:id="@+id/note"
+                android:hint="Note" />
+        </android.support.design.widget.TextInputLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Material: "
+            android:id="@+id/materialtxt"
+            android:textSize="20dp"
+            android:layout_below="@id/notetxt"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/materialtxt"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"
+            android:text="Submit"
+            android:id="@+id/submit"
+            />
+    </RelativeLayout>
+    </ScrollView>
 </FrameLayout>

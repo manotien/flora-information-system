@@ -44,7 +44,7 @@ public class DbOperator extends SQLiteOpenHelper {
 
 
     //Attribute in FLORA_TABLE
-protected static final String KEY_LOCATIONID = "location_id";
+    protected static final String KEY_LOCATIONID = "location_id";
     protected static final String KEY_FAMILY = "family";
     protected static final String KEY_GENUS = "genus";
     protected static final String KEY_CF = "cf";
@@ -91,12 +91,12 @@ protected static final String KEY_LOCATIONID = "location_id";
             + ");";
 
     public static final String CREATE_SECOND_TABLE = "create table if not exists "
-            + FIRST_TABLE_NAME
+            + SECOND_TABLE_NAME
             + " ( id integer primary key autoincrement, "+KEY_LOCATIONID+ " integer ," + KEY_FAMILY + "  TEXT NOT NULL, " + KEY_GENUS + " TEXT NOT NULL," + KEY_CF + " TEXT NOT NULL,"
             + KEY_SP1 + " TEXT NOT NULL," + KEY_AUTHOR1 + " TEXT NOT NULL," + KEY_RANK1 + " TEXT NOT NULL,"  + KEY_SP2 + " TEXT NOT NULL,"
             + KEY_AUTHOR2 + " TEXT NOT NULL," + KEY_RANK2 + " TEXT NOT NULL," + KEY_SP3 + " TEXT NOT NULL,"
             + KEY_AUTHOR3 + " TEXT NOT NULL," + KEY_PLANTDESCRIPTION+ " TEXT NOT NULL," + KEY_PHENOLOGY + " TEXT NOT NULL,"
-            + KEY_DETBY + " TEXT NOT NULL," + KEY_DETDD+ " TEXT NOT NULL," + KEY_DETMM+ " TEXT NOT NULL,"
+            + KEY_DETBY + " TEXT NOT NULL," + KEY_DETDD+ " TEXT NOT NULL,"
             + KEY_DETMM + " TEXT NOT NULL," + KEY_DETYY + " TEXT NOT NULL," + KEY_DETNOTES + " TEXT NOT NULL,"
             + KEY_CULTIVATED + " TEXT NOT NULL," + KEY_CULTNOTES + " TEXT NOT NULL," + KEY_NOTES + " TEXT NOT NULL,"
             + KEY_LAT + " TEXT NOT NULL," + KEY_NS + " TEXT NOT NULL," + KEY_LONG + " TEXT NOT NULL,"
@@ -127,8 +127,6 @@ protected static final String KEY_LOCATIONID = "location_id";
         contentv.put(KEY_SUFFIX,"");
         contentv.put(KEY_NUMBER,"");
         contentv.put(KEY_BKFAREACOD,"");
-        //contentv.put(KEY_TIMESTAMP_LOCATION, java.lang.System.currentTimeMillis());
-        ///
         contentv.put(KEY_PLACE, place);
         contentv.put(KEY_PROTECTED,protect);
         contentv.put(KEY_LOCALITY_NOTE,locality);
@@ -143,12 +141,45 @@ protected static final String KEY_LOCATIONID = "location_id";
         contentv.put(KEY_DAY,day);
         contentv.put(KEY_MONTH,month);
         contentv.put(KEY_YEAR, year);
-        Log.d("aaa", String.valueOf(System.currentTimeMillis()));
         db.insert(FIRST_TABLE_NAME, null, contentv);
     }
-    public void AddFloraInformation(SQLiteDatabase db)
+    public void AddFloraInformation(String lat,String longti,String alt,String altmax,String altnote,String genus, String family,String cf,String sp1,String rank1,String sp2,
+                                    String rank2,String sp3,String vern,String lang,String culti,String cultnote,String pheno,String plant_des,
+                                    String note,String detby,String detdd,String detmm,String detyy,String detnote,int location_id,SQLiteDatabase db)
     {
         ContentValues contentv = new ContentValues();
+        contentv.put(KEY_LOCATIONID,location_id);
+        contentv.put(KEY_FAMILY,family);
+        contentv.put(KEY_GENUS,genus);
+        contentv.put(KEY_CF,cf);
+        contentv.put(KEY_SP1,sp1);
+        contentv.put(KEY_AUTHOR1,"");
+        contentv.put(KEY_RANK1,rank1);
+        contentv.put(KEY_SP2,sp2);
+        contentv.put(KEY_AUTHOR2,"");
+        contentv.put(KEY_RANK2,rank2);
+        contentv.put(KEY_SP3,sp3);
+        contentv.put(KEY_AUTHOR3,"");
+        contentv.put(KEY_PLANTDESCRIPTION,plant_des);
+        contentv.put(KEY_PHENOLOGY,pheno);
+        contentv.put(KEY_DETBY,detby);
+        contentv.put(KEY_DETDD,detdd);
+        contentv.put(KEY_DETMM,detmm);
+        contentv.put(KEY_DETYY,detyy);
+        contentv.put(KEY_DETNOTES,detnote);
+        contentv.put(KEY_CULTIVATED,culti);
+        contentv.put(KEY_CULTNOTES,cultnote);
+        contentv.put(KEY_NOTES,note);
+        contentv.put(KEY_LAT,lat);
+        contentv.put(KEY_NS,"ns");
+        contentv.put(KEY_LONG,longti);
+        contentv.put(KEY_EW,"ew");
+        contentv.put(KEY_ALT,alt);
+        contentv.put(KEY_ALTMAX,altmax);
+        contentv.put(KEY_ALTNOTE, altnote);
+        contentv.put(KEY_VERNACULAR, vern);
+        contentv.put(KEY_LANGUAGE,lang);
+       // contentv.put(KEY_TIMESTAMP_FLORA, "a");
 
         db.insert(SECOND_TABLE_NAME, null, contentv);
     }
@@ -162,11 +193,12 @@ protected static final String KEY_LOCATIONID = "location_id";
         return cursor;
     }
 
-    public Cursor GetFloraInformation(SQLiteDatabase db,Integer location_id){
+    public Cursor GetFloraForListView(SQLiteDatabase db,Integer location_id){
         Cursor cursor;
-        String[] projection = {"id"};
-        String WHERE = "location_id ='"+location_id+"'";
-        cursor = db.query(SECOND_TABLE_NAME,projection,WHERE,null,null,null,null);
+        String[] projection = {"id",KEY_LOCATIONID,KEY_FAMILY,KEY_GENUS,KEY_SP1,KEY_LAT,KEY_LONG};
+        String WHERE = "location_id ="+String.valueOf(location_id);
+        String orderby = KEY_TIMESTAMP_FLORA+" DESC";
+        cursor = db.query(SECOND_TABLE_NAME,projection,WHERE,null,null,null,orderby);
         return cursor;
     }
 

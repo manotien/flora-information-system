@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,14 +12,22 @@ import android.support.v4.app.Fragment;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import yuku.ambilwarna.AmbilWarnaDialog;
 
 public class second extends Fragment {
-    TextView text1;
-    int color = 0xffffff00;
+
+    int color = 0xffffffff;
+    //general
+    AutoCompleteTextView Ehabit;
+    EditText E8_height,E8_bark_outer,E8_outer_thick,E8_bark_inner,E8_inner_thick,E8_sap,E8_lbf,E8_yl,E8_leave_scent;
+    EditText E8_sepal,E8_detal,E8_tepal,E8_sstamen,E8_pistil,E8_flower_scent,E8_mature,E8_ripen,E8_fruit_scent;
+
+    String s8_habit,s8_height,s8_bark,s8_leave,s8_flower,s8_fruit;
+
 
     public second() {
         // Required empty public constructor
@@ -34,14 +43,15 @@ public class second extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_second, container, false);
+        Log.d("testz", "a2");
         Button buttongps = (Button) view.findViewById(R.id.barkcolorbut);
         buttongps.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openDialog(true,"colortxt");
+                openDialog(true,"barkcolor");
             }
         });
-
+        Ehabit = (AutoCompleteTextView)view.findViewById(R.id.habit);
         return view;
     }
 
@@ -64,7 +74,16 @@ public class second extends Fragment {
     }
     void displayColor(String id) {
         int resId = getResources().getIdentifier(id,"id","com.example.manotien.myapplication");
-        text1 = (TextView) getView().findViewById(resId);
-        text1.setText(String.format("Color: 0x%08x", color));
+        Log.d("testt",String.format("#%06X", (0xFFFFFF & color)) );
+        ImageView barkcolor = (ImageView) getView().findViewById(resId);
+        barkcolor.setBackgroundColor(Color.parseColor(String.format("#%06X", (0xFFFFFF & color))));
+    }
+
+    public String[] getMyText() {
+
+        String plant_description="";
+        String note="";
+        String[] all = {plant_description,note};
+        return all;
     }
 }

@@ -112,7 +112,8 @@ public class Main2Activity extends AppCompatActivity {
                 String cocollector = "Tien, AAA";
                 dbOperator = new DbOperator(context);
                 sqLiteDatabase = dbOperator.getWritableDatabase();
-                dbOperator.AddLocationInformation(placename.getText().toString(), protect.getSelectedItem().toString(), locality.getText().toString(), habitat.getText().toString(), country.getText().toString(), region.getText().toString(), province.getText().toString(), district.getText().toString(), subdistrict.getText().toString(), collector.getText().toString(), cocollector, date[0], date[1], date[2], sqLiteDatabase);
+                dbOperator.AddLocationInformation(placename.getText().toString(), protect.getSelectedItem().toString(), locality.getText().toString(), habitat.getText().toString(), country.getText().toString(),
+                        region.getText().toString(), province.getText().toString(), district.getText().toString(), subdistrict.getText().toString(), collector.getText().toString(), cocollector, date[0], date[1], date[2], sqLiteDatabase);
                 dbOperator.close();
 
                 SharedPreferences sp = getSharedPreferences("place_date",Context.MODE_PRIVATE);

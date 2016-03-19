@@ -55,11 +55,29 @@
             android:label="@string/title_activity_tab_discover"
             android:parentActivityName=".Survey_Main"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustResize" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.manotien.myapplication.Survey_Main" />
+        </activity>
+        <activity
+            android:name=".Flora_Information"
+            android:label="@string/title_activity_flora__information"
+            android:parentActivityName=".Survey_Main"
             android:theme="@style/AppTheme.NoActionBar" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.manotien.myapplication.Survey_Main" />
+        </activity>
+        <activity
+            android:name=".Location_Main"
+            android:label="@string/title_activity_location__main"
+            android:parentActivityName=".MainMenuActivity"
+            android:theme="@style/AppTheme.NoActionBar" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.manotien.myapplication.MainMenuActivity" />
         </activity>
     </application>
 

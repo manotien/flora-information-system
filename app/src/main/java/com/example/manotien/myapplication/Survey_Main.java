@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
@@ -18,13 +20,18 @@ import android.widget.TextView;
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
+
+import static android.database.DatabaseUtils.dumpCursorToString;
 
 public class Survey_Main extends AppCompatActivity {
 
     DbOperator dbOperator;
     SQLiteDatabase sqLiteDatabase;
-    Cursor cursor;
+    Cursor cursor,cursor1;
+    Context context;
+    RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +58,11 @@ public class Survey_Main extends AppCompatActivity {
         cursor = dbOperator.GetLocationInformation(sqLiteDatabase,placename,date);
         if(cursor.moveToFirst()){
             do {
+                SharedPreferences.Editor editor = sp.edit();
+                int location_id = cursor.getInt(0);
+                editor.putInt("location_id",location_id  );
+                editor.commit();
+
                 placename_ans.setText(cursor.getString(1));
                 protect_ans.setText(cursor.getString(2));
                 province_ans.setText(cursor.getString(7));
@@ -62,6 +74,16 @@ public class Survey_Main extends AppCompatActivity {
             cursor.close();
         }
 
+        //recycle view
+        recyclerView= (RecyclerView) findViewById(R.id.my_recycler_view);
+
+        RecyclerAdapter adapter=new RecyclerAdapter(this,createList(10));
+        recyclerView.setAdapter(adapter);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+
+
         Button button = (Button) findViewById(R.id.addflora);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,8 +94,27 @@ public class Survey_Main extends AppCompatActivity {
         });
 
 
-
-
     }
+    private List<FloraData> createList(int size) {
 
+        List<FloraData> result = new ArrayList<FloraData>();
+        SharedPreferences sp = getSharedPreferences("place_date", Context.MODE_PRIVATE);
+
+        cursor1 = dbOperator.GetFloraForListView(sqLiteDatabase, sp.getInt("location_id", -1));
+        if(cursor1.moveToFirst()){
+            do {
+                Log.d("tesa",dumpCursorToString(cursor1));
+                FloraData fd = new FloraData();
+                fd.name = "Species 1: "+cursor1.getString(4);
+                fd.genus = "Genus: "+ cursor1.getString(3);
+                fd.family = "Family: "+ cursor1.getString(2);
+                fd.flora_id = cursor1.getInt(0);
+                result.add(fd);
+            } while (cursor1.moveToNext());
+
+            cursor1.close();
+        }
+
+        return result;
+    }
 }

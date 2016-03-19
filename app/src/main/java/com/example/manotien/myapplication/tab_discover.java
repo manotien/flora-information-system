@@ -1,5 +1,6 @@
 package com.example.manotien.myapplication;
 
+import android.content.Context;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -19,6 +20,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,8 +45,8 @@ public class tab_discover extends AppCompatActivity {
      */
     private ViewPager viewPager;
 
-    private String message;
-
+    private String[] firstmsg;
+    private String [] secondmsg;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,12 +67,27 @@ public class tab_discover extends AppCompatActivity {
 
                     @Override
                     public void onTabSelected(TabLayout.Tab tab) {
-                        super.onTabSelected(tab);
-                        // int numTab = tab.getPosition();
-                        Fragment fragment = getActiveFragment(viewPager, 0);
-                        first oneFragment = (first) fragment;
-                        message = oneFragment.getMyText();
+                        View focus = getCurrentFocus();
+                        if (focus != null) {
+                            hiddenKeyboard(focus);
+                        }
 
+                        super.onTabSelected(tab);
+                        int numTab = tab.getPosition();
+
+                        if(numTab==2) {
+                            Fragment fragment = getActiveFragment(viewPager, 0);
+                            first oneFragment = (first) fragment;
+                            firstmsg = oneFragment.getMyText();
+
+                            Fragment fragment2 = getActiveFragment(viewPager,1);
+                            second twoFragment = (second) fragment2;
+                            secondmsg = twoFragment.getMyText();
+                        }
+                    }
+                    private void hiddenKeyboard(View v) {
+                        InputMethodManager keyboard = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                        keyboard.hideSoftInputFromWindow(v.getWindowToken(), 0);
                     }
                 });
 
@@ -79,9 +96,9 @@ public class tab_discover extends AppCompatActivity {
     private void setupViewPager(ViewPager viewPager)
     {
        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new first() ,"YO Man");
+        adapter.addFragment(new first() ,"1");
         adapter.addFragment(new second(),"Plant Description");
-        adapter.addFragment(new third(),"What's Up");
+        adapter.addFragment(new third(),"3");
         viewPager.setAdapter(adapter);
     }
 
@@ -170,7 +187,11 @@ public class tab_discover extends AppCompatActivity {
         return getSupportFragmentManager().findFragmentByTag(name);
     }
 
-    public String getMydata(){
-        return message;
+    public String[] getMydata(){
+        return firstmsg;
     }
+    public String[] getMydata2(){
+        return secondmsg;
+    }
+
 }
