@@ -106,6 +106,9 @@ public class DbOperator extends SQLiteOpenHelper {
             + KEY_TIMESTAMP_FLORA + " TIMESTAMP DEFAULT CURRENT_TIMESTAMP"
             +");";
 
+    public static final String CREATE_HABIT_TABLE = "create table if not exists habit_table ( id integer primary key autoincrement, name TEXT NOT NULL);";
+    public static final String CREATE_FAMILY_TABLE = "create table if not exists family_table ( id integer primary key autoincrement, name TEXT NOT NULL);";
+
 
     public DbOperator(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -115,6 +118,8 @@ public class DbOperator extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_FIRST_TABLE);
         db.execSQL(CREATE_SECOND_TABLE);
+        db.execSQL(CREATE_HABIT_TABLE);
+        db.execSQL(CREATE_FAMILY_TABLE);
         //db.close();
     }
 

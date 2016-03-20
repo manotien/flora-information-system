@@ -60,7 +60,6 @@ public class Main2Activity extends AppCompatActivity {
         dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
         fromDateEtxt = (EditText) findViewById(R.id.dateedit);
         fromDateEtxt.setInputType(InputType.TYPE_NULL);
-       //
         fromDateEtxt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -88,7 +87,7 @@ public class Main2Activity extends AppCompatActivity {
         habitat.setAdapter(habit_array);
 
 
-
+//submit data
         Button button = (Button)findViewById(R.id.nextbut);
         button.setOnClickListener(new View.OnClickListener() {
             @Override

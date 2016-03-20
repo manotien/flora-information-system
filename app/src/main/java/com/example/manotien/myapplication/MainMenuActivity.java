@@ -1,10 +1,12 @@
 package com.example.manotien.myapplication;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.design.widget.FloatingActionButton;
@@ -30,6 +32,8 @@ import java.io.FileWriter;
 public class MainMenuActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    DbOperator dbOperator;
+    SQLiteDatabase sqLiteDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +53,7 @@ public class MainMenuActivity extends AppCompatActivity
 
         setTitle("Main Menu");
 
+        //start
         Button button = (Button)findViewById(R.id.button);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,6 +62,7 @@ public class MainMenuActivity extends AppCompatActivity
             }
         });
 
+        //see flora data
         Button test = (Button)findViewById(R.id.information);
         test.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,6 +70,22 @@ public class MainMenuActivity extends AppCompatActivity
                 startActivity(new Intent(MainMenuActivity.this, tab_discover.class));
             }
         });
+        //check database
+        if(doesDatabaseExist(this,"FLORA"))
+        {
+            Log.d("checkaa","hi");
+        }
+        else
+        {
+            dbOperator = new DbOperator(getApplicationContext());
+            sqLiteDatabase = dbOperator.getWritableDatabase();
+            InitialData init =new InitialData();
+            init.initial(sqLiteDatabase);
+            Log.d("checkaa","bye");
+            dbOperator.close();
+        }
+
+        //export database
         Button button1 = (Button)findViewById(R.id.export);
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,11 +110,13 @@ public class MainMenuActivity extends AppCompatActivity
                             +"FLORA_TABLE.cultivated,FLORA_TABLE.cultnotes,FLORA_TABLE.notes,FLORA_TABLE.lat,FLORA_TABLE.ns,FLORA_TABLE.long,FLORA_TABLE.ew,FLORA_TABLE.alt,FLORA_TABLE.altmax,FLORA_TABLE.altnote,FLORA_TABLE.vernacular,FLORA_TABLE.language "
                             +"FROM LOCATION_TABLE INNER JOIN FLORA_TABLE ON FLORA_TABLE.location_id=LOCATION_TABLE.id;";
 
-                    String test ="SELECT * FROM FLORA_TABLE";
-                    Cursor curCSV = db.rawQuery(query, null);
+                    String test ="SELECT * FROM habit_table";
+                    Cursor curCSV = db.rawQuery(test, null);
                     csvWrite.writeNext(curCSV.getColumnNames());
 
                     while (curCSV.moveToNext()) {
+                        String arrStr[] = {curCSV.getString(0), curCSV.getString(1)};
+                        /*
                        String arrStr[] = {curCSV.getString(0), curCSV.getString(1), curCSV.getString(2), curCSV.getString(3),
                                 curCSV.getString(4), curCSV.getString(5), curCSV.getString(6), curCSV.getString(7), curCSV.getString(8),
                                 curCSV.getString(9), curCSV.getString(10), curCSV.getString(11), curCSV.getString(12), curCSV.getString(13),
@@ -104,7 +128,7 @@ public class MainMenuActivity extends AppCompatActivity
                                 curCSV.getString(39), curCSV.getString(40), curCSV.getString(41), curCSV.getString(42), curCSV.getString(43),
                                 curCSV.getString(44), curCSV.getString(45), curCSV.getString(46), curCSV.getString(47), curCSV.getString(48),
                                 curCSV.getString(49), curCSV.getString(50)};
-
+*/
                         csvWrite.writeNext(arrStr);
                     }
                     csvWrite.close();
@@ -116,6 +140,13 @@ public class MainMenuActivity extends AppCompatActivity
             }
         });
     }
+    private static boolean doesDatabaseExist(Context context, String dbName) {
+        File dbFile = context.getDatabasePath(dbName);
+        return dbFile.exists();
+    }
+
+
+
 
     @Override
     public void onBackPressed() {
