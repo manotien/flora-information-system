@@ -108,6 +108,8 @@ public class DbOperator extends SQLiteOpenHelper {
 
     public static final String CREATE_HABIT_TABLE = "create table if not exists habit_table ( id integer primary key autoincrement, name TEXT NOT NULL);";
     public static final String CREATE_FAMILY_TABLE = "create table if not exists family_table ( id integer primary key autoincrement, name TEXT NOT NULL);";
+    public static final String CREATE_HABITAT_TABLE = "create table if not exists habitat_table ( id integer primary key autoincrement, name TEXT NOT NULL);";
+    public static final String CREATE_GENUS_TABLE = "create table if not exists genus_table ( id integer primary key autoincrement, name TEXT NOT NULL, family_name TEXT NOT NULL);";
 
 
     public DbOperator(Context context) {
@@ -120,6 +122,8 @@ public class DbOperator extends SQLiteOpenHelper {
         db.execSQL(CREATE_SECOND_TABLE);
         db.execSQL(CREATE_HABIT_TABLE);
         db.execSQL(CREATE_FAMILY_TABLE);
+        db.execSQL(CREATE_HABITAT_TABLE);
+        db.execSQL(CREATE_GENUS_TABLE);
         //db.close();
     }
 
@@ -198,6 +202,13 @@ public class DbOperator extends SQLiteOpenHelper {
         return cursor;
     }
 
+    public Cursor GetLocationListView(SQLiteDatabase db){
+        Cursor cursor;
+        String[] projection = {"id",KEY_PLACE,KEY_PROTECTED,KEY_DAY,KEY_MONTH,KEY_YEAR,KEY_COLLECTOR};
+        String orderby = KEY_TIMESTAMP_LOCATION+" DESC";
+        cursor = db.query(FIRST_TABLE_NAME,projection,null,null,null,null,orderby);
+        return cursor;
+    }
     public Cursor GetFloraForListView(SQLiteDatabase db,Integer location_id){
         Cursor cursor;
         String[] projection = {"id",KEY_LOCATIONID,KEY_FAMILY,KEY_GENUS,KEY_SP1,KEY_LAT,KEY_LONG};
@@ -207,7 +218,12 @@ public class DbOperator extends SQLiteOpenHelper {
         return cursor;
     }
 
-
+    public Cursor GetHabitatList(SQLiteDatabase db){
+        Cursor cursor;
+        String[] projection = {"name"};
+        cursor = db.query("habitat_table",projection,null,null,null,null,null);
+        return cursor;
+    }
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         //THIS WILL BE EXECUTED WHEN YOU UPDATED VERSION OF DATABASE_VERSION

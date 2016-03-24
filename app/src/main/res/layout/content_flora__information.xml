@@ -10,4 +10,5 @@
     tools:showIn="@layout/activity_flora__information"
     tools:context="com.example.manotien.myapplication.Flora_Information">
 
+    
 </RelativeLayout>

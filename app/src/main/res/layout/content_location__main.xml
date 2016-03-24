@@ -10,4 +10,27 @@
     tools:showIn="@layout/activity_location__main"
     tools:context="com.example.manotien.myapplication.Location_Main">
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add Location"
+        android:id="@+id/addlocation"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/textView"
+        android:layout_alignParentRight="true"
+        android:textSize="15dp"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_below="@+id/addlocation"
+        android:id="@+id/location_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
+        android:layout_marginTop="20dp"
+        android:scrollbars="vertical"
+        />
+
+
 </RelativeLayout>

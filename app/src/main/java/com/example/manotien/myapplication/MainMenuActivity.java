@@ -58,7 +58,7 @@ public class MainMenuActivity extends AppCompatActivity
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainMenuActivity.this, Main2Activity.class));
+                startActivity(new Intent(MainMenuActivity.this, Location_Main.class));
             }
         });
 
@@ -110,12 +110,12 @@ public class MainMenuActivity extends AppCompatActivity
                             +"FLORA_TABLE.cultivated,FLORA_TABLE.cultnotes,FLORA_TABLE.notes,FLORA_TABLE.lat,FLORA_TABLE.ns,FLORA_TABLE.long,FLORA_TABLE.ew,FLORA_TABLE.alt,FLORA_TABLE.altmax,FLORA_TABLE.altnote,FLORA_TABLE.vernacular,FLORA_TABLE.language "
                             +"FROM LOCATION_TABLE INNER JOIN FLORA_TABLE ON FLORA_TABLE.location_id=LOCATION_TABLE.id;";
 
-                    String test ="SELECT * FROM habit_table";
+                    String test ="SELECT * FROM genus_table";
                     Cursor curCSV = db.rawQuery(test, null);
                     csvWrite.writeNext(curCSV.getColumnNames());
 
                     while (curCSV.moveToNext()) {
-                        String arrStr[] = {curCSV.getString(0), curCSV.getString(1)};
+                        String arrStr[] = {curCSV.getString(0), curCSV.getString(1),curCSV.getString(2)};
                         /*
                        String arrStr[] = {curCSV.getString(0), curCSV.getString(1), curCSV.getString(2), curCSV.getString(3),
                                 curCSV.getString(4), curCSV.getString(5), curCSV.getString(6), curCSV.getString(7), curCSV.getString(8),

@@ -69,7 +69,7 @@ public class tab_discover extends AppCompatActivity {
                     public void onTabSelected(TabLayout.Tab tab) {
                         View focus = getCurrentFocus();
                         if (focus != null) {
-                            hiddenKeyboard(focus);
+                            hiddenKeyboard(focus); 
                         }
 
                         super.onTabSelected(tab);

@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.app.DatePickerDialog.OnDateSetListener;
@@ -24,11 +25,15 @@ import android.widget.EditText;
 import android.widget.Spinner;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Locale;
 import java.util.Set;
+
+import static android.database.DatabaseUtils.dumpCursorToString;
 
 
 public class Main2Activity extends AppCompatActivity {
@@ -40,15 +45,16 @@ public class Main2Activity extends AppCompatActivity {
     DbOperator dbOperator;
     Context context = this;
     SQLiteDatabase sqLiteDatabase;
+    Cursor cursor;
 
     private final String[] list =  {
             "AABC DDD", "AAAB","AACB DDD","ABCD CCC","ABDS","ABCS"};
 
     private final String[] protect_item = new String[]{"Test", "BBBB", "AAAA"};
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
@@ -56,6 +62,7 @@ public class Main2Activity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         setTitle("Exploration Place");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
 //date
         dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
         fromDateEtxt = (EditText) findViewById(R.id.dateedit);
@@ -82,8 +89,23 @@ public class Main2Activity extends AppCompatActivity {
         Spinner province = (Spinner)findViewById(R.id.protectedspin);
         province.setAdapter(adapter);
 
+        //Autocomplete Habitat
+        //String [] habitat={};
+        List<String> habitatList = new ArrayList<>() ;
+        dbOperator = new DbOperator(getApplicationContext());
+        sqLiteDatabase = dbOperator.getReadableDatabase();
+        cursor = dbOperator.GetHabitatList(sqLiteDatabase);
+        if(cursor.moveToFirst()){
+            do {
+                habitatList.add(cursor.getString(0));
+
+            } while (cursor.moveToNext());
+
+            cursor.close();
+        }
+
         AutoCompleteTextView habitat = (AutoCompleteTextView)findViewById(R.id.habitatedit);
-        ArrayAdapter habit_array = new ArrayAdapter(this,android.R.layout.simple_list_item_1,list);
+        ArrayAdapter habit_array = new ArrayAdapter(this,android.R.layout.simple_list_item_1,habitatList);
         habitat.setAdapter(habit_array);
 
 
@@ -128,5 +150,4 @@ public class Main2Activity extends AppCompatActivity {
         });
 
     }
-
 }

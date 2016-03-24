@@ -47,6 +47,7 @@ public class Survey_Main extends AppCompatActivity {
         String month = sp.getString("month",null);
         String year = sp.getString("year",null);
         String[] date = {day,month,year};
+        Log.d("qwer",placename+day+month+year);
         TextView placename_ans = (TextView)findViewById(R.id.placename);
         TextView protect_ans = (TextView)findViewById(R.id.protect);
         TextView province_ans = (TextView)findViewById(R.id.province);
@@ -77,7 +78,7 @@ public class Survey_Main extends AppCompatActivity {
         //recycle view
         recyclerView= (RecyclerView) findViewById(R.id.my_recycler_view);
 
-        RecyclerAdapter adapter=new RecyclerAdapter(this,createList(10));
+        RecyclerAdapter adapter=new RecyclerAdapter(this,createList());
         recyclerView.setAdapter(adapter);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -95,7 +96,7 @@ public class Survey_Main extends AppCompatActivity {
 
 
     }
-    private List<FloraData> createList(int size) {
+    private List<FloraData> createList() {
 
         List<FloraData> result = new ArrayList<FloraData>();
         SharedPreferences sp = getSharedPreferences("place_date", Context.MODE_PRIVATE);
