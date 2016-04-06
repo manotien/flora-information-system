@@ -98,7 +98,6 @@ public class Main2Activity extends AppCompatActivity {
         if(cursor.moveToFirst()){
             do {
                 habitatList.add(cursor.getString(0));
-
             } while (cursor.moveToNext());
 
             cursor.close();

@@ -84,7 +84,11 @@ public class MainMenuActivity extends AppCompatActivity
             Log.d("checkaa","bye");
             dbOperator.close();
         }
-
+        //
+        File flora_photo = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "Flora");
+        if (!flora_photo.exists()) {
+            flora_photo.mkdirs();
+        }
         //export database
         Button button1 = (Button)findViewById(R.id.export);
         button1.setOnClickListener(new View.OnClickListener() {

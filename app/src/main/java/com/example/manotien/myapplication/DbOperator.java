@@ -218,6 +218,15 @@ public class DbOperator extends SQLiteOpenHelper {
         return cursor;
     }
 
+    public Cursor GetFloraInformation(SQLiteDatabase db,Integer flora_id){
+        Cursor cursor;
+        String[] projection = {"id",KEY_FAMILY ,KEY_GENUS ,KEY_CF ,KEY_SP1 ,KEY_AUTHOR1 ,KEY_RANK1 ,KEY_SP2 ,KEY_AUTHOR2,KEY_RANK2 ,KEY_SP3 ,
+                KEY_AUTHOR3 ,KEY_PLANTDESCRIPTION ,KEY_PHENOLOGY ,KEY_DETBY ,KEY_DETDD ,KEY_DETMM ,KEY_DETYY ,KEY_DETNOTES ,KEY_CULTIVATED,
+                KEY_CULTNOTES ,KEY_NOTES ,KEY_LAT ,KEY_NS ,KEY_LONG ,KEY_EW ,KEY_ALT ,KEY_ALTMAX ,KEY_ALTNOTE ,KEY_VERNACULAR ,KEY_LANGUAGE};
+        String WHERE = "id ="+String.valueOf(flora_id);
+        cursor = db.query(SECOND_TABLE_NAME,projection,WHERE,null,null,null,null);
+        return cursor;
+    }
     public Cursor GetHabitatList(SQLiteDatabase db){
         Cursor cursor;
         String[] projection = {"name"};

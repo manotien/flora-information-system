@@ -34,6 +34,7 @@ public class third extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+
         final View view =inflater.inflate(R.layout.fragment_third, container, false);
 
         SharedPreferences sp = this.getActivity().getSharedPreferences("place_date", Context.MODE_PRIVATE);
@@ -52,6 +53,7 @@ public class third extends Fragment {
                 tab_discover activity = (tab_discover) getActivity();
                 String[] first = activity.getMydata();
                 String[] second = activity.getMydata2();
+
                 Log.d("testtest",Arrays.deepToString(first));
                 DbOperator dbOperator = new DbOperator(getActivity());
                 sqLiteDatabase = dbOperator.getWritableDatabase();
