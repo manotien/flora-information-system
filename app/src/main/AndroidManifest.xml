@@ -79,6 +79,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.manotien.myapplication.MainMenuActivity" />
         </activity>
+        <activity
+            android:name=".Export_Data"
+            android:label="@string/title_activity_export__data"
+            android:parentActivityName=".MainMenuActivity"
+            android:theme="@style/AppTheme.NoActionBar" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.manotien.myapplication.MainMenuActivity" />
+        </activity>
     </application>
 
 </manifest>

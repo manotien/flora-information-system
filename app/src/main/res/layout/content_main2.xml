@@ -242,10 +242,11 @@
 
                 />
 
-            <Button
+            <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Add"
+                android:focusable="false"
+                android:ems="8"
                 android:id="@+id/cocollecbut"
                 android:layout_marginTop="20dp"
                 android:layout_below="@+id/collectortxt"
