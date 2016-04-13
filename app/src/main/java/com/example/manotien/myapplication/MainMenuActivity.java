@@ -71,14 +71,15 @@ public class MainMenuActivity extends AppCompatActivity
             }
         });
         //check database
+        dbOperator = new DbOperator(getApplicationContext());
+        sqLiteDatabase = dbOperator.getWritableDatabase();
         if(doesDatabaseExist(this,"FLORA"))
         {
             Log.d("checkaa","hi");
         }
         else
         {
-            dbOperator = new DbOperator(getApplicationContext());
-            sqLiteDatabase = dbOperator.getWritableDatabase();
+
             InitialData init =new InitialData();
             init.initial(sqLiteDatabase);
             Log.d("checkaa","bye");

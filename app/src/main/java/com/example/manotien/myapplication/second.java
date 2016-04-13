@@ -52,7 +52,6 @@ public class second extends Fragment {
         // Inflate the layout for this fragment
 
         View view = inflater.inflate(R.layout.fragment_second, container, false);
-        Log.d("testz", "a2");
 
         general = (ScrollView) view.findViewById(R.id.general_form);
         x = (ScrollView) view.findViewById(R.id.x_form);

@@ -7,13 +7,14 @@ package com.example.manotien.myapplication;
         import android.view.LayoutInflater;
         import android.view.View;
         import android.view.ViewGroup;
+        import android.widget.ImageButton;
         import android.widget.ImageView;
         import android.widget.TextView;
 
 public class LocationRecycleViewHolder extends RecyclerView.ViewHolder {
 
     TextView place,protect,date,collector;
-
+    ImageButton setting;
 
     public LocationRecycleViewHolder(View itemView) {
         super(itemView);
@@ -22,6 +23,6 @@ public class LocationRecycleViewHolder extends RecyclerView.ViewHolder {
         protect= (TextView) itemView.findViewById(R.id.protect);
         date= (TextView) itemView.findViewById(R.id.date);
         collector= (TextView) itemView.findViewById(R.id.collector);
-
+        setting = (ImageButton) itemView.findViewById(R.id.setting);
     }
 }

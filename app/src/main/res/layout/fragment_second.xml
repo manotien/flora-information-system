@@ -46,7 +46,7 @@
                 android:id="@+id/habit"
                 android:hint="Habit" />
         </android.support.design.widget.TextInputLayout>
-        <android.support.design.widget.TextInputLayoutx
+        <android.support.design.widget.TextInputLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@+id/habittxt"
@@ -61,7 +61,7 @@
                 android:inputType="numberDecimal"
                 android:ems="7"
                 android:hint="Height (cm.)" />
-        </android.support.design.widget.TextInputLayoutx>
+        </android.support.design.widget.TextInputLayout>
         <View
             android:layout_width="wrap_content"
             android:layout_centerHorizontal="true"

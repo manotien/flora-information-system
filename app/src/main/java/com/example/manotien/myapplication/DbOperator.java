@@ -40,7 +40,7 @@ public class DbOperator extends SQLiteOpenHelper {
     protected static final String KEY_LOCALITY_NOTE = "locality_notes";
     protected static final String KEY_HABITAT = "habitat";
     protected static final String KEY_TIMESTAMP_LOCATION = "timestamp_location";
-
+    protected static final String  KEY_ISEXPORT = "is_export";
 
 
     //Attribute in FLORA_TABLE
@@ -87,7 +87,7 @@ public class DbOperator extends SQLiteOpenHelper {
             + KEY_BKFAREACOD + " TEXT NOT NULL," + KEY_PROVINCE+ " TEXT NOT NULL," + KEY_DISTRICT + " TEXT NOT NULL,"
             + KEY_SUBDISTRICT + " TEXT NOT NULL," + KEY_PROTECTED+ " TEXT NOT NULL," + KEY_PLACE + " TEXT NOT NULL,"
             + KEY_LOCALITY_NOTE + " TEXT NOT NULL," + KEY_HABITAT + " TEXT NOT NULL,"
-            + KEY_TIMESTAMP_LOCATION + " TIMESTAMP DEFAULT CURRENT_TIMESTAMP"
+            + KEY_TIMESTAMP_LOCATION + " TIMESTAMP DEFAULT CURRENT_TIMESTAMP,"+KEY_ISEXPORT+" BOOLEAN NOT NULL"
             + ");";
 
     public static final String CREATE_SECOND_TABLE = "create table if not exists "
@@ -150,6 +150,7 @@ public class DbOperator extends SQLiteOpenHelper {
         contentv.put(KEY_DAY,day);
         contentv.put(KEY_MONTH,month);
         contentv.put(KEY_YEAR, year);
+        contentv.put(KEY_ISEXPORT,false);
         db.insert(FIRST_TABLE_NAME, null, contentv);
     }
     public void AddFloraInformation(String lat,String longti,String alt,String altmax,String altnote,String genus, String family,String cf,String sp1,String rank1,String sp2,
@@ -193,7 +194,14 @@ public class DbOperator extends SQLiteOpenHelper {
         db.insert(SECOND_TABLE_NAME, null, contentv);
     }
 
-
+    public void setIsExportLocation(SQLiteDatabase db,int location_id){
+        ContentValues contentv = new ContentValues();
+        contentv.put(KEY_ISEXPORT, true);
+        contentv.put(KEY_PLACE,"hihih");
+        String selection = "id LIKE ?";
+        String []selectionArgs = {String.valueOf(location_id)};
+        int a= db.update(FIRST_TABLE_NAME,contentv,selection,selectionArgs);
+    }
     public Cursor GetLocationInformation(SQLiteDatabase db,String placename ,String[] date){
         Cursor cursor;
         String[] projection ={"id",KEY_PLACE,KEY_PROTECTED,KEY_LOCALITY_NOTE,KEY_HABITAT,KEY_COUNTRY,KEY_REGION,KEY_PROVINCE,KEY_DISTRICT,KEY_SUBDISTRICT,KEY_COLLECTOR,KEY_COCOLLECTOR,KEY_DAY,KEY_MONTH,KEY_YEAR};
@@ -204,7 +212,7 @@ public class DbOperator extends SQLiteOpenHelper {
 
     public Cursor GetLocationListView(SQLiteDatabase db){
         Cursor cursor;
-        String[] projection = {"id",KEY_PLACE,KEY_PROTECTED,KEY_DAY,KEY_MONTH,KEY_YEAR,KEY_COLLECTOR};
+        String[] projection = {"id",KEY_PLACE,KEY_PROTECTED,KEY_DAY,KEY_MONTH,KEY_YEAR,KEY_COLLECTOR,KEY_ISEXPORT};
         String orderby = KEY_TIMESTAMP_LOCATION+" DESC";
         cursor = db.query(FIRST_TABLE_NAME,projection,null,null,null,null,orderby);
         return cursor;

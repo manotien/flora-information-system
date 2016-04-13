@@ -10,18 +10,22 @@ import android.content.SharedPreferences;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.PopupMenu;
+import android.widget.Toast;
 
 import java.util.List;
 
 
 public class LocationRecycleAdapter extends RecyclerView.Adapter<LocationRecycleViewHolder> {
 
-    Context context;
+    Context context1;
     private List<LocationData> locationList;
     LayoutInflater inflater;
     public LocationRecycleAdapter(Context context,List<LocationData> locationlist) {
+        context1 = context;
         inflater=LayoutInflater.from(context);
         this.locationList = locationlist;
     }
@@ -36,12 +40,38 @@ public class LocationRecycleAdapter extends RecyclerView.Adapter<LocationRecycle
     }
 
     @Override
-    public void onBindViewHolder(LocationRecycleViewHolder holder, int position) {
-        LocationData ld = locationList.get(position);
+    public void onBindViewHolder(final LocationRecycleViewHolder holder, final int position) {
+        final LocationData ld = locationList.get(position);
         holder.place.setText("Place: "+ld.place);
         holder.protect.setText("Protected: "+ ld.protect);
         holder.date.setText(ld.date);
         holder.collector.setText(ld.collector);
+        holder.setting.setTag(position);
+        holder.setting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Integer tagposition = (Integer) v.getTag();
+                //LocationData ld = locationList.get(tagposition);
+
+                PopupMenu popup = new PopupMenu(context1, holder.setting);
+                popup.getMenuInflater().inflate(R.menu.popup_menu, popup.getMenu());
+
+                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    public boolean onMenuItemClick(MenuItem item) {
+                        Toast.makeText(context1, "You Clicked : " + item.getTitle(), Toast.LENGTH_SHORT).show();
+                        if(item.getTitle()=="Edit"){
+                            
+                        }
+                        else
+                        {
+
+                        }
+                        return true;
+                    }
+                });
+                popup.show();
+            }
+        });
 
     }
 

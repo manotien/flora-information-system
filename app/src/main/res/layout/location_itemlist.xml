@@ -10,13 +10,14 @@
         android:layout_height="wrap_content"
         android:id="@+id/location_cv"
         card_view:cardCornerRadius="4dp"
-
         >
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="10dp"
+            android:background="#ffffff"
+
             >
 
             <TextView
@@ -55,6 +56,13 @@
                 android:layout_marginTop="5dp"
                 android:textSize="15dp"
                 android:text="20/10/2001"/>
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/setting"
+                android:src="@drawable/ic_more_vert_black_18dp"
+                android:layout_alignParentRight="true"
+                android:background="#ffffff" />
         </RelativeLayout>
 
     </android.support.v7.widget.CardView>

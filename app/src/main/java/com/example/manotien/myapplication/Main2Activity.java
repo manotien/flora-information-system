@@ -119,7 +119,6 @@ public class Main2Activity extends AppCompatActivity {
                 final String[] items = {" Easy ", " Medium ", " Hard ", " Very Hard "};
 // arraylist to keep the selected items
                 final ArrayList seletedItems = new ArrayList();
-
                 AlertDialog dialog = new AlertDialog.Builder(Main2Activity.this)
                         .setTitle("Select The Difficulty Level")
                         .setMultiChoiceItems(items, null, new DialogInterface.OnMultiChoiceClickListener() {
