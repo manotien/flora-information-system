@@ -210,6 +210,28 @@ public class DbOperator extends SQLiteOpenHelper {
         return cursor;
     }
 
+    public void deleteLocation(SQLiteDatabase db,int location_id){
+        String whereClause = "id = ?";
+        String[] whereArgs = { String.valueOf(location_id) };
+
+        String[] projection = {"id"};
+        String WHERE = "location_id ="+String.valueOf(location_id);
+        String orderby = KEY_TIMESTAMP_FLORA+" DESC";
+        Cursor cursor =  db.query(SECOND_TABLE_NAME,projection,WHERE,null,null,null,orderby);
+        if(cursor.moveToFirst()){
+            do {
+                deleteFlora(db,cursor.getInt(0));
+            } while (cursor.moveToNext());
+        }
+        db.delete(FIRST_TABLE_NAME,whereClause,whereArgs);
+    }
+
+    public void deleteFlora(SQLiteDatabase db,int flora_id){
+        String whereClause = "id = ?";
+        String[] whereArgs = { String.valueOf(flora_id) };
+        db.delete(SECOND_TABLE_NAME,whereClause,whereArgs);
+    }
+
     public Cursor GetLocationListView(SQLiteDatabase db){
         Cursor cursor;
         String[] projection = {"id",KEY_PLACE,KEY_PROTECTED,KEY_DAY,KEY_MONTH,KEY_YEAR,KEY_COLLECTOR,KEY_ISEXPORT};

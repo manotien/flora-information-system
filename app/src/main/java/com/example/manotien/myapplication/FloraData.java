@@ -9,4 +9,8 @@ public class FloraData{
     protected String genus;
     protected String family;
     protected int flora_id;
+
+    public int getId(){
+        return flora_id;
+    }
 }

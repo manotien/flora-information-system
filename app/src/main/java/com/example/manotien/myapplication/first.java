@@ -1,12 +1,17 @@
 package com.example.manotien.myapplication;
 
 import android.app.Activity;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -22,6 +27,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TabHost;
@@ -29,12 +35,17 @@ import android.widget.Toast;
 
 import com.google.android.gms.common.api.GoogleApiClient;
 
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class first extends Fragment {
     private GoogleApiClient mGoogleApiClient;
     GetLocation gps;
     private static final int ACTIVITY_START_CAMERA_APP = 0;
     private ImageView mPhotoCapturedImageView;
-
+    Uri uri;
+    int i=0;
     RadioGroup radiogroup;
     RadioButton radiocheck;
     String lat,longti,alt,altmax,altnote,genus,family,sp1,rank1,sp2,rank2,sp3,vern,cultnote,pheno,culti,cf,lang;
@@ -64,9 +75,16 @@ public class first extends Fragment {
         photo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+                String imageFileName = "IMG_" + timeStamp + ".jpg";
+                File f = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "Flora/"+ imageFileName);
+                uri = Uri.fromFile(f);
                 Intent callCameraApplicationIntent = new Intent();
                 callCameraApplicationIntent.setAction(MediaStore.ACTION_IMAGE_CAPTURE);
+                callCameraApplicationIntent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
                 startActivityForResult(callCameraApplicationIntent, ACTIVITY_START_CAMERA_APP);
+
             }
         });
         //gps
@@ -122,7 +140,7 @@ public class first extends Fragment {
             String lat_degree = Integer.toString(gps.intValue());
             Double temp = (gps - Math.floor(gps)) * 60;
             String lat_min = Integer.toString(temp.intValue());
-            String lat_sec = Double.toString((gps * 3600) % 60).substring(0, 7);
+            String lat_sec = Double.toString( Math.round((gps * 3600) % 60.0 *10 )/10.0);
             String all = lat_degree + "°" + lat_min + "'" + lat_sec + "\"";
             return all;
         }
@@ -131,11 +149,41 @@ public class first extends Fragment {
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data){
-        if(requestCode == ACTIVITY_START_CAMERA_APP && resultCode == getActivity().RESULT_OK){
-            Toast.makeText(getActivity(),"เรียบร้อย", Toast.LENGTH_SHORT).show();
-            Bundle extras = data.getExtras();
-            Bitmap photoCapturedBitmap = (Bitmap) extras.get("data");
-            mPhotoCapturedImageView.setImageBitmap(photoCapturedBitmap);
+        if (requestCode == ACTIVITY_START_CAMERA_APP && resultCode == getActivity().RESULT_OK){
+            getActivity().getContentResolver().notifyChange(uri, null);
+            ContentResolver cr = getActivity().getContentResolver();
+            Toast.makeText(getActivity().getApplicationContext(), "Success", Toast.LENGTH_SHORT).show();
+
+            try {
+//////////////////////
+                // First decode with inJustDecodeBounds=true to check dimensions
+                final BitmapFactory.Options options = new BitmapFactory.Options();
+                options.inJustDecodeBounds = true;
+                BitmapFactory.decodeStream(getActivity().getContentResolver().openInputStream(uri), null, options);
+                // Calculate inSampleSize
+                options.inSampleSize = calculateInSampleSize(options, 500, 600);
+                // Decode bitmap with inSampleSize set
+                options.inJustDecodeBounds = false;
+                Bitmap bitmap = BitmapFactory.decodeStream(getActivity().getContentResolver().openInputStream(uri), null, options);
+/////////////////////
+
+                Drawable d = new BitmapDrawable(getResources(), bitmap);
+                LinearLayout layout = (LinearLayout) view.findViewById(R.id.linear);
+                ImageView imageView = new ImageView(getContext());
+                imageView.setId(i);
+
+                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(500, 600);
+
+                imageView.setPadding(2, 2, 20, 2);
+                imageView.setImageDrawable(d);
+                imageView.setLayoutParams(layoutParams);
+                imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+                i++;
+                layout.addView(imageView);
+            }catch (Exception e)
+            {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -167,5 +215,21 @@ public class first extends Fragment {
         lang="";
         String [] first = {lat,longti,alt,altmax,altnote,genus,family,cf,sp1,rank1,sp2,rank2,sp3,vern,lang,culti,cultnote,pheno};
         return first;
+    }
+
+    public static int calculateInSampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight) {
+        // Raw height and width of image
+        final int height = options.outHeight;
+        final int width = options.outWidth;
+        int inSampleSize = 1;
+
+        if (height > reqHeight || width > reqWidth) {
+            if (width > height) {
+                inSampleSize = Math.round((float)height / (float)reqHeight);
+            } else {
+                inSampleSize = Math.round((float)width / (float)reqWidth);
+            }
+        }
+        return inSampleSize;
     }
 }
