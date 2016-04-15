@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.StrictMode;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.util.Log;
@@ -26,8 +27,18 @@ import android.widget.Toast;
 
 import com.opencsv.CSVWriter;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.File;
 import java.io.FileWriter;
+import java.io.IOException;
+
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class MainMenuActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -52,6 +63,13 @@ public class MainMenuActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         setTitle("Main Menu");
+//
+        if (android.os.Build.VERSION.SDK_INT > 9)
+        {
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+        }
+
 
         //start
         Button button = (Button)findViewById(R.id.button);
@@ -96,6 +114,43 @@ public class MainMenuActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MainMenuActivity.this, Export_Data.class));
+
+            }
+        });
+
+        //upload data
+        Button upload = (Button)findViewById(R.id.upload);
+        upload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Cursor cursor;
+                String url = "http://192.168.1.2:8080/flora/create";
+                sendPostLocation post = new sendPostLocation();
+
+                dbOperator = new DbOperator(getApplicationContext());
+                sqLiteDatabase = dbOperator.getReadableDatabase();
+                cursor = dbOperator.GetAllLocation(sqLiteDatabase);
+                boolean response = false;
+                if(cursor.moveToFirst()){
+                    String[] columnNames = cursor.getColumnNames();
+                    do {
+                        JSONObject locationJSON = new JSONObject();
+                        for(int i=1;i<columnNames.length;i++)
+                        {
+                            try {
+                                locationJSON.put(columnNames[i], cursor.getString(i));
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        response = post.send(getApplicationContext(),url,locationJSON);
+                    } while (cursor.moveToNext());
+
+                    cursor.close();
+                }
+                if(response)
+                    Toast.makeText(getApplicationContext(), "Success", Toast.LENGTH_LONG).show();
+
 
             }
         });

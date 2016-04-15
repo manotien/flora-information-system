@@ -202,6 +202,18 @@ public class DbOperator extends SQLiteOpenHelper {
         String []selectionArgs = {String.valueOf(location_id)};
         int a= db.update(FIRST_TABLE_NAME,contentv,selection,selectionArgs);
     }
+    public Cursor GetAllLocation(SQLiteDatabase db){
+        Cursor cursor;
+        cursor = db.query(FIRST_TABLE_NAME,null,null,null,null,null,null);
+        return cursor;
+    }
+
+    public Cursor GetAllFlora(SQLiteDatabase db){
+        Cursor cursor;
+        cursor = db.query(SECOND_TABLE_NAME,null,null,null,null,null,null);
+        return cursor;
+    }
+
     public Cursor GetLocationInformation(SQLiteDatabase db,String placename ,String[] date){
         Cursor cursor;
         String[] projection ={"id",KEY_PLACE,KEY_PROTECTED,KEY_LOCALITY_NOTE,KEY_HABITAT,KEY_COUNTRY,KEY_REGION,KEY_PROVINCE,KEY_DISTRICT,KEY_SUBDISTRICT,KEY_COLLECTOR,KEY_COCOLLECTOR,KEY_DAY,KEY_MONTH,KEY_YEAR};
