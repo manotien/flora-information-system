@@ -84,8 +84,8 @@ public class second extends Fragment {
 
 */
 
-        Button buttongps = (Button) view.findViewById(R.id.outer_bark_color);
-        buttongps.setOnClickListener(new View.OnClickListener() {
+        Button out_bark_color = (Button) view.findViewById(R.id.outer_bark_color_but);
+        out_bark_color.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openDialog(true,"barkcolor");
@@ -101,17 +101,22 @@ public class second extends Fragment {
             tab_discover activity = (tab_discover) getActivity();
             String[] first = activity.getMydata();
             //{lat,longti,alt,altmax,altnote,genus,family,cf,sp1,rank1,sp2,rank2,sp3,vern,lang,culti,cultnote,pheno};
-            //Efamily.setText(first[6]);
-            Tfamily.setText("Family: "+first[6]);
-            if (first[6].equals("General")) {
-                x.setVisibility(View.VISIBLE);
-                general.setVisibility(View.GONE);
-                y.setVisibility(View.GONE);
-            } else {
-                general.setVisibility(View.VISIBLE);
-                x.setVisibility(View.GONE);
-                y.setVisibility(View.GONE);
+            Log.d("tabtab","aa");
+            if(first!=null){
+                Tfamily.setText("Family: "+first[6]);
+                if (first[6].equals("General")) {
+                    x.setVisibility(View.VISIBLE);
+                    general.setVisibility(View.GONE);
+                    y.setVisibility(View.GONE);
+                } else {
+                    general.setVisibility(View.VISIBLE);
+                    x.setVisibility(View.GONE);
+                    y.setVisibility(View.GONE);
+                }
             }
+            else
+                Tfamily.setText("Family: ");
+
         }
     }
 

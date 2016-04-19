@@ -15,6 +15,7 @@ import android.support.v4.app.Fragment;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class third extends Fragment {
@@ -53,12 +54,16 @@ public class third extends Fragment {
                 tab_discover activity = (tab_discover) getActivity();
                 String[] first = activity.getMydata();
                 String[] second = activity.getMydata2();
+                ArrayList<String> photolist = activity.getMyphoto();
 
-                Log.d("testtest",Arrays.deepToString(first));
                 DbOperator dbOperator = new DbOperator(getActivity());
                 sqLiteDatabase = dbOperator.getWritableDatabase();
-                dbOperator.AddFloraInformation(first[0],first[1],first[2],first[3],first[4],first[5],first[6],first[7],first[8],first[9],first[10],
+                long flora_id = dbOperator.AddFloraInformation(first[0],first[1],first[2],first[3],first[4],first[5],first[6],first[7],first[8],first[9],first[10],
                         first[11],first[12],first[13],first[14],first[15],first[16],first[17],second[0],second[1],detby,detdd,detmm,detyy,detnote,location_id,sqLiteDatabase);
+                int i=0;
+                for (i=0;i<photolist.size();i++) {
+                    dbOperator.AddPhoto(sqLiteDatabase, photolist.get(i), String.valueOf(flora_id));
+                }
                 dbOperator.close();
 
                 Intent intentsend = new Intent(getActivity(), Survey_Main.class);

@@ -51,6 +51,7 @@ public class tab_discover extends AppCompatActivity {
 
     private String[] firstmsg;
     private String [] secondmsg;
+    private ArrayList<String> photolist;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,6 +79,12 @@ public class tab_discover extends AppCompatActivity {
 
                         super.onTabSelected(tab);
                         int numTab = tab.getPosition();
+                        Log.d("tabtab",String.valueOf(numTab));
+                        if (numTab == 0){
+                            Fragment fragment = getActiveFragment(viewPager, 0);
+                            first oneFragment = (first) fragment;
+                            firstmsg = oneFragment.getMyText();
+                        }
                         if (numTab == 1){
                             Fragment fragment = getActiveFragment(viewPager, 0);
                             first oneFragment = (first) fragment;
@@ -89,10 +96,13 @@ public class tab_discover extends AppCompatActivity {
                             Fragment fragment = getActiveFragment(viewPager, 0);
                             first oneFragment = (first) fragment;
                             firstmsg = oneFragment.getMyText();
+                            photolist = oneFragment.getMyPhoto();
+
 
                             Fragment fragment2 = getActiveFragment(viewPager, 1);
                             second twoFragment = (second) fragment2;
                             secondmsg = twoFragment.getMyText();
+
                         }
                     }
 
@@ -205,6 +215,9 @@ public class tab_discover extends AppCompatActivity {
     }
     public String[] getMydata2(){
         return secondmsg;
+    }
+    public ArrayList<String> getMyphoto(){
+        return photolist;
     }
 
 }

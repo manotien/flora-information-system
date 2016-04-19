@@ -16,6 +16,7 @@ public class DbOperator extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "FLORA";
     protected static final String FIRST_TABLE_NAME = "LOCATION_TABLE";
     protected static final String SECOND_TABLE_NAME = "FLORA_TABLE";
+    protected static final String PHOTO_TABLE_NAME = "PHOTO_TABLE";
 
 //Attribute in LOCATION_TABLE
     protected static final String KEY_DUBS = "dubs";  //0
@@ -77,6 +78,16 @@ public class DbOperator extends SQLiteOpenHelper {
     protected static final String KEY_LANGUAGE = "language";
     protected static final String KEY_TIMESTAMP_FLORA = "timestamp_flora";
 
+    //picture
+    protected static final String KEY_FLORA_ID = "flora_id";
+    protected static final String KEY_NAME = "name";
+    protected static final String KEY_TIMESTAMP_PHOTO = "timestamp_photo";
+
+    public static final String CREATE_PHOTO_TABLE = "create table if not exists "
+            + PHOTO_TABLE_NAME
+            + " ( id integer primary key autoincrement, "+ KEY_FLORA_ID +" TEXT NOT NULL, "
+            + KEY_NAME + " TEXT NOT NULL, "
+            + KEY_TIMESTAMP_PHOTO + " TIMESTAMP DEFAULT CURRENT_TIMESTAMP);";
 
     public static final String CREATE_FIRST_TABLE = "create table if not exists "
             + FIRST_TABLE_NAME
@@ -124,7 +135,20 @@ public class DbOperator extends SQLiteOpenHelper {
         db.execSQL(CREATE_FAMILY_TABLE);
         db.execSQL(CREATE_HABITAT_TABLE);
         db.execSQL(CREATE_GENUS_TABLE);
+        db.execSQL(CREATE_PHOTO_TABLE);
         //db.close();
+    }
+    public long AddPhoto(SQLiteDatabase db,String name,String flora_id){
+        ContentValues contentv = new ContentValues();
+        contentv.put(KEY_NAME, name);
+        contentv.put(KEY_FLORA_ID, flora_id);
+        return db.insert(PHOTO_TABLE_NAME, null, contentv);
+    }
+    public Cursor GetPhoto(SQLiteDatabase db,String flora_id){
+        Cursor cursor;
+        String WHERE = "flora_id = '"+flora_id+"'";
+        cursor = db.query(PHOTO_TABLE_NAME,null,WHERE,null,null,null,null);
+        return cursor;
     }
 
     public void AddLocationInformation(String place, String protect, String locality, String habitat, String country,String region,String province,String district,String subdistrict,String collector,String cocollector,String day,String month, String year,SQLiteDatabase db) {
@@ -153,7 +177,7 @@ public class DbOperator extends SQLiteOpenHelper {
         contentv.put(KEY_ISEXPORT,false);
         db.insert(FIRST_TABLE_NAME, null, contentv);
     }
-    public void AddFloraInformation(String lat,String longti,String alt,String altmax,String altnote,String genus, String family,String cf,String sp1,String rank1,String sp2,
+    public long AddFloraInformation(String lat,String longti,String alt,String altmax,String altnote,String genus, String family,String cf,String sp1,String rank1,String sp2,
                                     String rank2,String sp3,String vern,String lang,String culti,String cultnote,String pheno,String plant_des,
                                     String note,String detby,String detdd,String detmm,String detyy,String detnote,int location_id,SQLiteDatabase db)
     {
@@ -180,7 +204,7 @@ public class DbOperator extends SQLiteOpenHelper {
         contentv.put(KEY_CULTIVATED,culti);
         contentv.put(KEY_CULTNOTES,cultnote);
         contentv.put(KEY_NOTES,note);
-        contentv.put(KEY_LAT,lat);
+        contentv.put(KEY_LAT, lat);
         contentv.put(KEY_NS,"ns");
         contentv.put(KEY_LONG,longti);
         contentv.put(KEY_EW,"ew");
@@ -191,13 +215,25 @@ public class DbOperator extends SQLiteOpenHelper {
         contentv.put(KEY_LANGUAGE,lang);
        // contentv.put(KEY_TIMESTAMP_FLORA, "a");
 
-        db.insert(SECOND_TABLE_NAME, null, contentv);
+        return db.insert(SECOND_TABLE_NAME, null, contentv);
+    }
+
+    public Cursor GetGenusList(SQLiteDatabase db){
+        Cursor cursor;
+        String[] projection = {"name","family_name"};
+        cursor = db.query("genus_table",projection,null,null,null,null,null);
+        return cursor;
+    }
+    public Cursor GetFamilyList(SQLiteDatabase db){
+        Cursor cursor;
+        String[] projection = {"name"};
+        cursor = db.query("family_table",projection,null,null,null,null,null);
+        return cursor;
     }
 
     public void setIsExportLocation(SQLiteDatabase db,int location_id){
         ContentValues contentv = new ContentValues();
         contentv.put(KEY_ISEXPORT, true);
-        contentv.put(KEY_PLACE,"hihih");
         String selection = "id LIKE ?";
         String []selectionArgs = {String.valueOf(location_id)};
         int a= db.update(FIRST_TABLE_NAME,contentv,selection,selectionArgs);
@@ -208,9 +244,10 @@ public class DbOperator extends SQLiteOpenHelper {
         return cursor;
     }
 
-    public Cursor GetAllFlora(SQLiteDatabase db){
+    public Cursor GetAllFlora(SQLiteDatabase db,String location_id){
         Cursor cursor;
-        cursor = db.query(SECOND_TABLE_NAME,null,null,null,null,null,null);
+        String WHERE = "location_id = '"+location_id+"'";
+        cursor = db.query(SECOND_TABLE_NAME,null,WHERE,null,null,null,null);
         return cursor;
     }
 
@@ -243,6 +280,7 @@ public class DbOperator extends SQLiteOpenHelper {
         String[] whereArgs = { String.valueOf(flora_id) };
         db.delete(SECOND_TABLE_NAME,whereClause,whereArgs);
     }
+
 
     public Cursor GetLocationListView(SQLiteDatabase db){
         Cursor cursor;

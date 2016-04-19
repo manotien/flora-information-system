@@ -45,16 +45,15 @@ public class Main2Activity extends AppCompatActivity {
     private DatePickerDialog fromDatePickerDialog;
     private SimpleDateFormat dateFormatter;
 
+
     DbOperator dbOperator;
     Context context = this;
     SQLiteDatabase sqLiteDatabase;
     Cursor cursor;
-    ArrayList cocol_item = new ArrayList();
-    private final String[] list = {
-            "AABC DDD", "AAAB", "AACB DDD", "ABCD CCC", "ABDS", "ABCS"};
-
-    private final String[] protect_item = new String[]{"Test", "BBBB", "AAAA"};
-
+    String cocollector = "";
+    private final String[] protect_item = new String[]{"None","Mu Ko Lanta","Chae Son National Park", "Doi Chong National Park", "Mae Tho National Park","Phu Pha Man National Park","Kaeng Krachan National Park","Khao Luang National Park","Thale Ban National Park"};
+    private final String[] region_list = new String[]{"Northern","Northeastern","Southwestern","Central","Peninsular","Southeastern","Eastern"};
+    private final String[] province_list = new String[]{"Bangkok","Chachoengsao","Chaiyaphum","Trat","Trang","Chumphon","Chonburi","Kanchanaburi","Lamphun","Krabi","","Buriram","Nonthaburi","Nan","Narathiwat"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,8 +62,20 @@ public class Main2Activity extends AppCompatActivity {
         setContentView(R.layout.activity_main2);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        setTitle("Exploration Place");
+        setTitle("Add Location");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+//get layout
+        final EditText placename = (EditText) findViewById(R.id.placenameedit);
+        final Spinner protect = (Spinner) findViewById(R.id.protectedspin);
+        final EditText locality = (EditText) findViewById(R.id.localnoteedit);
+        final AutoCompleteTextView habitat = (AutoCompleteTextView) findViewById(R.id.habitatedit);
+        final AutoCompleteTextView country = (AutoCompleteTextView) findViewById(R.id.countryedit);
+        final AutoCompleteTextView region = (AutoCompleteTextView) findViewById(R.id.regionedit);
+        final AutoCompleteTextView province = (AutoCompleteTextView) findViewById(R.id.provinceedit);
+        final AutoCompleteTextView district = (AutoCompleteTextView) findViewById(R.id.districtedit);
+        final AutoCompleteTextView subdistrict = (AutoCompleteTextView) findViewById(R.id.subdisedit);
+        final EditText collector = (EditText) findViewById(R.id.collectoredit);
 
 //date
         dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
@@ -89,26 +100,36 @@ public class Main2Activity extends AppCompatActivity {
 
 //spinner
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, protect_item);
-        Spinner province = (Spinner) findViewById(R.id.protectedspin);
-        province.setAdapter(adapter);
+        protect.setAdapter(adapter);
 
         //Autocomplete Habitat
-        //String [] habitat={};
-        List<String> habitatList = new ArrayList<>();
+        ArrayList<String> habitatList = new ArrayList<>();
         dbOperator = new DbOperator(getApplicationContext());
         sqLiteDatabase = dbOperator.getReadableDatabase();
         cursor = dbOperator.GetHabitatList(sqLiteDatabase);
         if (cursor.moveToFirst()) {
             do {
+
                 habitatList.add(cursor.getString(0));
             } while (cursor.moveToNext());
 
             cursor.close();
         }
 
-        AutoCompleteTextView habitat = (AutoCompleteTextView) findViewById(R.id.habitatedit);
-        ArrayAdapter habit_array = new ArrayAdapter(this, android.R.layout.simple_list_item_1, habitatList);
-        habitat.setAdapter(habit_array);
+        ArrayAdapter<String> habitat_array = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, habitatList);
+        habitat.setAdapter(habitat_array);
+        habitat.setThreshold(1);
+
+        //Autocomplete Region
+        ArrayAdapter<String> region_array = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, region_list);
+        region.setAdapter(region_array);
+        region.setThreshold(1);
+
+        //Autocomplete province
+        ArrayAdapter<String> province_array = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, province_list);
+        province.setAdapter(province_array);
+        province.setThreshold(1);
+
 
 //click button to show co-collector dialog
         final EditText cobut = (EditText) findViewById(R.id.cocollecbut);
@@ -116,7 +137,8 @@ public class Main2Activity extends AppCompatActivity {
         cobut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final String[] items = {" Easy ", " Medium ", " Hard ", " Very Hard "};
+                final String[] items = {"Manotien Yuyanyong ", "Surote Wongpaiboon", "Chayutpong Prompak", "Danai Wilaieak"};
+
 // arraylist to keep the selected items
                 final ArrayList seletedItems = new ArrayList();
                 AlertDialog dialog = new AlertDialog.Builder(Main2Activity.this)
@@ -135,14 +157,17 @@ public class Main2Activity extends AppCompatActivity {
                         }).setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int id) {
-                                String cocollector="";
+                                cocollector="";
                                 for (Object item : seletedItems) {
                                     //cocol_item.add();
-                                    cocollector=cocollector+items[Integer.valueOf((Integer) item)]+",";
+                                    cocollector = cocollector + items[Integer.valueOf((Integer) item)] + ",";
                                 }
-                                cocollector = cocollector.substring(0, cocollector.length()-1);
-                                if(cocollector.length()!=0)
-                                    cobut.setText(cocollector);
+
+                                if (cocollector.length() != 0)
+                                    cocollector = cocollector.substring(0, cocollector.length() - 1);
+
+                                cobut.setText(cocollector);
+
                             }
                         }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                             @Override
@@ -169,17 +194,7 @@ public class Main2Activity extends AppCompatActivity {
                     month = date[1];
                     year = date[2];
                 }
-                EditText placename = (EditText) findViewById(R.id.placenameedit);
-                Spinner protect = (Spinner) findViewById(R.id.protectedspin);
-                EditText locality = (EditText) findViewById(R.id.localnoteedit);
-                AutoCompleteTextView habitat = (AutoCompleteTextView) findViewById(R.id.habitatedit);
-                EditText country = (EditText) findViewById(R.id.countryedit);
-                EditText region = (EditText) findViewById(R.id.regionedit);
-                EditText province = (EditText) findViewById(R.id.provinceedit);
-                EditText district = (EditText) findViewById(R.id.districtedit);
-                EditText subdistrict = (EditText) findViewById(R.id.subdisedit);
-                EditText collector = (EditText) findViewById(R.id.collectoredit);
-                String cocollector = "Tien, AAA";
+
                 dbOperator = new DbOperator(context);
                 sqLiteDatabase = dbOperator.getWritableDatabase();
                 dbOperator.AddLocationInformation(placename.getText().toString(), protect.getSelectedItem().toString(), locality.getText().toString(), habitat.getText().toString(), country.getText().toString(),

@@ -18,16 +18,41 @@
         android:focusableInTouchMode="true"
 
         >
-    <TextView
+        <HorizontalScrollView
+            android:id="@+id/horizontal_scroll"
+            android:layout_width="match_parent"
+            android:layout_marginTop="30dp"
+            android:layout_marginRight="10dp"
+            android:layout_height="wrap_content" >
+            <LinearLayout
+                android:id="@+id/linear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+            </LinearLayout>
+        </HorizontalScrollView>
+
+        <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="latlong"
-        android:id="@+id/latlong"
+        android:text="lat"
+        android:id="@+id/lat"
         android:layout_marginTop="30dp"
         android:layout_marginLeft="10dp"
         android:textSize="20dp"
-
+        android:layout_below="@+id/horizontal_scroll"
         />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="long"
+            android:id="@+id/longi"
+            android:layout_below="@+id/lat"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="10dp"
+            android:textSize="20dp"
+
+            />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -35,7 +60,7 @@
         android:id="@+id/alt"
         android:layout_marginTop="20dp"
         android:layout_marginLeft="10dp"
-        android:layout_below="@+id/latlong"
+        android:layout_below="@+id/longi"
         android:textSize="20dp"
         />
     <TextView
@@ -138,19 +163,6 @@
         android:layout_below="@+id/cultivatenote"
         android:textSize="20dp"
         />
-    <HorizontalScrollView
-        android:id="@+id/horizontal_scroll"
-        android:layout_width="match_parent"
-        android:layout_below="@+id/phenology"
-        android:layout_marginTop="10dp"
-        android:layout_height="wrap_content" >
-        <LinearLayout
-            android:id="@+id/linear"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal" >
-        </LinearLayout>
-    </HorizontalScrollView>
 
     <TextView
         android:layout_width="wrap_content"
@@ -159,7 +171,7 @@
         android:id="@+id/plantdescription"
         android:layout_marginTop="20dp"
         android:layout_marginLeft="10dp"
-        android:layout_below="@+id/horizontal_scroll"
+        android:layout_below="@+id/phenology"
         android:textSize="20dp"
         android:singleLine="false"
         />

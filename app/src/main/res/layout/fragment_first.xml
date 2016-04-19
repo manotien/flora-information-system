@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-
+    android:paddingLeft="10dp"
     tools:context="com.example.manotien.myapplication.fragments.first">
 
 <ScrollView
@@ -45,7 +45,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:singleLine="true"
-            android:layout_toRightOf="@id/lattxt"
+            android:layout_toRightOf="@+id/lattxt"
             android:id="@+id/latedit"
             android:textSize="12dp"
             android:layout_marginTop="30dp"
@@ -65,7 +65,8 @@
             />
 
         <EditText
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
+            android:layout_marginRight="20dp"
             android:singleLine="true"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@id/longtxt"
@@ -83,6 +84,7 @@
             android:id="@+id/getgps"
             android:layout_marginTop="5dp"
             android:textSize="12dp"
+            android:layout_marginRight="20dp"
             android:layout_below="@+id/longedit"
             android:layout_alignParentRight="true"
             />
@@ -142,11 +144,12 @@
             />
 
         <EditText
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
+            android:layout_marginRight="20dp"
             android:layout_height="wrap_content"
             android:singleLine="true"
             android:id="@+id/altnoteedit"
-            android:ems="10"
+
             android:layout_below="@+id/alttxt"
             android:layout_marginTop="5dp"
             android:layout_toRightOf="@+id/altnotetxt"
@@ -165,7 +168,8 @@
             android:textSize="15dp"/>
 
         <AutoCompleteTextView
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
+            android:layout_marginRight="20dp"
             android:layout_height="wrap_content"
             android:singleLine="true"
             android:id="@+id/genusedit"
@@ -209,7 +213,8 @@
             />
 
         <EditText
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
+            android:layout_marginRight="20dp"
             android:layout_height="wrap_content"
             android:singleLine="true"
             android:id="@+id/cfedit"
@@ -254,7 +259,8 @@
 
 
         <EditText
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
+            android:layout_marginRight="20dp"
             android:layout_height="wrap_content"
             android:singleLine="true"
             android:id="@+id/rank1edit"
@@ -300,7 +306,8 @@
 
 
         <EditText
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
+            android:layout_marginRight="20dp"
             android:layout_height="wrap_content"
             android:singleLine="true"
             android:id="@+id/rank2edit"
@@ -322,7 +329,8 @@
             android:textSize="15dp"/>
 
         <EditText
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
+            android:layout_marginRight="20dp"
             android:layout_height="wrap_content"
             android:singleLine="true"
             android:id="@+id/species3edit"
@@ -414,10 +422,11 @@
             android:textSize="15dp"/>
 
         <EditText
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
+            android:layout_marginRight="20dp"
             android:layout_height="wrap_content"
             android:id="@+id/cultinoteedit"
-            android:ems="10"
+
             android:singleLine="true"
             android:layout_toRightOf="@id/cultinotetxt"
             android:layout_below="@id/cultitxt"
@@ -437,7 +446,8 @@
             />
 
         <EditText
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
+            android:layout_marginRight="20dp"
             android:layout_height="wrap_content"
             android:singleLine="true"
             android:ems="10"
@@ -462,6 +472,7 @@
             android:layout_width="match_parent"
             android:layout_below="@+id/takephoto"
             android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
             android:layout_height="wrap_content" >
 
             <LinearLayout

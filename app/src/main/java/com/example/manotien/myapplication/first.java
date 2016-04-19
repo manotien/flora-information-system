@@ -4,8 +4,11 @@ import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
@@ -23,6 +26,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.app.Fragment;
+import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -35,23 +39,34 @@ import android.widget.Toast;
 
 import com.google.android.gms.common.api.GoogleApiClient;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class first extends Fragment {
     private GoogleApiClient mGoogleApiClient;
     GetLocation gps;
     private static final int ACTIVITY_START_CAMERA_APP = 0;
-    private ImageView mPhotoCapturedImageView;
+    String imageFileName;
+    DbOperator dbOperator;
+    SQLiteDatabase sqLiteDatabase;
+    Cursor cursor;
+
     Uri uri;
     int i=0;
     RadioGroup radiogroup;
     RadioButton radiocheck;
     String lat,longti,alt,altmax,altnote,genus,family,sp1,rank1,sp2,rank2,sp3,vern,cultnote,pheno,culti,cf,lang;
-    EditText Elat,Elongti,Ealt,Ealtmax,Ealtnote,Egenus,Efamily,Esp1,Erank1,Esp2,Erank2,Esp3,Evern,Ecultnote,Epheno;
+    EditText Elat,Elongti,Ealt,Ealtmax,Ealtnote,Esp1,Erank1,Esp2,Erank2,Esp3,Evern,Ecultnote,Epheno;
+    AutoCompleteTextView Egenus,Efamily;
     private View view;
-
+    ArrayList<String> photolist = new ArrayList<>();
     public first() {
         // Required empty public constructor
     }
@@ -70,19 +85,21 @@ public class first extends Fragment {
         view =  inflater.inflate(R.layout.fragment_first, container, false);
         Log.d("testz","a1");
         //photo
-        mPhotoCapturedImageView = (ImageView) view.findViewById(R.id.photoview);
+
         Button photo = (Button) view.findViewById(R.id.takephoto);
         photo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-                String imageFileName = "IMG_" + timeStamp + ".jpg";
-                File f = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "Flora/"+ imageFileName);
+                imageFileName = "IMG_" + timeStamp + ".jpg";
+                File f = new File(Environment.getExternalStorageDirectory(), "DCIM/Flora/" + imageFileName);
                 uri = Uri.fromFile(f);
                 Intent callCameraApplicationIntent = new Intent();
                 callCameraApplicationIntent.setAction(MediaStore.ACTION_IMAGE_CAPTURE);
                 callCameraApplicationIntent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+
+
                 startActivityForResult(callCameraApplicationIntent, ACTIVITY_START_CAMERA_APP);
 
             }
@@ -131,6 +148,61 @@ public class first extends Fragment {
         Epheno = ((EditText)view.findViewById(R.id.phenoedit));
 
 
+        ArrayList<String> genusList = new ArrayList<>();
+        dbOperator = new DbOperator(getContext());
+        sqLiteDatabase = dbOperator.getReadableDatabase();
+        cursor = dbOperator.GetGenusList(sqLiteDatabase);
+        final JSONObject genus_family = new JSONObject();
+        if (cursor.moveToFirst()) {
+            do {
+                try {
+                    genus_family.put(cursor.getString(0),cursor.getString(1));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                genusList.add(cursor.getString(0));
+            } while (cursor.moveToNext());
+
+            cursor.close();
+        }
+        ArrayAdapter<String> genus_array = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, genusList);
+        Egenus.setAdapter(genus_array);
+        Egenus.setThreshold(1);
+
+        ArrayList<String> familyList = new ArrayList<>();
+        dbOperator = new DbOperator(getContext());
+        sqLiteDatabase = dbOperator.getReadableDatabase();
+        cursor = dbOperator.GetFamilyList(sqLiteDatabase);
+
+        if (cursor.moveToFirst()) {
+            do {
+                familyList.add(cursor.getString(0));
+            } while (cursor.moveToNext());
+
+            cursor.close();
+        }
+        ArrayAdapter<String> family_array = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, familyList);
+        Efamily.setAdapter(family_array);
+        Efamily.setThreshold(1);
+
+        Egenus.addTextChangedListener(new TextWatcher() {
+
+            public void afterTextChanged(Editable s) {
+                String genus= Egenus.getText().toString();
+                if(!genus_family.isNull(genus))
+                    try {
+                        Efamily.setText(genus_family.getString(genus));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+            }
+
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+        });
         return view;
     }
 
@@ -152,8 +224,6 @@ public class first extends Fragment {
         if (requestCode == ACTIVITY_START_CAMERA_APP && resultCode == getActivity().RESULT_OK){
             getActivity().getContentResolver().notifyChange(uri, null);
             ContentResolver cr = getActivity().getContentResolver();
-            Toast.makeText(getActivity().getApplicationContext(), "Success", Toast.LENGTH_SHORT).show();
-
             try {
 //////////////////////
                 // First decode with inJustDecodeBounds=true to check dimensions
@@ -161,13 +231,27 @@ public class first extends Fragment {
                 options.inJustDecodeBounds = true;
                 BitmapFactory.decodeStream(getActivity().getContentResolver().openInputStream(uri), null, options);
                 // Calculate inSampleSize
-                options.inSampleSize = calculateInSampleSize(options, 500, 600);
+                options.inSampleSize = calculateInSampleSize(options, 400, 580);
                 // Decode bitmap with inSampleSize set
                 options.inJustDecodeBounds = false;
+
                 Bitmap bitmap = BitmapFactory.decodeStream(getActivity().getContentResolver().openInputStream(uri), null, options);
 /////////////////////
+                ByteArrayOutputStream outStream = new ByteArrayOutputStream();
+                // compress to the format you want, JPEG, PNG...
+                // 70 is the 0-100 quality percentage
+                bitmap.compress(Bitmap.CompressFormat.JPEG,100 , outStream);
+                // we save the file, at least until we have made use of it
+                File f = new File(Environment.getExternalStorageDirectory(), "DCIM/Flora/"+ imageFileName);
+                f.createNewFile();
+                //write the bytes in file
+                FileOutputStream fo = new FileOutputStream(f);
+                fo.write(outStream.toByteArray());
+                // remember close de FileOutput
+                fo.close();
+                //////////////////
 
-                Drawable d = new BitmapDrawable(getResources(), bitmap);
+                //Drawable d = new BitmapDrawable(getResources(), bitmap);
                 LinearLayout layout = (LinearLayout) view.findViewById(R.id.linear);
                 ImageView imageView = new ImageView(getContext());
                 imageView.setId(i);
@@ -175,18 +259,24 @@ public class first extends Fragment {
                 LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(500, 600);
 
                 imageView.setPadding(2, 2, 20, 2);
-                imageView.setImageDrawable(d);
+                imageView.setImageBitmap(bitmap);
                 imageView.setLayoutParams(layoutParams);
                 imageView.setScaleType(ImageView.ScaleType.FIT_XY);
                 i++;
+
+                photolist.add(String.valueOf(uri));
+
                 layout.addView(imageView);
             }catch (Exception e)
             {
                 e.printStackTrace();
             }
+            Toast.makeText(getActivity().getApplicationContext(), "Success", Toast.LENGTH_SHORT).show();
         }
     }
-
+    public ArrayList<String> getMyPhoto(){
+        return photolist;
+    }
     public String[] getMyText() {
         lat = (Elat).getText().toString();
         longti = (Elongti).getText().toString();
@@ -214,6 +304,7 @@ public class first extends Fragment {
         cf="";
         lang="";
         String [] first = {lat,longti,alt,altmax,altnote,genus,family,cf,sp1,rank1,sp2,rank2,sp3,vern,lang,culti,cultnote,pheno};
+
         return first;
     }
 
@@ -232,4 +323,5 @@ public class first extends Fragment {
         }
         return inSampleSize;
     }
+
 }

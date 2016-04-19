@@ -29,6 +29,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -42,8 +43,8 @@ public class Flora_Information extends AppCompatActivity {
     int i=0;
     Uri uri;
 
-    TextView latlong,alt,altnote,genus,family,sp1,sp2,sp3,vernname,cultivate, cultivatenote, phenology, plantdescription,detby, detdate, detnote, note;
-    String latlongS,altS,altnoteS,genusS,familyS,sp1S,sp2S,sp3S,vernnameS,cultivateS, cultivatenoteS, phenologyS,plantdescriptionS, detbyS, detdateS, detnoteS, noteS;
+    TextView lat,longE,alt,altnote,genus,family,sp1,sp2,sp3,vernname,cultivate, cultivatenote, phenology, plantdescription,detby, detdate, detnote, note;
+    String latS,longS,altS,altnoteS,genusS,familyS,sp1S,sp2S,sp3S,vernnameS,cultivateS, cultivatenoteS, phenologyS,plantdescriptionS, detbyS, detdateS, detnoteS, noteS;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,7 +54,8 @@ public class Flora_Information extends AppCompatActivity {
 
         int flora_id = getIntent().getExtras().getInt("flora_id");
 
-        latlong = (TextView)findViewById(R.id.latlong);
+        lat = (TextView)findViewById(R.id.lat);
+        longE = (TextView)findViewById(R.id.longi);
         alt = (TextView)findViewById(R.id.alt);
         altnote = (TextView)findViewById(R.id.altnote);
         genus = (TextView)findViewById(R.id.genus);
@@ -73,32 +75,105 @@ public class Flora_Information extends AppCompatActivity {
 
         dbOperator = new DbOperator(getApplicationContext());
         sqLiteDatabase = dbOperator.getReadableDatabase();
-        cursor = dbOperator.GetFloraInformation(sqLiteDatabase,flora_id);
+        cursor = dbOperator.GetFloraInformation(sqLiteDatabase, flora_id);
         if(cursor.moveToFirst()){
             do {
                 /*{"id",KEY_FAMILY ,KEY_GENUS ,KEY_CF ,KEY_SP1 ,KEY_AUTHOR1 ,KEY_RANK1 ,KEY_SP2 ,KEY_AUTHOR2,KEY_RANK2 ,
                 KEY_SP3 , KEY_AUTHOR3 ,KEY_PLANTDESCRIPTION ,KEY_PHENOLOGY ,KEY_DETBY ,KEY_DETDD ,KEY_DETMM ,KEY_DETYY ,KEY_DETNOTES ,KEY_CULTIVATED,
                 KEY_CULTNOTES ,KEY_NOTES ,KEY_LAT ,KEY_NS ,KEY_LONG ,KEY_EW ,KEY_ALT ,KEY_ALTMAX ,KEY_ALTNOTE ,KEY_VERNACULAR ,
                 KEY_LANGUAGE};*/
-                latlongS = "Latitude: "+cursor.getString(22)+"  Longitude: "+cursor.getString(24);
-                altS = "Alt: "+cursor.getString(26)+"    Alt. Max: "+cursor.getString(27);
-                altnoteS = "AltNote: "+cursor.getString(8);
-                genusS = "Genus: "+cursor.getString(2);
-                familyS = "Family: "+cursor.getString(1);
-                sp1S = "SP1: "+cursor.getString(4)+"    Rank1: "+cursor.getString(6);
-                sp2S = "SP2: "+cursor.getString(7)+"    Rank2: "+cursor.getString(9);
-                sp3S = "SP3: "+cursor.getString(10);
-                vernnameS = "Vern. Name: "+cursor.getString(29);
-                cultivateS = "Cultivate: "+cursor.getString(19);
-                cultivatenoteS = "Cultivate Note: "+cursor.getString(21);
-                phenologyS ="Phenology: "+cursor.getString(13);
-                plantdescriptionS = "Plant Description: "+cursor.getString(12);
-                detbyS= "Det. By: "+cursor.getString(14);
-                detdateS = "Det. Date: "+cursor.getString(15)+"/"+cursor.getString(16)+"/"+cursor.getString(17);
-                detnoteS = "Det. By: "+cursor.getString(18);
-                noteS = "Note: "+cursor.getString(21);
+                if (cursor.getString(22).equals(""))
+                    latS = "Latitude: -";
+                else
+                    latS = "Latitude: " + cursor.getString(22);
 
-                latlong.setText(latlongS);
+                if (!cursor.getString(24).equals(""))
+                    longS = "Longitude: " + cursor.getString(24);
+                else
+                    longS = "Longitude: -";
+
+                if (!cursor.getString(27).equals(""))
+                    altS = "Alt: " + cursor.getString(26) + "    Alt. Max: " + cursor.getString(27);
+                else
+                    altS = "Alt: " + cursor.getString(26);
+
+                if (!cursor.getString(8).equals(""))
+                    altnoteS = "AltNote: " + cursor.getString(8);
+                else
+                    altnoteS = "AltNote: -";
+
+                if (!cursor.getString(2).equals(""))
+                    genusS = "Genus: " + cursor.getString(2);
+                else
+                    genusS = "Genus: -";
+
+                if (!cursor.getString(1).equals(""))
+                    familyS = "Family: " + cursor.getString(1);
+                else
+                    familyS = "Family: -";
+
+                if (!cursor.getString(4).equals(""))
+                    sp1S = "SP1: " + cursor.getString(4) + "    Rank1: " + cursor.getString(6);
+                else
+                    sp1S = "SP1: " + cursor.getString(4);
+
+                if (!cursor.getString(7).equals(""))
+                    sp2S = "SP2: " + cursor.getString(7) + "    Rank2: " + cursor.getString(9);
+                else
+                    sp3S = "SP3: -";
+
+                if (!cursor.getString(10).equals(""))
+                    sp3S = "SP3: " + cursor.getString(10);
+                else
+                    sp3S = "SP3: -";
+
+                if (!cursor.getString(29).equals(""))
+                    vernnameS = "Vernacular Name: " + cursor.getString(29);
+                else
+                    vernnameS = "Vernacular Name: -";
+
+                if (!cursor.getString(19).equals(""))
+                    cultivateS = "Cultivate: " + cursor.getString(19);
+                else
+                    cultivateS = "Cultivate: -";
+
+                if (!cursor.getString(21).equals(""))
+                    cultivatenoteS = "Cultivate Note: " + cursor.getString(21);
+                else
+                    cultivatenoteS = "Cultivate Note: -";
+
+                if (!cursor.getString(13).equals(""))
+                    phenologyS = "Phenology: " + cursor.getString(13);
+                else
+                    phenologyS = "Phenology: -";
+
+                if (!cursor.getString(12).equals(""))
+                    plantdescriptionS = "Plant Description: " + cursor.getString(12);
+                else
+                    plantdescriptionS = "Plant Description: -";
+
+                if (!cursor.getString(14).equals(""))
+                    detbyS = "Det. By: " + cursor.getString(14);
+                else
+                    detbyS = "Det. By: -";
+
+                if (!cursor.getString(15).equals(""))
+                    detdateS = "Det. Date: " + cursor.getString(15) + "/" + cursor.getString(16) + "/" + cursor.getString(17);
+                else
+                    detdateS = "Det. Date: -";
+
+                if (!cursor.getString(18).equals(""))
+                    detnoteS = "Det. By: " + cursor.getString(18);
+                else
+                    detnoteS = "Det. By: -";
+
+                if (!cursor.getString(21).equals(""))
+                    noteS = "Note: " + cursor.getString(21);
+                else
+                    noteS = "Note: -";
+
+                lat.setText(latS);
+                longE.setText(longS);
                 alt.setText(altS);
                 altnote.setText(altnoteS);
                 genus.setText(genusS);
@@ -116,53 +191,68 @@ public class Flora_Information extends AppCompatActivity {
                 detnote.setText(detnoteS);
                 note.setText(noteS);
 
+
+                //get Photo
+                //get flora photo
+                Cursor cursor_photo;
+
+
+                LinearLayout layout = (LinearLayout) findViewById(R.id.linear);
+                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(500, 600);
+
+                dbOperator = new DbOperator(this);
+                sqLiteDatabase = dbOperator.getReadableDatabase();
+                cursor_photo = dbOperator.GetPhoto(sqLiteDatabase, String.valueOf(cursor.getString(0)));
+                if (cursor_photo.moveToFirst()) {
+                    do {
+                        Bitmap bitmap = getPhotoByUri(Uri.parse(cursor_photo.getString(2)));
+
+                        ImageView imageView = new ImageView(this);
+                        imageView.setId(i);
+                        imageView.setPadding(2, 2, 20, 2);
+                        imageView.setImageBitmap(bitmap);
+                        imageView.setLayoutParams(layoutParams);
+                        imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+                        i++;
+                        layout.addView(imageView);
+
+                    } while (cursor_photo.moveToNext());
+                }
+                cursor_photo.close();
             } while (cursor.moveToNext());
 
             cursor.close();
         }
 
-        //get flora photo
 
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
+    public Bitmap getPhotoByUri(Uri uri){
+        final BitmapFactory.Options options = new BitmapFactory.Options();
 
-
-    public void getFloraPhoto(Uri uri){
-        getContentResolver().notifyChange(uri, null);
-        ContentResolver cr = getContentResolver();
+        Bitmap bitmap=null;
+        options.inJustDecodeBounds = true;
         try {
-//////////////////////
-            // First decode with inJustDecodeBounds=true to check dimensions
-            final BitmapFactory.Options options = new BitmapFactory.Options();
-            options.inJustDecodeBounds = true;
-            BitmapFactory.decodeStream(getContentResolver().openInputStream(uri), null, options);
-            // Calculate inSampleSize
-            options.inSampleSize = calculateInSampleSize(options, 500, 600);
-            // Decode bitmap with inSampleSize set
-            options.inJustDecodeBounds = false;
-            Bitmap bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(uri), null, options);
-/////////////////////
-
-            Drawable d = new BitmapDrawable(getResources(), bitmap);
-            LinearLayout layout = (LinearLayout) findViewById(R.id.linear);
-            ImageView imageView = new ImageView(this);
-            imageView.setId(i);
-
-            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(500, 600);
-
-            imageView.setPadding(2, 2, 20, 2);
-            imageView.setImageDrawable(d);
-            imageView.setLayoutParams(layoutParams);
-            imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-            i++;
-            layout.addView(imageView);
-        }catch (Exception e)
-        {
+            BitmapFactory.decodeStream(this.getContentResolver().openInputStream(uri), null, options);
+        } catch (FileNotFoundException e) {
+            Log.d("test", "Error"+String.valueOf(e));
             e.printStackTrace();
         }
+        // Calculate inSampleSize
+        options.inSampleSize = calculateInSampleSize(options,400, 500);
+        // Decode bitmap with inSampleSize set
+        options.inJustDecodeBounds = false;
+
+        try {
+            bitmap = BitmapFactory.decodeStream(this.getContentResolver().openInputStream(uri), null, options);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        return bitmap;
     }
+
     public static int calculateInSampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight) {
         // Raw height and width of image
         final int height = options.outHeight;

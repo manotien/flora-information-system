@@ -23,6 +23,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.opencsv.CSVWriter;
@@ -35,6 +36,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 import okhttp3.FormBody;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
@@ -42,7 +45,7 @@ import okhttp3.Response;
 
 public class MainMenuActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-
+    Cursor cursor;
     DbOperator dbOperator;
     SQLiteDatabase sqLiteDatabase;
 
@@ -52,6 +55,22 @@ public class MainMenuActivity extends AppCompatActivity
         setContentView(R.layout.activity_mainmenu);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        //check database
+
+        if(doesDatabaseExist(getApplicationContext(),"FLORA"))
+        {
+            Log.d("checkaa","hi");
+        }
+        else
+        {
+            dbOperator = new DbOperator(getApplicationContext());
+            sqLiteDatabase = dbOperator.getWritableDatabase();
+            InitialData init =new InitialData();
+            init.initial(sqLiteDatabase);
+            Log.d("checkaa","bye");
+            dbOperator.close();
+        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -72,7 +91,7 @@ public class MainMenuActivity extends AppCompatActivity
 
 
         //start
-        Button button = (Button)findViewById(R.id.button);
+        ImageButton button = (ImageButton)findViewById(R.id.button);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -81,6 +100,7 @@ public class MainMenuActivity extends AppCompatActivity
         });
 
         //see flora data
+        /*
         Button test = (Button)findViewById(R.id.information);
         test.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,28 +108,16 @@ public class MainMenuActivity extends AppCompatActivity
                 startActivity(new Intent(MainMenuActivity.this, tab_discover.class));
             }
         });
-        //check database
-        dbOperator = new DbOperator(getApplicationContext());
-        sqLiteDatabase = dbOperator.getWritableDatabase();
-        if(doesDatabaseExist(this,"FLORA"))
-        {
-            Log.d("checkaa","hi");
-        }
-        else
-        {
-
-            InitialData init =new InitialData();
-            init.initial(sqLiteDatabase);
-            Log.d("checkaa","bye");
-            dbOperator.close();
-        }
+*/
         //
-        File flora_photo = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "Flora");
+        File flora_photo = new File(Environment.getExternalStorageDirectory(), "DCIM/Flora");
+
         if (!flora_photo.exists()) {
             flora_photo.mkdirs();
         }
+
         //export database
-        Button button1 = (Button)findViewById(R.id.export);
+        ImageButton button1 = (ImageButton)findViewById(R.id.export);
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -119,18 +127,19 @@ public class MainMenuActivity extends AppCompatActivity
         });
 
         //upload data
-        Button upload = (Button)findViewById(R.id.upload);
+        ImageButton upload = (ImageButton)findViewById(R.id.upload);
         upload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Cursor cursor;
-                String url = "http://192.168.1.2:8080/flora/create";
-                sendPostLocation post = new sendPostLocation();
+                String url = "http://192.168.1.2:8080/flora/create/location";
+                String flora_url = "http://192.168.1.2:8080/flora/create/flora";
+                String flora_response= "[]";
 
+                OkHttpClient client = new OkHttpClient();
                 dbOperator = new DbOperator(getApplicationContext());
                 sqLiteDatabase = dbOperator.getReadableDatabase();
                 cursor = dbOperator.GetAllLocation(sqLiteDatabase);
-                boolean response = false;
                 if(cursor.moveToFirst()){
                     String[] columnNames = cursor.getColumnNames();
                     do {
@@ -143,14 +152,34 @@ public class MainMenuActivity extends AppCompatActivity
                                 e.printStackTrace();
                             }
                         }
-                        response = post.send(getApplicationContext(),url,locationJSON);
+                        RequestBody formBody = new FormBody.Builder()
+                                .add("location", String.valueOf(locationJSON) )
+                                .build();
+                        Request request = new Request.Builder()
+                                .url(url)
+                                .post(formBody)
+                                .build();
+                        try {
+                            Response response = client.newCall(request).execute();
+                            String body = response.body().string();
+
+                            sendPostLocation post = new sendPostLocation();
+
+                            try {
+                                flora_response = post.send(getApplicationContext(),flora_url,body,cursor.getString(0));
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                            // Do something with the response.
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
                     } while (cursor.moveToNext());
 
                     cursor.close();
                 }
-                if(response)
-                    Toast.makeText(getApplicationContext(), "Success", Toast.LENGTH_LONG).show();
-
+                Toast.makeText(getApplicationContext(), "Success", Toast.LENGTH_LONG).show();
 
             }
         });
@@ -213,4 +242,28 @@ public class MainMenuActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    private static final MediaType MEDIA_TYPE_JPG = MediaType.parse("image/jpg");
+
+    private final OkHttpClient client = new OkHttpClient();
+/*
+    public void run() throws Exception {
+        // Use the imgur image upload API as documented at https://api.imgur.com/endpoints/image
+        RequestBody requestBody = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("title", "IMG_20160417_012637.jpg")
+                .addFormDataPart("image", "IMG_20160417_012637.jpg", RequestBody.create(MEDIA_TYPE_JPG, new File("/storage/emulated/0/DCIM/Flora/IMG_20160417_012637.jpg")))
+                .build();
+        Log.d("testaa",requestBody.toString());
+        Request request = new Request.Builder()
+                .url("http://192.168.1.2:8080/flora/create/photo")
+                .post(requestBody)
+                .build();
+        //Log.d("testaa",String.valueOf(request.body()));
+        Response response = client.newCall(request).execute();
+        Log.d("testaa","end "+response.body().string());
+        if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
+
+
+    }#*/
 }
