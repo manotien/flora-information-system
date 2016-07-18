@@ -112,44 +112,54 @@
                     android:ems="7"
                     android:hint="Thickness (cm.)"/>
             </android.support.design.widget.TextInputLayout>
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Choose Color"
-                android:id="@+id/outer_bark_color_but"
-                android:layout_marginLeft="20dp"
 
-                android:layout_below="@+id/outertxt"
-
-                />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/outer_bark_color_but"
                 android:layout_marginTop="15dp"
                 android:id="@+id/color_bark_txt"
                 android:text="Color: "
                 android:layout_marginLeft="20dp"
-                android:textSize="20dp"
+                android:textSize="15dp"
                 android:layout_below="@+id/outertxt"
                 />
-            <ImageView
-                android:layout_height="40dp"
-                android:layout_width="60dp"
-                android:layout_toRightOf="@+id/color_bark_txt"
-                android:layout_below="@+id/outertxt"
-                android:id="@+id/bark_color"
-                android:layout_marginTop="10dp"
+            <AutoCompleteTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/color_bark_txt"
                 android:layout_marginLeft="5dp"
-                 />
+                android:id="@+id/bark_outer_main_color"
+                android:layout_below="@id/outertxt"
+                android:ems="6"
+                />
+            <AutoCompleteTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/bark_outer_main_color"
+                android:layout_marginLeft="10dp"
+                android:layout_below="@id/outertxt"
+                android:id="@+id/bark_outer_sub_color"
+                android:ems="7"
+                />
+
+
+            <!--<ImageView-->
+                <!--android:layout_height="40dp"-->
+                <!--android:layout_width="60dp"-->
+                <!--android:layout_toRightOf="@+id/color_bark_txt"-->
+                <!--android:layout_below="@+id/outertxt"-->
+                <!--android:id="@+id/bark_color"-->
+                <!--android:layout_marginTop="10dp"-->
+                <!--android:layout_marginLeft="5dp"-->
+                 <!--/>-->
             <android.support.design.widget.TextInputLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/outer_bark_color_but"
+                android:layout_below="@+id/color_bark_txt"
                 android:id="@+id/inner_txt"
                 android:layout_marginLeft="20dp"
                 >
-                <EditText android:id="@+id/inneredit"
+                <EditText android:id="@+id/bark_inneredit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ems="7"
@@ -159,7 +169,7 @@
             <android.support.design.widget.TextInputLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/outer_bark_color_but"
+                android:layout_below="@+id/color_bark_txt"
                 android:layout_toRightOf="@+id/inner_txt"
                 android:layout_marginLeft="20dp"
                 android:id="@+id/in_thicknesstxt">
@@ -170,45 +180,51 @@
                     android:hint="Thickness (cm.)" />
             </android.support.design.widget.TextInputLayout>
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Choose Color"
-                android:id="@+id/inner_bark__color_but"
-                android:layout_below="@+id/inner_txt"
-                android:layout_marginLeft="20dp"
-                />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Color: "
                 android:id="@+id/innercolortxt"
                 android:layout_below="@+id/inner_txt"
-                android:layout_toRightOf="@+id/inner_bark__color_but"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="20dp"
+                android:textSize="15dp"
+                />
+            <AutoCompleteTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/color_bark_txt"
+                android:layout_marginLeft="5dp"
+                android:id="@+id/bark_inner_main_color"
+                android:layout_below="@id/in_thicknesstxt"
+                android:ems="6"
+                />
+            <AutoCompleteTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/bark_inner_main_color"
+                android:id="@+id/bark_inner_sub_color"
+
                 android:layout_marginLeft="10dp"
+                android:layout_below="@id/in_thicknesstxt"
+                android:ems="7"
                 />
 
             <android.support.design.widget.TextInputLayout
-                android:layout_width="wrap_content"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/innercolortxt"
                 android:id="@+id/saptxt"
+                android:layout_marginRight="20dp"
                 android:layout_marginLeft="20dp"
                 >
                 <EditText android:id="@+id/sapedit"
-                    android:layout_width="wrap_content"
+                    android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:ems="7"
+                    android:ems="10"
                     android:hint="Sap" />
             </android.support.design.widget.TextInputLayout>
-            <Spinner
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/innercolortxt"
-                android:layout_marginTop="10dp"
-                android:layout_toRightOf="@id/saptxt"
-                android:id="@+id/spinner"></Spinner>
+
         </RelativeLayout>
 
         <View
@@ -229,86 +245,98 @@
             android:layout_marginTop="20dp"
             android:textSize="20dp"
             />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Upper: "
-            android:layout_below="@+id/leavetxt"
-            android:layout_marginTop="20dp"
-            android:textSize="15dp"
-            android:id="@+id/uppertxt"
-            android:layout_marginLeft="20dp"/>
-        <RadioGroup
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:id="@+id/upperradio"
-            android:layout_below="@+id/leavetxt"
-            android:orientation="horizontal"
-            android:layout_toRightOf="@+id/uppertxt"
-            android:layout_marginLeft="5dp"
-            >
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Shine"
-                android:textSize="12dp"
-                android:checked="false"
-                android:id="@+id/uppershine"
-                />
 
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Matte"
-                android:checked="false"
-                android:textSize="12dp"
-                android:id="@+id/uppermatte"
-                />
-
-        </RadioGroup>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Lower: "
-            android:layout_below="@+id/uppertxt"
-            android:layout_marginTop="20dp"
-            android:textSize="15dp"
-            android:id="@+id/lowertxt"
-            android:layout_marginLeft="20dp"/>
-        <RadioGroup
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:id="@+id/lowerradio"
-            android:layout_below="@+id/uppertxt"
-            android:orientation="horizontal"
-            android:layout_toRightOf="@+id/lowertxt"
-            android:layout_marginLeft="5dp"
-            >
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Shine"
-                android:textSize="12dp"
-                android:checked="false"
-                android:id="@+id/lowershine"
-                />
-
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Matte"
-                android:checked="false"
-                android:textSize="12dp"
-                android:id="@+id/lowermatte"
-                />
-
-        </RadioGroup>
         <android.support.design.widget.TextInputLayout
-            android:layout_width="fill_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="20dp"
+            android:layout_below="@+id/leavetxt"
+            android:layout_marginLeft="20dp"
+            android:id="@+id/uppertxt">
+            <AutoCompleteTextView
+                android:id="@+id/leave_upper_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="5"
+                android:hint="Upper" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/leavetxt"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@id/uppertxt"
+            android:id="@+id/uppercolortxt">
+            <AutoCompleteTextView
+                android:id="@+id/leave_upper_color_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="5"
+                android:hint="Main Color" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/leavetxt"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@id/uppercolortxt"
+            android:id="@+id/uppersubcolortxt">
+            <AutoCompleteTextView
+                android:id="@+id/leave_upper_sub_color_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="5"
+                android:hint="Sub Color" />
+        </android.support.design.widget.TextInputLayout>
+
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/uppertxt"
+            android:layout_marginLeft="20dp"
+            android:id="@+id/lowertxt">
+            <AutoCompleteTextView
+                android:id="@+id/leave_lower_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="5"
+                android:hint="Lower" />
+        </android.support.design.widget.TextInputLayout>
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/uppertxt"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@id/lowertxt"
+            android:id="@+id/lowercolortxt">
+            <AutoCompleteTextView
+                android:id="@+id/leave_lower_color_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="5"
+                android:hint="Main Color" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/uppertxt"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@id/lowercolortxt"
+            android:id="@+id/lowersubcolortxt">
+            <AutoCompleteTextView
+                android:id="@+id/leave_lower_sub_color_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="5"
+                android:hint="Sub Color" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_below="@+id/lowertxt"
             android:id="@+id/lbftxt"
             android:layout_marginLeft="20dp"
@@ -316,24 +344,82 @@
             <EditText android:id="@+id/lbfedit"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:ems="8"
+                android:ems="5"
                 android:hint="Leaves Before Fall" />
+        </android.support.design.widget.TextInputLayout>
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/lowertxt"
+            android:id="@+id/lbf_color_txt"
+            android:layout_toRightOf="@+id/lbftxt"
+            android:layout_marginLeft="5dp"
+            >
+            <AutoCompleteTextView android:id="@+id/lbf_color_edit"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:ems="5"
+                android:hint="Main Color" />
+        </android.support.design.widget.TextInputLayout>
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/lowertxt"
+            android:layout_toRightOf="@+id/lbf_color_txt"
+            android:id="@+id/lbf_sub_color_txt"
+            android:layout_marginLeft="5dp"
+            >
+            <AutoCompleteTextView android:id="@+id/lbf_sub_color_edit"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:ems="5"
+                android:hint="Sub Color" />
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
-            android:layout_width="fill_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/lbftxt"
-            android:layout_marginRight="20dp"
             android:id="@+id/yltxt"
             android:layout_marginLeft="20dp"
             >
             <EditText android:id="@+id/yledit"
-                android:layout_width="fill_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:ems="8"
+                android:ems="5"
                 android:hint="Young Leaves" />
         </android.support.design.widget.TextInputLayout>
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/lbftxt"
+            android:id="@+id/yl_color_txt"
+            android:layout_toRightOf="@+id/yltxt"
+            android:layout_marginLeft="5dp"
+            >
+            <AutoCompleteTextView android:id="@+id/yle_color_edit"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:ems="5"
+                android:hint="Main Color" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/lbftxt"
+            android:id="@+id/yl_sub_color_txt"
+            android:layout_toRightOf="@+id/yl_color_txt"
+            android:layout_marginLeft="5dp"
+            >
+            <AutoCompleteTextView android:id="@+id/yl_sub_color_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="5"
+                android:hint="Sub Color" />
+        </android.support.design.widget.TextInputLayout>
+
+
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="fill_parent"
@@ -371,82 +457,220 @@
             />
 
         <android.support.design.widget.TextInputLayout
-            android:layout_width="fill_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/flowertxt"
-            android:id="@+id/sepaltxt"
-            android:layout_marginRight="20dp"
+            android:id="@+id/sepals_txt"
             android:layout_marginLeft="20dp"
             >
-            <EditText android:id="@+id/sepaledit"
-                android:layout_width="fill_parent"
+            <EditText android:id="@+id/sepals_edit"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:ems="8"
+                android:ems="5"
                 android:hint="Sepals" />
         </android.support.design.widget.TextInputLayout>
-
         <android.support.design.widget.TextInputLayout
-            android:layout_width="fill_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/sepaltxt"
-            android:id="@+id/detaltxt"
-            android:layout_marginRight="20dp"
-            android:layout_marginLeft="20dp"
+            android:layout_below="@+id/flowertxt"
+            android:id="@+id/sepals_color_txt"
+            android:layout_toRightOf="@+id/sepals_txt"
+            android:layout_marginLeft="5dp"
             >
-            <EditText android:id="@+id/detaledit"
-                android:layout_width="fill_parent"
+            <AutoCompleteTextView android:id="@+id/sepals_color_edit"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:ems="8"
-                android:hint="Detals" />
+                android:ems="5"
+                android:hint="Main Color" />
         </android.support.design.widget.TextInputLayout>
         <android.support.design.widget.TextInputLayout
-            android:layout_width="fill_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/detaltxt"
-            android:id="@+id/tepaltxt"
+            android:layout_below="@+id/flowertxt"
+            android:id="@+id/sepals_sub_color_txt"
+            android:layout_toRightOf="@+id/sepals_color_txt"
+            android:layout_marginLeft="5dp"
+            >
+            <AutoCompleteTextView android:id="@+id/sepals_sub_color_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="5"
+                android:hint="Sub Color" />
+        </android.support.design.widget.TextInputLayout>
+
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/sepals_txt"
+            android:id="@+id/petals_txt"
             android:layout_marginLeft="20dp"
             >
-            <EditText android:id="@+id/tepaledit"
-                android:layout_width="fill_parent"
-                android:layout_marginRight="20dp"
+            <EditText android:id="@+id/petals_edit"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:ems="8"
+                android:ems="5"
+                android:hint="Petals" />
+        </android.support.design.widget.TextInputLayout>
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/sepals_txt"
+            android:id="@+id/petals_color_txt"
+            android:layout_toRightOf="@+id/petals_txt"
+            android:layout_marginLeft="5dp"
+            >
+            <AutoCompleteTextView android:id="@+id/petals_color_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="5"
+                android:hint="Main Color" />
+        </android.support.design.widget.TextInputLayout>
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/sepals_txt"
+            android:id="@+id/petals_sub_color_txt"
+            android:layout_toRightOf="@+id/petals_color_txt"
+            android:layout_marginLeft="5dp"
+            >
+            <AutoCompleteTextView android:id="@+id/petals_sub_color_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="5"
+                android:hint="Sub Color" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/petals_txt"
+            android:id="@+id/tepals_txt"
+            android:layout_marginLeft="20dp"
+            >
+            <EditText android:id="@+id/tepals_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="5"
                 android:hint="Tepals" />
         </android.support.design.widget.TextInputLayout>
-
         <android.support.design.widget.TextInputLayout
-            android:layout_width="fill_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="20dp"
-            android:layout_below="@+id/tepaltxt"
-            android:id="@+id/stamentxt"
-            android:layout_marginLeft="20dp"
+            android:layout_below="@+id/petals_txt"
+            android:id="@+id/tepals_color_txt"
+            android:layout_toRightOf="@+id/tepals_txt"
+            android:layout_marginLeft="5dp"
             >
-            <EditText android:id="@+id/stamenedit"
-                android:layout_width="fill_parent"
+            <AutoCompleteTextView android:id="@+id/tepals_color_edit"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:ems="8"
-                android:hint="Stamens" />
+                android:ems="5"
+                android:hint="Main Color" />
+        </android.support.design.widget.TextInputLayout>
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/petals_txt"
+            android:id="@+id/tepals_sub_color_txt"
+            android:layout_toRightOf="@+id/tepals_color_txt"
+            android:layout_marginLeft="5dp"
+            >
+            <AutoCompleteTextView android:id="@+id/tepals_sub_color_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="5"
+                android:hint="Sub Color" />
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
-            android:layout_width="fill_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="20dp"
-            android:layout_below="@+id/stamentxt"
-            android:id="@+id/pistiltxt"
+            android:layout_below="@+id/tepals_txt"
+            android:id="@+id/stamens_txt"
             android:layout_marginLeft="20dp"
             >
-            <EditText android:id="@+id/pistiledit"
-                android:layout_width="fill_parent"
+            <EditText android:id="@+id/stamens_edit"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:ems="8"
+                android:ems="5"
+                android:hint="Stamens" />
+        </android.support.design.widget.TextInputLayout>
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tepals_txt"
+            android:id="@+id/stamens_color_txt"
+            android:layout_toRightOf="@+id/stamens_txt"
+            android:layout_marginLeft="5dp"
+            >
+            <AutoCompleteTextView android:id="@+id/stamens_color_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="5"
+                android:hint="Main Color" />
+        </android.support.design.widget.TextInputLayout>
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tepals_txt"
+            android:id="@+id/stamens_sub_color_txt"
+            android:layout_toRightOf="@+id/stamens_color_txt"
+            android:layout_marginLeft="5dp"
+            >
+            <AutoCompleteTextView android:id="@+id/stamens_sub_color_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="5"
+                android:hint="Sub Color" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/stamens_txt"
+            android:id="@+id/pistils_txt"
+            android:layout_marginLeft="20dp"
+            >
+            <EditText android:id="@+id/pistils_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="5"
                 android:hint="Pistils" />
         </android.support.design.widget.TextInputLayout>
         <android.support.design.widget.TextInputLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/stamens_txt"
+            android:id="@+id/pistils_color_txt"
+            android:layout_toRightOf="@+id/pistils_txt"
+            android:layout_marginLeft="5dp"
+            >
+            <AutoCompleteTextView android:id="@+id/pistils_color_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="5"
+                android:hint="Main Color" />
+        </android.support.design.widget.TextInputLayout>
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/stamens_txt"
+            android:id="@+id/pistils_sub_color_txt"
+            android:layout_toRightOf="@+id/pistils_color_txt"
+            android:layout_marginLeft="5dp"
+            >
+            <AutoCompleteTextView android:id="@+id/pistils_sub_color_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="5"
+                android:hint="Sub Color" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/pistiltxt"
+            android:layout_below="@+id/pistils_txt"
             android:layout_marginRight="20dp"
             android:id="@+id/flowerscenttxt"
             android:layout_marginLeft="20dp"
@@ -466,6 +690,7 @@
             android:id="@+id/onfruit"
             android:layout_below="@+id/flowerscenttxt"
             android:background="#000000"></View>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -478,38 +703,137 @@
             />
 
         <android.support.design.widget.TextInputLayout
-            android:layout_width="fill_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="20dp"
             android:layout_below="@+id/fruittxt"
-            android:id="@+id/maturetxt"
+            android:id="@+id/immature_txt"
             android:layout_marginLeft="20dp"
             >
-            <EditText android:id="@+id/matureedit"
-                android:layout_width="fill_parent"
+            <EditText android:id="@+id/immature_edit"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:ems="8"
+                android:ems="5"
+                android:hint="Immature" />
+        </android.support.design.widget.TextInputLayout>
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/fruittxt"
+            android:id="@+id/immature_color_txt"
+            android:layout_toRightOf="@+id/pistils_txt"
+            android:layout_marginLeft="5dp"
+            >
+            <AutoCompleteTextView android:id="@+id/immature_color_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="5"
+                android:hint="Main Color" />
+        </android.support.design.widget.TextInputLayout>
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/fruittxt"
+            android:id="@+id/immature_sub_color_txt"
+            android:layout_toRightOf="@+id/pistils_color_txt"
+            android:layout_marginLeft="5dp"
+            >
+            <AutoCompleteTextView android:id="@+id/immature_sub_color_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="5"
+                android:hint="Sub Color" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/immature_txt"
+            android:id="@+id/mature_txt"
+            android:layout_marginLeft="20dp"
+            >
+            <EditText android:id="@+id/mature_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="5"
                 android:hint="Mature" />
         </android.support.design.widget.TextInputLayout>
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/immature_txt"
+            android:id="@+id/mature_color_txt"
+            android:layout_toRightOf="@+id/pistils_txt"
+            android:layout_marginLeft="5dp"
+            >
+            <AutoCompleteTextView android:id="@+id/mature_color_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="5"
+                android:hint="Main Color" />
+        </android.support.design.widget.TextInputLayout>
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/immature_txt"
+            android:id="@+id/mature_sub_color_txt"
+            android:layout_toRightOf="@+id/pistils_color_txt"
+            android:layout_marginLeft="5dp"
+            >
+            <AutoCompleteTextView android:id="@+id/mature_sub_color_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="5"
+                android:hint="Sub Color" />
+        </android.support.design.widget.TextInputLayout>
+
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/mature_txt"
+            android:id="@+id/ripen_txt"
+            android:layout_marginLeft="20dp"
+            >
+            <EditText android:id="@+id/ripen_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="5"
+                android:hint="Ripen" />
+        </android.support.design.widget.TextInputLayout>
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/mature_txt"
+            android:id="@+id/ripen_color_txt"
+            android:layout_toRightOf="@+id/pistils_txt"
+            android:layout_marginLeft="5dp"
+            >
+            <AutoCompleteTextView android:id="@+id/ripen_color_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="5"
+                android:hint="Main Color" />
+        </android.support.design.widget.TextInputLayout>
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/mature_txt"
+            android:id="@+id/ripen_sub_color_txt"
+            android:layout_toRightOf="@+id/pistils_color_txt"
+            android:layout_marginLeft="5dp"
+            >
+            <AutoCompleteTextView android:id="@+id/ripen_sub_color_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="5"
+                android:hint="Sub Color" />
+        </android.support.design.widget.TextInputLayout>
+
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/maturetxt"
-            android:layout_marginRight="20dp"
-            android:id="@+id/ripentxt"
-            android:layout_marginLeft="20dp"
-            >
-            <EditText android:id="@+id/ripenedit"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:ems="8"
-                android:hint="Ripen" />
-        </android.support.design.widget.TextInputLayout>
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/ripentxt"
+            android:layout_below="@+id/ripen_txt"
             android:layout_marginRight="20dp"
             android:id="@+id/fruitscenttxt"
             android:layout_marginLeft="20dp"
@@ -520,7 +844,6 @@
                 android:ems="8"
                 android:hint="Scent" />
         </android.support.design.widget.TextInputLayout>
-
 
     </RelativeLayout>
     </ScrollView>

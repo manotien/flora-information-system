@@ -24,6 +24,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import android.view.inputmethod.InputMethodManager;
+import android.widget.LinearLayout;
 import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -60,6 +61,8 @@ public class tab_discover extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setTitle("Add Flora");
+
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         // Set up the ViewPager with the sections adapter.
@@ -67,6 +70,13 @@ public class tab_discover extends AppCompatActivity {
         setupViewPager(viewPager);
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
+
+        LinearLayout tabStrip = ((LinearLayout)tabLayout.getChildAt(0));
+        tabStrip.setEnabled(false);
+        for(int i = 0; i < tabStrip.getChildCount(); i++) {
+            tabStrip.getChildAt(i).setClickable(false);
+        }
+
         tabLayout.setOnTabSelectedListener(
                 new TabLayout.ViewPagerOnTabSelectedListener(viewPager) {
 
@@ -117,9 +127,9 @@ public class tab_discover extends AppCompatActivity {
     private void setupViewPager(ViewPager viewPager)
     {
        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new first() ,"1");
+        adapter.addFragment(new first() ,"Plant Name");
         adapter.addFragment(new second(),"Plant Description");
-        adapter.addFragment(new third(),"3");
+        adapter.addFragment(new third(),"Plant Det.");
         viewPager.setAdapter(adapter);
     }
 

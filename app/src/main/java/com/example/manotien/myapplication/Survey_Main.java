@@ -40,6 +40,7 @@ public class Survey_Main extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setTitle("Location Main");
 
         SharedPreferences sp = getSharedPreferences("place_date", Context.MODE_PRIVATE);
         String placename = sp.getString("place_name", null);

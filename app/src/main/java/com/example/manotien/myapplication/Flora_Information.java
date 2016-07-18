@@ -51,6 +51,7 @@ public class Flora_Information extends AppCompatActivity {
         setContentView(R.layout.activity_flora__information);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        setTitle("Flora Information");
 
         int flora_id = getIntent().getExtras().getInt("flora_id");
 
@@ -120,7 +121,7 @@ public class Flora_Information extends AppCompatActivity {
                 if (!cursor.getString(7).equals(""))
                     sp2S = "SP2: " + cursor.getString(7) + "    Rank2: " + cursor.getString(9);
                 else
-                    sp3S = "SP3: -";
+                    sp2S = "SP2: -";
 
                 if (!cursor.getString(10).equals(""))
                     sp3S = "SP3: " + cursor.getString(10);

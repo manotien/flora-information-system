@@ -1,12 +1,16 @@
 package com.example.manotien.myapplication;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -34,14 +38,13 @@ public class Export_Data extends AppCompatActivity {
     ArrayList<LocationData> locationList = new ArrayList<LocationData>();
     Cursor cursor;
     EditText filename;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_export__data);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        setTitle("Export Database");
         displayListView();
 
 
@@ -67,9 +70,11 @@ public class Export_Data extends AppCompatActivity {
                 if (!exportDir.exists()) {
                     exportDir.mkdirs();
                 }
+
+
+
                 filename = (EditText)findViewById(R.id.filenameedit);
                 File file = new File(exportDir, filename.getText().toString()+".csv");
-
                 try {
                     file.createNewFile();
                     CSVWriter csvWrite = new CSVWriter(new FileWriter(file));
@@ -115,6 +120,10 @@ public class Export_Data extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
+
+
+
+
     private void displayListView() {
         dbOperator = new DbOperator(getApplicationContext());
         sqLiteDatabase = dbOperator.getReadableDatabase();

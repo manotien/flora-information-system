@@ -1,5 +1,6 @@
 package com.example.manotien.myapplication;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
@@ -12,6 +13,8 @@ import android.os.Environment;
 import android.os.StrictMode;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -48,13 +51,17 @@ public class MainMenuActivity extends AppCompatActivity
     Cursor cursor;
     DbOperator dbOperator;
     SQLiteDatabase sqLiteDatabase;
-
+    int MY_PERMISSIONS_REQUEST_INTERNET = 3;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mainmenu);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+
+
+
 
         //check database
 
@@ -99,22 +106,6 @@ public class MainMenuActivity extends AppCompatActivity
             }
         });
 
-        //see flora data
-        /*
-        Button test = (Button)findViewById(R.id.information);
-        test.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainMenuActivity.this, tab_discover.class));
-            }
-        });
-*/
-        //
-        File flora_photo = new File(Environment.getExternalStorageDirectory(), "DCIM/Flora");
-
-        if (!flora_photo.exists()) {
-            flora_photo.mkdirs();
-        }
 
         //export database
         ImageButton button1 = (ImageButton)findViewById(R.id.export);
@@ -131,6 +122,17 @@ public class MainMenuActivity extends AppCompatActivity
         upload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (ContextCompat.checkSelfPermission(getApplicationContext(),
+                        Manifest.permission.INTERNET)
+                        != PackageManager.PERMISSION_GRANTED) {
+                    if (ActivityCompat.shouldShowRequestPermissionRationale(MainMenuActivity.this,
+                            Manifest.permission.INTERNET)) {
+                    } else {
+                        ActivityCompat.requestPermissions(MainMenuActivity.this,
+                                new String[]{Manifest.permission.INTERNET},
+                                MY_PERMISSIONS_REQUEST_INTERNET);
+                    }
+                }
                 Cursor cursor;
                 String url = "http://192.168.1.2:8080/flora/create/location";
                 String flora_url = "http://192.168.1.2:8080/flora/create/flora";
@@ -243,6 +245,7 @@ public class MainMenuActivity extends AppCompatActivity
         return true;
     }
 
+
     private static final MediaType MEDIA_TYPE_JPG = MediaType.parse("image/jpg");
 
     private final OkHttpClient client = new OkHttpClient();
@@ -266,4 +269,48 @@ public class MainMenuActivity extends AppCompatActivity
 
 
     }#*/
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case 1: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                /*HERE PERMISSION IS ALLOWED.
+                * YOU SHOULD CODE HERE*/
+                } else {
+
+                    Toast.makeText(MainMenuActivity.this, "Permission deny to write external storag", Toast.LENGTH_SHORT).show();
+                }
+                return;
+            }
+            case 2: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                /*HERE PERMISSION IS ALLOWED.
+                * YOU SHOULD CODE HERE*/
+                } else {
+
+                    Toast.makeText(MainMenuActivity.this, "Permission deny to request fine location", Toast.LENGTH_SHORT).show();
+                }
+                return;
+            }
+            case 3: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                /*HERE PERMISSION IS ALLOWED.
+                * YOU SHOULD CODE HERE*/
+                } else {
+
+                    Toast.makeText(MainMenuActivity.this, "Permission deny to request internet", Toast.LENGTH_SHORT).show();
+                }
+                return;
+            }
+            // other 'case' lines to check for other
+            // permissions this app might request
+        }
+    }
 }

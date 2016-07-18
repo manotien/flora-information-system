@@ -112,12 +112,11 @@
         android:layout_height="wrap_content"
         android:text="Add Flora"
         android:id="@+id/addflora"
-        android:layout_marginRight="43dp"
-        android:layout_marginEnd="43dp"
+        android:layout_marginRight="15dp"
         android:layout_marginTop="29dp"
         android:layout_below="@+id/collectortxt"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+         />
 
     <android.support.v7.widget.RecyclerView
         android:layout_below="@+id/addflora"

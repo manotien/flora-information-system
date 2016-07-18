@@ -34,6 +34,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.TabHost;
 import android.widget.Toast;
 
@@ -63,13 +64,16 @@ public class first extends Fragment {
     RadioGroup radiogroup;
     RadioButton radiocheck;
     String lat,longti,alt,altmax,altnote,genus,family,sp1,rank1,sp2,rank2,sp3,vern,cultnote,pheno,culti,cf,lang;
-    EditText Elat,Elongti,Ealt,Ealtmax,Ealtnote,Esp1,Erank1,Esp2,Erank2,Esp3,Evern,Ecultnote,Epheno;
+    EditText Elat,Elongti,Ealt,Ealtmax,Ealtnote,Esp1,Esp2,Esp3,Evern,Ecultnote,Epheno;
     AutoCompleteTextView Egenus,Efamily;
+    Spinner cf_spinner, pheno_spinner, lang_spinner, rank1_spinner, rank2_spinner;
     private View view;
     ArrayList<String> photolist = new ArrayList<>();
     public first() {
         // Required empty public constructor
     }
+
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -138,14 +142,36 @@ public class first extends Fragment {
         Egenus = ((AutoCompleteTextView)view.findViewById(R.id.genusedit));
         Efamily = ((AutoCompleteTextView)view.findViewById(R.id.familyedit));
         Esp1 = ((EditText)view.findViewById(R.id.species1edit));
-        Erank1 = ((EditText)view.findViewById(R.id.rank1edit));
         Esp2 = ((EditText)view.findViewById(R.id.species2edit));
-        Erank2 = ((EditText)view.findViewById(R.id.rank2edit));
         Esp3 = ((EditText)view.findViewById(R.id.species3edit));
         Evern = ((EditText)view.findViewById(R.id.vernnameedit));
+        cf_spinner = ((Spinner)view.findViewById(R.id.cfspinner));
+        pheno_spinner = ((Spinner)view.findViewById(R.id.phenospinner));
+        lang_spinner = (Spinner)view.findViewById(R.id.vern_language);
+        rank1_spinner = (Spinner)view.findViewById(R.id.rank1spinner);
+        rank2_spinner = (Spinner)view.findViewById(R.id.rank2spinner);
         //vernlang;
         Ecultnote = ((EditText)view.findViewById(R.id.cultinoteedit));
-        Epheno = ((EditText)view.findViewById(R.id.phenoedit));
+
+        String[] cf_list = new String[]{"None","cf.","aff."};
+        ArrayAdapter<String> cf_array = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, cf_list);
+        cf_spinner.setAdapter(cf_array);
+
+        String[] pheno_list = new String[]{"None","fw","fr","fw&fr"};
+        ArrayAdapter<String> pheno_array = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, pheno_list);
+        pheno_spinner.setAdapter(pheno_array);
+
+        String[] lang_list = new String[]{"EN","TH"};
+        ArrayAdapter<String> lang_array = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, lang_list);
+        lang_spinner.setAdapter(lang_array);
+
+        String[] rank1_list = new String[]{"None","var.","subsp.","forma"};
+        ArrayAdapter<String> rank1_array = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, rank1_list);
+        rank1_spinner.setAdapter(rank1_array);
+
+        String[] rank2_list = new String[]{"None","var.","subsp.","forma"};
+        ArrayAdapter<String> rank2_array = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, rank2_list);
+        rank2_spinner.setAdapter(rank2_array);
 
 
         ArrayList<String> genusList = new ArrayList<>();
@@ -285,10 +311,8 @@ public class first extends Fragment {
         genus = (Egenus).getText().toString();
         family = (Efamily).getText().toString();
         sp1 = (Esp1).getText().toString();
-        rank1 = (Erank1).getText().toString();
         altmax = (Ealtmax).getText().toString();
         sp2 = (Esp2).getText().toString();
-        rank2 = (Erank2).getText().toString();
         sp3 = (Esp3).getText().toString();
         vern = (Evern).getText().toString();
         radiogroup = (RadioGroup) view.findViewById(R.id.radiogroup);
@@ -299,10 +323,13 @@ public class first extends Fragment {
         }
         else
             culti = "No";
-        cultnote="";
-        pheno="";
-        cf="";
-        lang="";
+
+        cultnote = Ecultnote.getText().toString();
+        pheno = pheno_spinner.getSelectedItem().toString();
+        cf = cf_spinner.getSelectedItem().toString();
+        lang = lang_spinner.getSelectedItem().toString();
+        rank1 = rank1_spinner.getSelectedItem().toString();
+        rank2 = rank2_spinner.getSelectedItem().toString();
         String [] first = {lat,longti,alt,altmax,altnote,genus,family,cf,sp1,rank1,sp2,rank2,sp3,vern,lang,culti,cultnote,pheno};
 
         return first;

@@ -15,14 +15,15 @@
         android:paddingBottom="80dp"
         >
         <android.support.design.widget.TextInputLayout
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
+            android:layout_marginRight="20dp"
             android:layout_marginLeft="20dp"
             android:id="@+id/detbytxt"
             >
             <EditText
-                android:layout_width="wrap_content"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:singleLine="true"
@@ -30,16 +31,16 @@
                 android:hint="Det By" />
         </android.support.design.widget.TextInputLayout>
         <android.support.design.widget.TextInputLayout
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/detbytxt"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="20dp"
-
+            android:layout_marginRight="20dp"
             android:id="@+id/detdatetxt"
             >
             <EditText
-                android:layout_width="wrap_content"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:singleLine="true"
@@ -48,8 +49,9 @@
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:layout_marginRight="20dp"
             android:layout_below="@+id/detdatetxt"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="20dp"
@@ -57,7 +59,7 @@
             android:id="@+id/detnotetxt"
             >
             <EditText
-                android:layout_width="wrap_content"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:id="@+id/detnote"
@@ -65,16 +67,16 @@
                 android:hint="Det Note" />
         </android.support.design.widget.TextInputLayout>
         <android.support.design.widget.TextInputLayout
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/detnotetxt"
             android:layout_marginTop="10dp"
+            android:layout_marginRight="20dp"
             android:layout_marginLeft="20dp"
-
             android:id="@+id/notetxt"
             >
             <EditText
-                android:layout_width="wrap_content"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:singleLine="true"
@@ -89,6 +91,7 @@
             android:text="Material: "
             android:id="@+id/materialtxt"
             android:textSize="20dp"
+            android:visibility="gone"
             android:layout_below="@id/notetxt"
             android:layout_marginTop="20dp"
             android:layout_marginLeft="20dp"/>

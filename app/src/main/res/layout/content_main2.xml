@@ -46,12 +46,13 @@
                 android:layout_below="@+id/placenametxt"
                 android:textSize="15dp"
                 android:id="@+id/protectedtxt" />
-            <Spinner
-                android:layout_width="wrap_content"
+
+            <AutoCompleteTextView
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/protectedspin"
-                android:spinnerMode="dropdown"
                 android:layout_marginLeft="5dp"
+                android:layout_marginRight="20dp"
                 android:layout_toRightOf="@+id/protectedtxt"
                 android:layout_below="@+id/placenametxt"
                 android:layout_marginTop="20dp" />

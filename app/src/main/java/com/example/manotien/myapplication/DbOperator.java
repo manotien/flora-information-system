@@ -121,7 +121,9 @@ public class DbOperator extends SQLiteOpenHelper {
     public static final String CREATE_FAMILY_TABLE = "create table if not exists family_table ( id integer primary key autoincrement, name TEXT NOT NULL);";
     public static final String CREATE_HABITAT_TABLE = "create table if not exists habitat_table ( id integer primary key autoincrement, name TEXT NOT NULL);";
     public static final String CREATE_GENUS_TABLE = "create table if not exists genus_table ( id integer primary key autoincrement, name TEXT NOT NULL, family_name TEXT NOT NULL);";
-
+    public static final String CREATE_DISTRICT_TABLE = "create table if not exists district_table ( id integer primary key autoincrement, name TEXT NOT NULL, province_name TEXT NOT NULL);";
+    public static final String CREATE_PROTECTED_TABLE = "create table if not exists protected_table ( id integer primary key autoincrement, name TEXT NOT NULL);";
+    public static final String CREATE_COCOLLECTOR_TABLE = "create table if not exists cocollector_table ( id integer primary key autoincrement, name TEXT NOT NULL);";
 
     public DbOperator(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -136,6 +138,9 @@ public class DbOperator extends SQLiteOpenHelper {
         db.execSQL(CREATE_HABITAT_TABLE);
         db.execSQL(CREATE_GENUS_TABLE);
         db.execSQL(CREATE_PHOTO_TABLE);
+        db.execSQL(CREATE_DISTRICT_TABLE);
+        db.execSQL(CREATE_PROTECTED_TABLE);
+        db.execSQL(CREATE_COCOLLECTOR_TABLE);
         //db.close();
     }
     public long AddPhoto(SQLiteDatabase db,String name,String flora_id){
@@ -151,6 +156,25 @@ public class DbOperator extends SQLiteOpenHelper {
         return cursor;
     }
 
+    public Cursor GetProtectedList(SQLiteDatabase db){
+        Cursor cursor;
+        String[] projection = {"name"};
+        cursor = db.query("protected_table",projection,null,null,"name",null,null);
+        return cursor;
+    }
+
+    public Cursor GetProvinceList(SQLiteDatabase db){
+        Cursor cursor;
+        String[] projection = {"province_name"};
+        cursor = db.query("district_table",projection,null,null,"province_name",null,null);
+        return cursor;
+    }
+    public Cursor GetDistrictList(SQLiteDatabase db){
+        Cursor cursor;
+        String[] projection = {"province_name","name"};
+        cursor = db.query("district_table",projection,null,null,null,null,null);
+        return cursor;
+    }
     public void AddLocationInformation(String place, String protect, String locality, String habitat, String country,String region,String province,String district,String subdistrict,String collector,String cocollector,String day,String month, String year,SQLiteDatabase db) {
         ContentValues contentv = new ContentValues();
         contentv.put(KEY_DUBS,"");
@@ -218,7 +242,7 @@ public class DbOperator extends SQLiteOpenHelper {
         return db.insert(SECOND_TABLE_NAME, null, contentv);
     }
 
-    public Cursor GetGenusList(SQLiteDatabase db){
+        public Cursor GetGenusList(SQLiteDatabase db){
         Cursor cursor;
         String[] projection = {"name","family_name"};
         cursor = db.query("genus_table",projection,null,null,null,null,null);
