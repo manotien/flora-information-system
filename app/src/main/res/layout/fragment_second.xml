@@ -44,6 +44,9 @@
                 android:layout_height="wrap_content"
                 android:ems="7"
                 android:id="@+id/habit"
+                android:inputType="text"
+                android:nextFocusRight="@+id/height"
+                android:imeOptions="actionNext"
                 android:hint="Habit" />
         </android.support.design.widget.TextInputLayout>
         <android.support.design.widget.TextInputLayout
@@ -59,8 +62,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:inputType="numberDecimal"
+                android:nextFocusDown="@+id/outeredit"
+                android:imeOptions="actionNext"
                 android:ems="7"
-                android:hint="Height (cm.)" />
+                android:hint="Height (m.)" />
         </android.support.design.widget.TextInputLayout>
         <View
             android:layout_width="wrap_content"
@@ -96,6 +101,9 @@
                 <EditText android:id="@+id/outeredit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:nextFocusRight="@+id/out_thicknessedit"
+                    android:imeOptions="actionNext"
                     android:ems="7"
                     android:hint="Outer" />
             </android.support.design.widget.TextInputLayout>
@@ -109,6 +117,9 @@
                     android:id="@+id/out_thicknessedit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:inputType="numberDecimal"
+                    android:nextFocusDown="@+id/bark_outer_main_color"
+                    android:imeOptions="actionNext"
                     android:ems="7"
                     android:hint="Thickness (cm.)"/>
             </android.support.design.widget.TextInputLayout>
@@ -128,6 +139,9 @@
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@id/color_bark_txt"
                 android:layout_marginLeft="5dp"
+                android:inputType="text"
+                android:nextFocusRight="@+id/bark_outer_sub_color"
+                android:imeOptions="actionNext"
                 android:id="@+id/bark_outer_main_color"
                 android:layout_below="@id/outertxt"
                 android:ems="6"
@@ -138,20 +152,14 @@
                 android:layout_toRightOf="@id/bark_outer_main_color"
                 android:layout_marginLeft="10dp"
                 android:layout_below="@id/outertxt"
+                android:inputType="text"
+                android:nextFocusDown="@+id/bark_inneredit"
+                android:imeOptions="actionNext"
                 android:id="@+id/bark_outer_sub_color"
                 android:ems="7"
                 />
 
 
-            <!--<ImageView-->
-                <!--android:layout_height="40dp"-->
-                <!--android:layout_width="60dp"-->
-                <!--android:layout_toRightOf="@+id/color_bark_txt"-->
-                <!--android:layout_below="@+id/outertxt"-->
-                <!--android:id="@+id/bark_color"-->
-                <!--android:layout_marginTop="10dp"-->
-                <!--android:layout_marginLeft="5dp"-->
-                 <!--/>-->
             <android.support.design.widget.TextInputLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -163,6 +171,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ems="7"
+                    android:inputType="text"
+                    android:nextFocusRight="@+id/in_thicknessedit"
+                    android:imeOptions="actionNext"
                     android:hint="Inner" />
             </android.support.design.widget.TextInputLayout>
 
@@ -176,6 +187,9 @@
                 <EditText android:id="@+id/in_thicknessedit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:inputType="numberDecimal"
+                    android:nextFocusDown="@+id/bark_inner_main_color"
+                    android:imeOptions="actionNext"
                     android:ems="7"
                     android:hint="Thickness (cm.)" />
             </android.support.design.widget.TextInputLayout>
@@ -196,6 +210,9 @@
                 android:layout_toRightOf="@id/color_bark_txt"
                 android:layout_marginLeft="5dp"
                 android:id="@+id/bark_inner_main_color"
+                android:inputType="text"
+                android:nextFocusRight="@+id/bark_inner_sub_color"
+                android:imeOptions="actionNext"
                 android:layout_below="@id/in_thicknesstxt"
                 android:ems="6"
                 />
@@ -204,7 +221,9 @@
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@id/bark_inner_main_color"
                 android:id="@+id/bark_inner_sub_color"
-
+                android:inputType="text"
+                android:nextFocusDown="@+id/sapedit"
+                android:imeOptions="actionNext"
                 android:layout_marginLeft="10dp"
                 android:layout_below="@id/in_thicknesstxt"
                 android:ems="7"
@@ -221,6 +240,9 @@
                 <EditText android:id="@+id/sapedit"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:nextFocusDown="@+id/leave_upper_edit"
+                    android:imeOptions="actionNext"
                     android:ems="10"
                     android:hint="Sap" />
             </android.support.design.widget.TextInputLayout>
@@ -256,6 +278,9 @@
                 android:id="@+id/leave_upper_edit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:inputType="text"
+                android:nextFocusRight="@+id/leave_upper_color_edit"
+                android:imeOptions="actionNext"
                 android:ems="5"
                 android:hint="Upper" />
         </android.support.design.widget.TextInputLayout>
@@ -271,6 +296,9 @@
                 android:id="@+id/leave_upper_color_edit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:inputType="text"
+                android:nextFocusRight="@+id/leave_upper_sub_color_edit"
+                android:imeOptions="actionNext"
                 android:ems="5"
                 android:hint="Main Color" />
         </android.support.design.widget.TextInputLayout>
@@ -286,6 +314,9 @@
                 android:id="@+id/leave_upper_sub_color_edit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:inputType="text"
+                android:nextFocusDown="@+id/leave_lower_edit"
+                android:imeOptions="actionNext"
                 android:ems="5"
                 android:hint="Sub Color" />
         </android.support.design.widget.TextInputLayout>
@@ -302,6 +333,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ems="5"
+                android:inputType="text"
+                android:nextFocusRight="@+id/lowercolortxt"
+                android:imeOptions="actionNext"
                 android:hint="Lower" />
         </android.support.design.widget.TextInputLayout>
         <android.support.design.widget.TextInputLayout
@@ -316,6 +350,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ems="5"
+                android:inputType="text"
+                android:nextFocusRight="@+id/leave_lower_sub_color_edit"
+                android:imeOptions="actionNext"
                 android:hint="Main Color" />
         </android.support.design.widget.TextInputLayout>
 
@@ -330,6 +367,9 @@
                 android:id="@+id/leave_lower_sub_color_edit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:inputType="text"
+                android:nextFocusDown="@+id/lbf_color_edit"
+                android:imeOptions="actionNext"
                 android:ems="5"
                 android:hint="Sub Color" />
         </android.support.design.widget.TextInputLayout>
@@ -345,6 +385,9 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:ems="5"
+                android:inputType="text"
+                android:nextFocusRight="@+id/lbf_color_edit"
+                android:imeOptions="actionNext"
                 android:hint="Leaves Before Fall" />
         </android.support.design.widget.TextInputLayout>
         <android.support.design.widget.TextInputLayout
@@ -359,6 +402,9 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:ems="5"
+                android:inputType="text"
+                android:nextFocusRight="@+id/lbf_sub_color_edit"
+                android:imeOptions="actionNext"
                 android:hint="Main Color" />
         </android.support.design.widget.TextInputLayout>
         <android.support.design.widget.TextInputLayout
@@ -373,6 +419,9 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:ems="5"
+                android:inputType="text"
+                android:nextFocusDown="@+id/yledit"
+                android:imeOptions="actionNext"
                 android:hint="Sub Color" />
         </android.support.design.widget.TextInputLayout>
 
@@ -386,6 +435,9 @@
             <EditText android:id="@+id/yledit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:inputType="text"
+                android:nextFocusRight="@+id/yl_color_edit"
+                android:imeOptions="actionNext"
                 android:ems="5"
                 android:hint="Young Leaves" />
         </android.support.design.widget.TextInputLayout>
@@ -397,10 +449,13 @@
             android:layout_toRightOf="@+id/yltxt"
             android:layout_marginLeft="5dp"
             >
-            <AutoCompleteTextView android:id="@+id/yle_color_edit"
+            <AutoCompleteTextView android:id="@+id/yl_color_edit"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:ems="5"
+                android:inputType="text"
+                android:nextFocusRight="@+id/yl_sub_color_edit"
+                android:imeOptions="actionNext"
                 android:hint="Main Color" />
         </android.support.design.widget.TextInputLayout>
 
@@ -415,6 +470,9 @@
             <AutoCompleteTextView android:id="@+id/yl_sub_color_edit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:inputType="text"
+                android:nextFocusDown="@+id/leave_scentedit"
+                android:imeOptions="actionNext"
                 android:ems="5"
                 android:hint="Sub Color" />
         </android.support.design.widget.TextInputLayout>
@@ -429,10 +487,13 @@
             android:layout_marginRight="20dp"
             android:layout_marginLeft="20dp"
             >
-            <EditText android:id="@+id/scentedit"
+            <EditText android:id="@+id/leave_scentedit"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:ems="8"
+                android:inputType="text"
+                android:nextFocusDown="@+id/sepals_edit"
+                android:imeOptions="actionNext"
                 android:hint="Scent" />
         </android.support.design.widget.TextInputLayout>
 
@@ -466,6 +527,9 @@
             <EditText android:id="@+id/sepals_edit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:inputType="text"
+                android:nextFocusRight="@+id/sepals_color_edit"
+                android:imeOptions="actionNext"
                 android:ems="5"
                 android:hint="Sepals" />
         </android.support.design.widget.TextInputLayout>
@@ -480,6 +544,9 @@
             <AutoCompleteTextView android:id="@+id/sepals_color_edit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:inputType="text"
+                android:nextFocusRight="@+id/sepals_sub_color_edit"
+                android:imeOptions="actionNext"
                 android:ems="5"
                 android:hint="Main Color" />
         </android.support.design.widget.TextInputLayout>
@@ -495,6 +562,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ems="5"
+                android:inputType="text"
+                android:nextFocusDown="@+id/petals_edit"
+                android:imeOptions="actionNext"
                 android:hint="Sub Color" />
         </android.support.design.widget.TextInputLayout>
 
@@ -509,6 +579,9 @@
             <EditText android:id="@+id/petals_edit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:inputType="text"
+                android:nextFocusRight="@+id/petals_color_edit"
+                android:imeOptions="actionNext"
                 android:ems="5"
                 android:hint="Petals" />
         </android.support.design.widget.TextInputLayout>
@@ -523,6 +596,9 @@
             <AutoCompleteTextView android:id="@+id/petals_color_edit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:inputType="text"
+                android:nextFocusRight="@+id/petals_sub_color_edit"
+                android:imeOptions="actionNext"
                 android:ems="5"
                 android:hint="Main Color" />
         </android.support.design.widget.TextInputLayout>
@@ -537,6 +613,9 @@
             <AutoCompleteTextView android:id="@+id/petals_sub_color_edit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:inputType="text"
+                android:nextFocusDown="@+id/tepals_edit"
+                android:imeOptions="actionNext"
                 android:ems="5"
                 android:hint="Sub Color" />
         </android.support.design.widget.TextInputLayout>
@@ -552,6 +631,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ems="5"
+                android:inputType="text"
+                android:nextFocusRight="@+id/tepals_color_edit"
+                android:imeOptions="actionNext"
                 android:hint="Tepals" />
         </android.support.design.widget.TextInputLayout>
         <android.support.design.widget.TextInputLayout
@@ -565,6 +647,9 @@
             <AutoCompleteTextView android:id="@+id/tepals_color_edit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:inputType="text"
+                android:nextFocusRight="@+id/tepals_sub_color_edit"
+                android:imeOptions="actionNext"
                 android:ems="5"
                 android:hint="Main Color" />
         </android.support.design.widget.TextInputLayout>
@@ -580,6 +665,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ems="5"
+                android:inputType="text"
+                android:nextFocusDown="@+id/stamens_edit"
+                android:imeOptions="actionNext"
                 android:hint="Sub Color" />
         </android.support.design.widget.TextInputLayout>
 
@@ -593,6 +681,9 @@
             <EditText android:id="@+id/stamens_edit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:inputType="text"
+                android:nextFocusRight="@+id/stamens_color_edit"
+                android:imeOptions="actionNext"
                 android:ems="5"
                 android:hint="Stamens" />
         </android.support.design.widget.TextInputLayout>
@@ -608,6 +699,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ems="5"
+                android:inputType="text"
+                android:nextFocusRight="@+id/stamens_sub_color_edit"
+                android:imeOptions="actionNext"
                 android:hint="Main Color" />
         </android.support.design.widget.TextInputLayout>
         <android.support.design.widget.TextInputLayout
@@ -622,6 +716,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ems="5"
+                android:inputType="text"
+                android:nextFocusDown="@+id/pistils_edit"
+                android:imeOptions="actionNext"
                 android:hint="Sub Color" />
         </android.support.design.widget.TextInputLayout>
 
@@ -636,6 +733,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ems="5"
+                android:inputType="text"
+                android:nextFocusRight="@+id/pistils_color_edit"
+                android:imeOptions="actionNext"
                 android:hint="Pistils" />
         </android.support.design.widget.TextInputLayout>
         <android.support.design.widget.TextInputLayout
@@ -650,6 +750,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ems="5"
+                android:inputType="text"
+                android:nextFocusRight="@+id/pistils_sub_color_edit"
+                android:imeOptions="actionNext"
                 android:hint="Main Color" />
         </android.support.design.widget.TextInputLayout>
         <android.support.design.widget.TextInputLayout
@@ -664,6 +767,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ems="5"
+                android:inputType="text"
+                android:nextFocusDown="@+id/flowerscentedit"
+                android:imeOptions="actionNext"
                 android:hint="Sub Color" />
         </android.support.design.widget.TextInputLayout>
 
@@ -679,6 +785,9 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:ems="8"
+                android:inputType="text"
+                android:nextFocusDown="@+id/immature_edit"
+                android:imeOptions="actionNext"
                 android:hint="Scent" />
         </android.support.design.widget.TextInputLayout>
 
@@ -712,6 +821,9 @@
             <EditText android:id="@+id/immature_edit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:inputType="text"
+                android:nextFocusRight="@+id/immature_color_edit"
+                android:imeOptions="actionNext"
                 android:ems="5"
                 android:hint="Immature" />
         </android.support.design.widget.TextInputLayout>
@@ -726,6 +838,9 @@
             <AutoCompleteTextView android:id="@+id/immature_color_edit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:inputType="text"
+                android:nextFocusRight="@+id/immature_sub_color_edit"
+                android:imeOptions="actionNext"
                 android:ems="5"
                 android:hint="Main Color" />
         </android.support.design.widget.TextInputLayout>
@@ -741,6 +856,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ems="5"
+                android:inputType="text"
+                android:nextFocusDown="@+id/mature_edit"
+                android:imeOptions="actionNext"
                 android:hint="Sub Color" />
         </android.support.design.widget.TextInputLayout>
 
@@ -754,6 +872,9 @@
             <EditText android:id="@+id/mature_edit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:inputType="text"
+                android:nextFocusRight="@+id/mature_color_edit"
+                android:imeOptions="actionNext"
                 android:ems="5"
                 android:hint="Mature" />
         </android.support.design.widget.TextInputLayout>
@@ -768,6 +889,9 @@
             <AutoCompleteTextView android:id="@+id/mature_color_edit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:inputType="text"
+                android:nextFocusRight="@+id/mature_sub_color_edit"
+                android:imeOptions="actionNext"
                 android:ems="5"
                 android:hint="Main Color" />
         </android.support.design.widget.TextInputLayout>
@@ -783,6 +907,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ems="5"
+                android:inputType="text"
+                android:nextFocusDown="@+id/ripen_edit"
+                android:imeOptions="actionNext"
                 android:hint="Sub Color" />
         </android.support.design.widget.TextInputLayout>
 
@@ -797,6 +924,9 @@
             <EditText android:id="@+id/ripen_edit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:inputType="text"
+                android:nextFocusRight="@+id/ripen_color_edit"
+                android:imeOptions="actionNext"
                 android:ems="5"
                 android:hint="Ripen" />
         </android.support.design.widget.TextInputLayout>
@@ -811,6 +941,9 @@
             <AutoCompleteTextView android:id="@+id/ripen_color_edit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:inputType="text"
+                android:nextFocusRight="@+id/ripen_sub_color_edit"
+                android:imeOptions="actionNext"
                 android:ems="5"
                 android:hint="Main Color" />
         </android.support.design.widget.TextInputLayout>
@@ -825,6 +958,9 @@
             <AutoCompleteTextView android:id="@+id/ripen_sub_color_edit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:inputType="text"
+                android:nextFocusDown="@+id/fruitscentedit"
+                android:imeOptions="actionNext"
                 android:ems="5"
                 android:hint="Sub Color" />
         </android.support.design.widget.TextInputLayout>
@@ -842,6 +978,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:ems="8"
+                android:inputType="text"
                 android:hint="Scent" />
         </android.support.design.widget.TextInputLayout>
 

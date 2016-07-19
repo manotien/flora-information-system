@@ -63,8 +63,8 @@ public class first extends Fragment {
     int i=0;
     RadioGroup radiogroup;
     RadioButton radiocheck;
-    String lat,longti,alt,altmax,altnote,genus,family,sp1,rank1,sp2,rank2,sp3,vern,cultnote,pheno,culti,cf,lang;
-    EditText Elat,Elongti,Ealt,Ealtmax,Ealtnote,Esp1,Esp2,Esp3,Evern,Ecultnote,Epheno;
+    String lat,longti,alt,altmax,altnote,genus,family,sp1,rank1,sp2,rank2,sp3,vern,cultnote,pheno,culti,cf,lang,no;
+    EditText Elat,Elongti,Ealt,Ealtmax,Ealtnote,Esp1,Esp2,Esp3,Evern,Ecultnote,Eno;
     AutoCompleteTextView Egenus,Efamily;
     Spinner cf_spinner, pheno_spinner, lang_spinner, rank1_spinner, rank2_spinner;
     private View view;
@@ -152,7 +152,7 @@ public class first extends Fragment {
         rank2_spinner = (Spinner)view.findViewById(R.id.rank2spinner);
         //vernlang;
         Ecultnote = ((EditText)view.findViewById(R.id.cultinoteedit));
-
+        Eno = (EditText)view.findViewById(R.id.no);
         String[] cf_list = new String[]{"None","cf.","aff."};
         ArrayAdapter<String> cf_array = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, cf_list);
         cf_spinner.setAdapter(cf_array);
@@ -330,7 +330,16 @@ public class first extends Fragment {
         lang = lang_spinner.getSelectedItem().toString();
         rank1 = rank1_spinner.getSelectedItem().toString();
         rank2 = rank2_spinner.getSelectedItem().toString();
-        String [] first = {lat,longti,alt,altmax,altnote,genus,family,cf,sp1,rank1,sp2,rank2,sp3,vern,lang,culti,cultnote,pheno};
+        no = Eno.getText().toString();
+        if( cf.equals("None") )
+            cf = "";
+        if( rank1.equals("None") )
+            rank1 = "";
+        if( rank2.equals("None") )
+            rank2 = "";
+        if( pheno.equals("None") )
+            pheno = "";
+        String [] first = {lat,longti,alt,altmax,altnote,genus,family,cf,sp1,rank1,sp2,rank2,sp3,vern,lang,culti,cultnote,pheno,no};
 
         return first;
     }

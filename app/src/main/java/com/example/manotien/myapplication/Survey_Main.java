@@ -15,6 +15,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import org.w3c.dom.Text;
@@ -32,7 +33,7 @@ public class Survey_Main extends AppCompatActivity {
     Cursor cursor,cursor1;
     Context context;
     RecyclerView recyclerView;
-
+    private TextView collector_ans;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,7 +53,7 @@ public class Survey_Main extends AppCompatActivity {
         TextView placename_ans = (TextView)findViewById(R.id.placename);
         TextView protect_ans = (TextView)findViewById(R.id.protect);
         TextView province_ans = (TextView)findViewById(R.id.province);
-        TextView collector_ans = (TextView)findViewById(R.id.collector);
+        collector_ans = (TextView)findViewById(R.id.collector);
         TextView date_ans = (TextView)findViewById(R.id.date);
 
         dbOperator = new DbOperator(getApplicationContext());
@@ -105,10 +106,11 @@ public class Survey_Main extends AppCompatActivity {
         cursor1 = dbOperator.GetFloraForListView(sqLiteDatabase, sp.getInt("location_id", -1));
         if(cursor1.moveToFirst()){
             do {
+                //cursor1.getString(4) = specie , cursor1.getString(3) = genus
                 Log.d("tesa",dumpCursorToString(cursor1));
                 FloraData fd = new FloraData();
-                fd.name = "Species 1: "+cursor1.getString(4);
-                fd.genus = "Genus: "+ cursor1.getString(3);
+                fd.name = cursor1.getString(3)+" "+cursor1.getString(4);
+                fd.genus = collector_ans.getText().toString() ;
                 fd.family = "Family: "+ cursor1.getString(2);
                 fd.flora_id = cursor1.getInt(0);
                 result.add(fd);

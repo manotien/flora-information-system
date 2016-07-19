@@ -77,7 +77,7 @@ public class DbOperator extends SQLiteOpenHelper {
     protected static final String KEY_VERNACULAR = "vernacular";
     protected static final String KEY_LANGUAGE = "language";
     protected static final String KEY_TIMESTAMP_FLORA = "timestamp_flora";
-
+    protected static final String KEY_NO = "no";
     //picture
     protected static final String KEY_FLORA_ID = "flora_id";
     protected static final String KEY_NAME = "name";
@@ -113,7 +113,7 @@ public class DbOperator extends SQLiteOpenHelper {
             + KEY_LAT + " TEXT NOT NULL," + KEY_NS + " TEXT NOT NULL," + KEY_LONG + " TEXT NOT NULL,"
             + KEY_EW + " TEXT NOT NULL," + KEY_ALT + " TEXT NOT NULL," + KEY_ALTMAX + " TEXT NOT NULL,"
             + KEY_ALTNOTE + " TEXT NOT NULL,"
-            + KEY_VERNACULAR + " TEXT NOT NULL," + KEY_LANGUAGE + " TEXT NOT NULL,"
+            + KEY_VERNACULAR + " TEXT NOT NULL," + KEY_LANGUAGE + " TEXT NOT NULL,"+KEY_NO+" TEXT NOT NULL, "
             + KEY_TIMESTAMP_FLORA + " TIMESTAMP DEFAULT CURRENT_TIMESTAMP"
             +");";
 
@@ -203,7 +203,7 @@ public class DbOperator extends SQLiteOpenHelper {
     }
     public long AddFloraInformation(String lat,String longti,String alt,String altmax,String altnote,String genus, String family,String cf,String sp1,String rank1,String sp2,
                                     String rank2,String sp3,String vern,String lang,String culti,String cultnote,String pheno,String plant_des,
-                                    String note,String detby,String detdd,String detmm,String detyy,String detnote,int location_id,SQLiteDatabase db)
+                                    String note,String detby,String detdd,String detmm,String detyy,String detnote,int location_id,String no,SQLiteDatabase db)
     {
         ContentValues contentv = new ContentValues();
         contentv.put(KEY_LOCATIONID,location_id);
@@ -237,6 +237,7 @@ public class DbOperator extends SQLiteOpenHelper {
         contentv.put(KEY_ALTNOTE, altnote);
         contentv.put(KEY_VERNACULAR, vern);
         contentv.put(KEY_LANGUAGE,lang);
+        contentv.put(KEY_NO,no);
        // contentv.put(KEY_TIMESTAMP_FLORA, "a");
 
         return db.insert(SECOND_TABLE_NAME, null, contentv);

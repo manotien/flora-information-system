@@ -19,22 +19,34 @@
         android:focusableInTouchMode="true"
         android:paddingBottom="80dp"
         >
-        <!--
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp">
-            <AutoCompleteTextView android:id="@+id/input_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Name" />
-        </android.support.design.widget.TextInputLayout>
--->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
+            android:layout_marginLeft="10dp"
+            android:textSize="15dp"
+            android:text="Number: "
+            android:id="@+id/notxt"
+            />
+
+        <EditText
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:layout_toRightOf="@+id/notxt"
+            android:id="@+id/no"
+            android:textSize="12dp"
+            android:inputType="numberDecimal"
+            android:layout_marginTop="30dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="5dp"
+            android:ems="8"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_below="@+id/notxt"
             android:layout_marginLeft="10dp"
             android:textSize="15dp"
             android:text="Lat. : "
@@ -47,8 +59,11 @@
             android:singleLine="true"
             android:layout_toRightOf="@+id/lattxt"
             android:id="@+id/latedit"
+            android:nextFocusRight="@+id/longedit"
+            android:imeOptions="actionNext"
             android:textSize="12dp"
-            android:layout_marginTop="30dp"
+            android:layout_below="@+id/notxt"
+            android:layout_marginTop="5dp"
             android:layout_marginLeft="5dp"
             android:ems="8"
             />
@@ -56,10 +71,12 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="20dp"
             android:layout_marginLeft="5dp"
             android:layout_toRightOf="@+id/latedit"
             android:textSize="15dp"
+            android:layout_below="@+id/notxt"
+
             android:text="Long. : "
             android:id="@+id/longtxt"
             />
@@ -69,10 +86,13 @@
             android:layout_marginRight="20dp"
             android:singleLine="true"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/notxt"
             android:layout_toRightOf="@id/longtxt"
             android:id="@+id/longedit"
+            android:nextFocusDown="@+id/altedit"
+            android:imeOptions="actionNext"
             android:textSize="12dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="5dp"
             android:layout_marginLeft="4dp"
             android:ems="8"
             />
@@ -80,7 +100,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Get Location"
+            android:text="Get GPS"
             android:id="@+id/getgps"
             android:layout_marginTop="5dp"
             android:textSize="12dp"
@@ -107,6 +127,8 @@
             android:layout_below="@+id/lattxt"
             android:layout_marginTop="5dp"
             android:id="@+id/altedit"
+            android:nextFocusRight="@+id/altmaxedit"
+            android:imeOptions="actionNext"
             android:layout_toRightOf="@id/alttxt"/>
 
         <TextView
@@ -172,6 +194,7 @@
             android:layout_marginRight="20dp"
             android:layout_height="wrap_content"
             android:singleLine="true"
+            android:imeOptions="actionNext"
             android:id="@+id/genusedit"
             android:layout_toRightOf="@+id/genustxt"
             android:layout_marginLeft="5dp"
@@ -193,6 +216,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:singleLine="true"
+            android:imeOptions="actionNext"
             android:id="@+id/familyedit"
             android:layout_below="@+id/genustxt"
             android:ems="7"
